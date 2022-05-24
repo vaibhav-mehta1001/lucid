@@ -4,8 +4,6 @@
   open SyntaxUtils
   open Collections
 
-  let loc (startpos:Lexing.position) (endpos:Lexing.position) (elt:'a) : 'a node =
-  { elt ; loc=Range.mk_lex_range startpos endpos }
 
 
   let first (x, _, _, _) = x
@@ -355,7 +353,7 @@ decl:
     | GLOBAL ty ID ASSIGN exp SEMI
                                             { [dglobal_sp (snd $3) $2 $5 (Span.extend $1 $6)] }
     | TABLE name=ID LPAREN LOC switch=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
-    RPAREN WITH MERGE m=aggregates            {loc $startpos $endpos @@ DTable(name, Some switch, Some keys, Some vals, Some m) }
+    RPAREN WITH MERGE m=aggregates            {DTable(name, Some switch, Some keys, Some vals, Some m) }
                                        
 decls:
     | decl                             { $1 }
