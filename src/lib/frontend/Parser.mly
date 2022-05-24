@@ -350,8 +350,8 @@ decl:
     | CONSTR ty ID paramsdef ASSIGN exp SEMI { [dconstr_sp (snd $3) $2 $4 $6 (Span.extend $1 $7)] }
     | GLOBAL ty ID ASSIGN exp SEMI
                                             { [dglobal_sp (snd $3) $2 $5 (Span.extend $1 $6)] }
-    | TABLE name=ID LPAREN loc=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
-    RPAREN WITH MERGE m=aggregates            {loc $startpos $endpos @@ DTable(name, Some loc, Some keys, Some vals, Some m) }
+    | TABLE name=ID LPAREN switch=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
+    RPAREN WITH MERGE m=aggregates            {loc $startpos $endpos @@ DTable(name, Some switch, Some keys, Some vals, Some m) }
                                        
 decls:
     | decl                             { $1 }
