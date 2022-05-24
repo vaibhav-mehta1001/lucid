@@ -353,7 +353,7 @@ decl:
     | GLOBAL ty ID ASSIGN exp SEMI
                                             { [dglobal_sp (snd $3) $2 $5 (Span.extend $1 $6)] }
     | TABLE name=ID LPAREN LOC switch=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
-    RPAREN WITH MERGE m=aggregates            {[table_sp name (Some switch) (Some keys) (Some vals) (Some m) (Span.extend $1 $7)  ]}
+    RPAREN WITH MERGE m=aggregates            {[table_sp name (Some switch) (Some keys) (Some vals) (Some m) (Span.extend $1 keys)  ]}
                                        
 decls:
     | decl                             { $1 }
