@@ -350,6 +350,9 @@ decl:
     | CONSTR ty ID paramsdef ASSIGN exp SEMI { [dconstr_sp (snd $3) $2 $4 $6 (Span.extend $1 $7)] }
     | GLOBAL ty ID ASSIGN exp SEMI
                                             { [dglobal_sp (snd $3) $2 $5 (Span.extend $1 $6)] }
+    | TABLE name=ID LPAREN loc=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
+    RPAREN WITH MERGE m=aggregates            {loc $startpos $endpos @@ Table(name, Some loc, Some keys, Some vals, Some m) }
+                                       
 decls:
     | decl                             { $1 }
     | decl decls                       { $1 @ $2 }
@@ -426,9 +429,7 @@ includes:
 
 aggregates:
     | MIN name=ID                           {loc $startpos $endpos @@ Min r}
-table_dec:
-    | TABLE name=ID LPAREN loc=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
-    RPAREN WITH MERGE m=aggregates            {loc $startpos $endpos @@ Table(name, Some loc, Some keys, Some vals, Some m) }
+
 prog:
     | includes decls EOF                    { ($1, $2) }
     | decls EOF                             { ([], $1) }

@@ -236,7 +236,8 @@ and d =
   | DConstr of id * ty * params * exp
   | DModule of id * interface * decls
   | DModuleAlias of id * exp * cid * cid
-
+  | DTable of {name : id ; loc : id option; keys :  params option ;  value : params option
+  ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
 (* name, return type, args & body *)
 and decl =
   { d : d
@@ -251,16 +252,17 @@ and aggregate =
 
 (* hashtable_cid = Cid.create ["Hashtable"; "t"] *)
 
-and table_decl = 
+(* and table_decl = 
     | Table of {name : id ; loc : id option; keys :  params option ;  value : params option
-     ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
-
+     ; merge : aggregate option}   Table(name, @loc, keys, values, merge)
+ *)
+ 
 and rhs = 
-    | SatCond of table_decl list * s list 
+    | SatCond of d list * s list 
 
-and predicate =
+and rule =
      {
-       table : table_decl ;
+       table : d ;
        rhs : rhs list (* List because a predicate can have muliple rhs' *)
      } 
 
