@@ -57,6 +57,7 @@ let add_definitions prefix env ds =
       CidMap.add (Compound (prefix, Id id)) (flat_prefix prefix id) map
     in
     match d.d with
+    | DTable (id, _,_,_,_)
     | DConst (id, _, _)
     | DExtern (id, _)
     | DSymbolic (id, _)
@@ -138,6 +139,7 @@ let rec replace_module env m_id ds =
             let _, ds = replace_module env id ds in
             replace_module env m_id ds
           | DModuleAlias _ -> failwith "Should be eliminated before this"
+          | DTable _ -> failwith "Table Should be Eliminated before this"
         in
         env, d :: ds)
       (env, [])
