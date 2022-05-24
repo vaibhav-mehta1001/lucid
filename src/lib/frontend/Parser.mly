@@ -136,7 +136,10 @@
 %token <Span.t> BITNOT
 %token <Span.t> SYMBOLIC
 %token <Span.t> FLOOD
-
+%token <Span.t> TABLE
+%token <Span.t> MERGE
+%token <Span.t> IMPLIES
+%token <Span.t> LOC
 %token EOF
 
 %start prog
@@ -415,7 +418,11 @@ includes:
     | INCLUDE STRING                        {[(snd $2)]}
     | INCLUDE STRING includes               {(snd $2)::$3}
 
-
+aggregates:
+    | MIN name=ID                           {loc $startpos $endpos @@ Min r}
+table_dec:
+    | TABLE name=ID LPAREN loc=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
+    RPAREN WITH MERGE m=aggregates            {loc $startpos $endpos @@ Table(name, Some loc, Some keys, Some vals, Some m) }
 prog:
     | includes decls EOF                    { ($1, $2) }
     | decls EOF                             { ([], $1) }

@@ -158,7 +158,7 @@ and gen_type =
   | GSingle of exp option (* switch id *)
   | GMulti of exp (* Multicast group name *)
   | GPort of exp
-
+  
 (* statements *)
 and s =
   | SNoop
@@ -242,6 +242,29 @@ and decl =
   { d : d
   ; dspan : sp
   }
+
+and aggregate = 
+| Min of id
+| Count of id
+| Max of id
+| SMerge of statement
+
+(* hashtable_cid = Cid.create ["Hashtable"; "t"] *)
+
+and table_decl = 
+    | Table of {name : id ; loc : id option; keys :  params option ;  value : params option
+     ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
+
+and rhs = 
+    | SatCond of table_decl list * s list 
+
+and predicate =
+     {
+       table : table_decl ;
+       rhs : rhs list (* List because a predicate can have muliple rhs' *)
+     } 
+
+and lucid_log = predicate list
 
 (* a program is a list of declarations *)
 and decls = decl list

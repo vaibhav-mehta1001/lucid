@@ -115,6 +115,13 @@ rule token = parse
   | wspace            { token lexbuf }
   | '\n'              { incr_linenum lexbuf; token lexbuf}
   | str as s          { STRING (position lexbuf, extract_string s) }
+  | ":-"              { IMPLIES (position lexbuf) }
+  | "merge"           { MERGE   (position lexbuf) }
+  | "table"           { TABLE (position lexbuf) }
+  | "@"               { LOC (position lexbuf) }
+  | "key"             { KEY (position lexbuf)}
+  | "value"           { VALUE (position lexbuf)}
+  | "min"             { MIN (position lexbuf) }
   | _ as c            { printf "[Parse Error] Unrecognized character: %c\n" c; token lexbuf }
   | eof		            { EOF }
 
