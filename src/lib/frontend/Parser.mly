@@ -140,6 +140,12 @@
 %token <Span.t> MERGE
 %token <Span.t> IMPLIES
 %token <Span.t> LOC
+%token <Span.t> KEY
+%token <Span.t> VALUE
+%token <Span.t> MIN
+
+
+
 %token EOF
 
 %start prog
