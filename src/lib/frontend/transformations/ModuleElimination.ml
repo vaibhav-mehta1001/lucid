@@ -57,7 +57,7 @@ let add_definitions prefix env ds =
       CidMap.add (Compound (prefix, Id id)) (flat_prefix prefix id) map
     in
     match d.d with
-    | DTable (id, _,_,_,_,_)
+    | DTable _ -> failwith "Table Should be Eliminated before this"
     | DConst (id, _, _)
     | DExtern (id, _)
     | DSymbolic (id, _)
