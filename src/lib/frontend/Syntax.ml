@@ -256,7 +256,7 @@ and aggregate =
     | Table of {name : id ; loc : id option; keys :  params option ;  value : params option
      ; merge : aggregate option}   Table(name, @loc, keys, values, merge)
  *)
- 
+
 and rhs = 
     | SatCond of d list * s list 
 
@@ -266,7 +266,7 @@ and rule =
        rhs : rhs list (* List because a predicate can have muliple rhs' *)
      } 
 
-and lucid_log = predicate list
+and lucid_log = rule list
 
 (* a program is a list of declarations *)
 and decls = decl list
