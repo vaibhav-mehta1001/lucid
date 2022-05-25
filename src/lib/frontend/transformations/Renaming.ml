@@ -322,7 +322,7 @@ let rename prog =
           env <- new_env;
           DModule (id, intf, body)
         | DModuleAlias _ -> failwith "Should be eliminated before this"
-        | _ -> "Should have been eliminated"
+        | _ -> failwith "Should have been eliminated"
 
       (*** Places we enter a scope ***)
       method! visit_SIf dummy test left right =
