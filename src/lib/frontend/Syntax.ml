@@ -238,6 +238,7 @@ and d =
   | DModuleAlias of id * exp * cid * cid
   | DTable of {name : id ; loc : id option; keys :  params option ;  value : params option
   ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
+  | DMin of id 
 (* name, return type, args & body *)
 and decl =
   { d : d
@@ -410,7 +411,7 @@ let fun_sp id rty cs p body span = decl_sp (DFun (id, rty, cs, (p, body))) span
 let memop_sp id p body span = decl_sp (DMemop (id, p, body)) span
 let duty_sp id sizes rty span = decl_sp (DUserTy (id, sizes, rty)) span
 let table_sp name loc keys value merge span = decl_sp (DTable{name; loc; keys; value; merge}) span
-let min_sp id span = decl_sp (Min id) span 
+let min_sp id span = decl_sp (DMin id) span 
 let dconstr_sp id ty params exp span =
   decl_sp (DConstr (id, ty, params, exp)) span
 ;;
