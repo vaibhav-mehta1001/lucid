@@ -378,6 +378,10 @@ module TyTQVar = TQVar.Make (struct
   let constr t = TQVar t
 end)
 
+(* aggregates *)
+let agg_sp a aspan = {a; ety = None; aspan = aspan}
+let min_sp id span = agg_sp (Min id) span
+
 (* expressions *)
 let exp e = { e; ety = None; espan = Span.default }
 let aexp e ety espan = { e; ety; espan }
@@ -411,7 +415,6 @@ let fun_sp id rty cs p body span = decl_sp (DFun (id, rty, cs, (p, body))) span
 let memop_sp id p body span = decl_sp (DMemop (id, p, body)) span
 let duty_sp id sizes rty span = decl_sp (DUserTy (id, sizes, rty)) span
 let table_sp name loc keys value merge span = decl_sp (DTable{name; loc; keys; value; merge}) span
-let min_sp id span = decl_sp (DMin id) span 
 let dconstr_sp id ty params exp span =
   decl_sp (DConstr (id, ty, params, exp)) span
 ;;
