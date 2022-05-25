@@ -239,17 +239,17 @@ and d =
   | DTable of {name : id ; loc : id option; keys :  params option ;  value : params option
   ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
   | DMin of id 
+  and aggregate = 
+| Min of id
+| Count of id
+| Max of id
+| SMerge of statement
+
 (* name, return type, args & body *)
 and decl =
   { d : d
   ; dspan : sp
   }
-
-and aggregate = 
-| Min of id
-| Count of id
-| Max of id
-| SMerge of statement
 
 (* hashtable_cid = Cid.create ["Hashtable"; "t"] *)
 
@@ -379,7 +379,7 @@ module TyTQVar = TQVar.Make (struct
 end)
 
 (* aggregates *)
-let agg_sp a aspan = {a; aty = None; aspan}
+let agg_sp (a : aggregate)  aspan = {a; aty = None; aspan}
 let min_sp id span = agg_sp (Min id) span
 
 (* expressions *)
