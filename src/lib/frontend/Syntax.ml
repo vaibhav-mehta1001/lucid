@@ -215,7 +215,10 @@ and complex_body =
   ; extern_calls : (cid * exp list) list
   ; ret : conditional_return option
   }
-
+and agg = {
+  a : aggregate
+  ; aspan : sp
+}
 and memop_body =
   | MBReturn of exp
   | MBIf of exp * exp * exp
@@ -379,7 +382,8 @@ module TyTQVar = TQVar.Make (struct
 end)
 
 (* aggregates *)
-let agg_sp (a : aggregate)  aspan = {a=a; aty = None; span=aspan}
+let agg a aspan = {a;  aspan=aspan}
+let agg_sp (a : aggregate)  aspan = {a=a; span=aspan}
 let min_sp id span = agg_sp (Min id) span
 
 (* expressions *)
