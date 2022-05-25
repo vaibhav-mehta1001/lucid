@@ -430,7 +430,7 @@ includes:
     | INCLUDE STRING includes               {(snd $2)::$3}
 
 aggregates:
-    | MIN name=ID                           {loc $startpos $endpos @@ Min r}
+    | MIN name=ID                           {[min_sp name (Span.extend $1 $2)]}
 
 prog:
     | includes decls EOF                    { ($1, $2) }
