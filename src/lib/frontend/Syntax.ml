@@ -379,7 +379,7 @@ module TyTQVar = TQVar.Make (struct
 end)
 
 (* aggregates *)
-let agg_sp (a : aggregate)  aspan = {a; aty = None; aspan}
+let agg_sp (a : aggregate)  aspan = {a=a; aty = None; span=aspan}
 let min_sp id span = agg_sp (Min id) span
 
 (* expressions *)
