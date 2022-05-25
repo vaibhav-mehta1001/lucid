@@ -383,7 +383,7 @@ end)
 
 (* aggregates *)
 let agg a aspan = {a;  aspan=aspan}
-let agg_sp (a : aggregate)  aspan = {a=a; span=aspan}
+let agg_sp (a : aggregate)  aspan = {a=a; aspan=aspan}
 let min_sp id span = agg_sp (Min id) span
 
 (* expressions *)

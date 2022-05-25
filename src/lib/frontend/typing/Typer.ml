@@ -1065,6 +1065,7 @@ let rec infer_declaration (env : env) (effect_count : effect) (d : decl)
       ( define_submodule id1 m env
       , effect_count
       , DModuleAlias (id1, inf_e, cid1, cid2) )
+    | _ -> failwith "LucidLog Constructor"
   in
   let new_d = { d with d = new_d } in
   Wellformed.check_qvars new_d;

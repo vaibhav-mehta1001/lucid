@@ -214,7 +214,7 @@ let inline_decl env d =
   | DMemop _ ->
     (* No function calls allowed in Memops *)
     env, Some d
-  | DModule _ | DModuleAlias _ ->
+  | DModule _ | DModuleAlias _ | _->
     failwith "Modules should be eliminated before inlining"
 ;;
 
