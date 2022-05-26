@@ -59,6 +59,7 @@ let add_definitions prefix env ds =
     match d.d with
     | DTable _ -> failwith "Table Should be Eliminated before this"
     | DMin _ -> failwith "min should be eliminated"
+    | DRule _ -> failwith "rule should be eliminated"
     | DConst (id, _, _)
     | DExtern (id, _)
     | DSymbolic (id, _)
