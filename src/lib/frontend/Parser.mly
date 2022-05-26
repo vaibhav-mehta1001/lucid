@@ -353,7 +353,8 @@ decl:
     | GLOBAL ty ID ASSIGN exp SEMI
                                             { [dglobal_sp (snd $3) $2 $5 (Span.extend $1 $6)] }
     | TABLE name=ID LPAREN LOC switch=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
-    RPAREN WITH MERGE m=aggregates            {[table_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) (Span.extend ($1) ($3))  ]}
+    RPAREN WITH MERGE m=aggregates  IMPLIES right_table = separated_list(PIPE, rhs) COMMA right_exps=exps
+              {[rule_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) right_table right_exps (Span.extend ($1) ($3))]}
                                        
 decls:
     | decl                             { $1 }
@@ -431,6 +432,11 @@ includes:
 
 aggregates:
     | MIN name=ID                           {(Min (snd name))}
+
+rhs: 
+    | name=ID LPAREN LOC switch=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
+    RPAREN                                   {[table_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) (Span.extend ($1) ($3))  ]}
+    | rhs COMMA rhs                          {[$1 :: $3]}
 
 prog:
     | includes decls EOF                    { ($1, $2) }

@@ -241,8 +241,10 @@ and d =
   | DModuleAlias of id * exp * cid * cid
   | DTable of {name : id ; loc : id option; keys :  params option ;  value : params option
   ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
-  | DMin of id 
-  and aggregate = 
+  | DMin of id  (*Don't need this but it's there in some matches *)
+  | DRule of {lhs :  d; preds : d list; exps: e list}
+
+and aggregate = 
 | Min of id
 | Count of id
 | Max of id
@@ -260,17 +262,8 @@ and decl =
     | Table of {name : id ; loc : id option; keys :  params option ;  value : params option
      ; merge : aggregate option}   Table(name, @loc, keys, values, merge)
  *)
+    
 
-and rhs = 
-    | SatCond of d list * s list 
-
-and rule =
-     {
-       table : d ;
-       rhs : rhs list (* List because a predicate can have muliple rhs' *)
-     } 
-
-and lucid_log = rule list
 
 (* a program is a list of declarations *)
 and decls = decl list
@@ -418,7 +411,7 @@ let dsize_sp id size span = decl_sp (DSize (id, size)) span
 let fun_sp id rty cs p body span = decl_sp (DFun (id, rty, cs, (p, body))) span
 let memop_sp id p body span = decl_sp (DMemop (id, p, body)) span
 let duty_sp id sizes rty span = decl_sp (DUserTy (id, sizes, rty)) span
-let table_sp name loc keys value merge span = decl_sp (DTable{name; loc; keys; value; merge}) span
+let rule_sp name loc keys value merge tables exps span = decl_sp DRule{lhs=DTable{name; loc; keys; value; merge}; preds=tables;exps=exps } span
 let dconstr_sp id ty params exp span =
   decl_sp (DConstr (id, ty, params, exp)) span
 ;;
