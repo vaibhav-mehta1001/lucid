@@ -435,7 +435,7 @@ aggregates:
 
 rhs: 
     | name=ID LPAREN LOC switch=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
-    RPAREN                                   {[table_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) (Span.extend ($1) ($3))  ]}
+    RPAREN                                   {[table_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) (Span.extend (snd name) ($3))  ]}
     | rhs COMMA rhs                          {[$1 :: $3]}
 
 prog:
