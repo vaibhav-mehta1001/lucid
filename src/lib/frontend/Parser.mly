@@ -435,7 +435,7 @@ aggregates:
 
 table: 
    |  name=ID LPAREN LOC switch=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
-    RPAREN  m=aggregates                                  {table_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) (Span.extend ($2) ($3)) }
+    RPAREN                           {table_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (None) (Span.extend ($2) ($3)) }
 
 prog:
     | includes decls EOF                    { ($1, $2) }
