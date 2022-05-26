@@ -242,7 +242,7 @@ and d =
   | DTable of {name : id ; loc : id option; keys :  params option ;  value : params option
   ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
   | DMin of id  (*Don't need this but it's there in some matches *)
-  | DRule of {lhs :  d; preds : d list; exps: e list}
+  | DRule of {lhs :  d; preds : decl list; exps: e list}
 
 and aggregate = 
 | Min of id
