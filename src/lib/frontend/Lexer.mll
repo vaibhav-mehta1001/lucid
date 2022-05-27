@@ -117,7 +117,7 @@ rule token = parse
   | str as s          { STRING (position lexbuf, extract_string s) }
   | ":-"              { IMPLIES (position lexbuf) }
   | "merge"           { MERGE   (position lexbuf) }
-  | "table"           { TABLE   (position lexbuf) }
+  | "tabl"           { TABLE   (position lexbuf) }
   | "@"               { LOC (position lexbuf) }
   | "key"             { KEY (position lexbuf)}
   | "value"           { VALUE (position lexbuf)}
