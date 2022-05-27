@@ -352,7 +352,7 @@ decl:
     // | TABLE ID LPAREN LOC ID KEY COLON VALUE COLON RPAREN IMPLIES SEMI
     //           {[rule_sp (snd $2) ((Some (snd $5))) (None) (None) (None) None None (Span.extend ($1) ($11))]}
    | TABLE name=ID LPAREN LOC switch=ID KEY COLON keys=separated_list(COMMA, params) VALUE COLON vals=separated_list(COMMA, param)
-    RPAREN WITH MERGE m=aggregates  IMPLIES right_table = (COMMA,table) SEMI right_exps=exps
+    RPAREN WITH MERGE m=aggregates  IMPLIES right_table= separated_list(COMMA,table) SEMI right_exps=exps
               {[rule_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) right_table right_exps (Span.extend ($1) ($3))]}
 
 table: 
