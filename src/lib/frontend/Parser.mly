@@ -352,9 +352,9 @@ decl:
     | CONSTR ty ID paramsdef ASSIGN exp SEMI { [dconstr_sp (snd $3) $2 $4 $6 (Span.extend $1 $7)] }
     | GLOBAL ty ID ASSIGN exp SEMI
                                             { [dglobal_sp (snd $3) $2 $5 (Span.extend $1 $6)] }
-    | TABLE name=ID LPAREN LOC switch=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
-    RPAREN WITH MERGE m=aggregates  IMPLIES right_table = separated_list(COMMA,table) COMMA right_exps=exps
-              {[rule_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) right_table right_exps (Span.extend ($1) ($3))]}
+    | TABLE name=ID LPAREN LOC switch=ID KEY COLON VALUE COLON 
+    RPAREN IMPLIES 
+              {[rule_sp (snd name) ((Some (snd switch))) (None) (None) (None) None None (Span.extend ($1) ($3))]}
                                        
 decls:
     | decl                             { $1 }
@@ -434,8 +434,8 @@ aggregates:
     | MIN name=ID                           {(Min (snd name))}
 
 table: 
-   |  name=ID LPAREN LOC switch=ID KEY keys=separated_list(COMMA, param) VALUE vals=separated_list(COMMA, param)
-    RPAREN                           {table_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (None) (Span.extend ($2) ($3)) }
+   | name=ID LPAREN LOC switch=ID KEY COLON VALUE COLON 
+    RPAREN                       {table_sp (snd name) (Some (snd switch)) (None) (None) (None) (Span.extend ($2) ($3)) }
 
 prog:
     | includes decls EOF                    { ($1, $2) }
