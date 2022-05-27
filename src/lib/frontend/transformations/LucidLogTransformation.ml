@@ -6,6 +6,6 @@ open Printing
 
 let process_prog (decl : decls) : decls = 
   let filter d = match d.d with 
-                 | DRule () -> false 
+                 | DRule _-> false 
                  | _ -> d.d 
 in List.filter (filter) decl ;;
