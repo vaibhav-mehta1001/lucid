@@ -354,7 +354,7 @@ decl:
                                             { [dglobal_sp (snd $3) $2 $5 (Span.extend $1 $6)] }
     | TABLE ID LPAREN LOC ID KEY COLON VALUE COLON 
     RPAREN IMPLIES 
-              {[rule_sp (snd name) ((Some (snd $2))) (None) (None) (None) None None (Span.extend ($1) ($11))]}
+              {[rule_sp (snd $2) ((Some (snd $5))) (None) (None) (None) None None (Span.extend ($1) ($11))]}
                                        
 decls:
     | decl                             { $1 }
