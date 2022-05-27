@@ -353,7 +353,7 @@ decl:
     //           {[rule_sp (snd $2) ((Some (snd $5))) (None) (None) (None) None None (Span.extend ($1) ($11))]}
    | TABLE name=ID LPAREN LOC switch=ID KEY COLON keys=separated_list(COMMA, param) VALUE COLON vals=separated_list(COMMA, param)
     RPAREN WITH MERGE m=aggregates  IMPLIES right_table= separated_list(COMMA,table) SEMI right_exps=exps
-              {[rule_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) right_table right_exps (Span.extend ($1) ($3))]}
+              {[rule_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) (Some right_table) (Some right_exps) (Span.extend ($1) ($3))]}
 
 table: 
    | name=ID LPAREN LOC switch=ID KEY COLON VALUE COLON 
