@@ -352,9 +352,9 @@ decl:
     | CONSTR ty ID paramsdef ASSIGN exp SEMI { [dconstr_sp (snd $3) $2 $4 $6 (Span.extend $1 $7)] }
     | GLOBAL ty ID ASSIGN exp SEMI
                                             { [dglobal_sp (snd $3) $2 $5 (Span.extend $1 $6)] }
-    | TABLE name=ID LPAREN LOC switch=ID KEY COLON VALUE COLON 
+    | TABLE ID LPAREN LOC ID KEY COLON VALUE COLON 
     RPAREN IMPLIES 
-              {[rule_sp (snd name) ((Some (snd switch))) (None) (None) (None) None None (Span.extend ($1) ($11))]}
+              {[rule_sp (snd name) ((Some (snd $2))) (None) (None) (None) None None (Span.extend ($1) ($11))]}
                                        
 decls:
     | decl                             { $1 }
