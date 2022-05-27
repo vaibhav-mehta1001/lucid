@@ -35,6 +35,10 @@ rule token = parse
   | "/*"              { comments 0 lexbuf }
   | "//"              { comments (-1) lexbuf }
   | "include"         { INCLUDE (position lexbuf) }
+  | "key"             { KEY (position lexbuf)}
+  | "value"           { VALUE (position lexbuf)}
+  | "min"             { MIN (position lexbuf) }
+  | "merge"           { MERGE   (position lexbuf) }
   | "false"           { FALSE (position lexbuf) }
   | "true"            { TRUE (position lexbuf) }
   | "if"              { IF (position lexbuf) }
@@ -117,11 +121,7 @@ rule token = parse
   | '\n'              { incr_linenum lexbuf; token lexbuf}
   | str as s          { STRING (position lexbuf, extract_string s) }
   | ":-"              { IMPLIES (position lexbuf) }
-  | "merge"           { MERGE   (position lexbuf) }
   | "@"               { LOC (position lexbuf) }
-  | "key"             { KEY (position lexbuf)}
-  | "value"           { VALUE (position lexbuf)}
-  | "min"             { MIN (position lexbuf) }
   | _ as c            { printf "[Parse Error] Unrecognized character: %c\n" c; token lexbuf }
   | eof		            { EOF }
 
