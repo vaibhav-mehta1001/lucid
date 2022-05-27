@@ -433,10 +433,6 @@ includes:
 aggregates:
     | MIN name=ID                           {(Min (snd name))}
 
-table: 
-   | name=ID LPAREN LOC switch=ID KEY COLON VALUE COLON 
-    RPAREN                       {table_sp (snd name) (Some (snd switch)) (None) (None) (None) (Span.extend ($2) ($3)) }
-
 prog:
     | includes decls EOF                    { ($1, $2) }
     | decls EOF                             { ([], $1) }
