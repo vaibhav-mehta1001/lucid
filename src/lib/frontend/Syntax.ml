@@ -419,7 +419,7 @@ let table_sp name loc keys value merge span = decl_sp (DTable {name; loc; keys; 
 let rule_sp lhs table exps span = decl_sp (DRule{lhs=lhs; preds=table;exps=exps }) span
 
 let table_decl table span = { table; dspan = span }
-let table_sp name loc args span = decl_tb (Table{name; loc; args}) span
+let table_sp name loc args span = table_decl (Table{name; loc; args}) span
 let dconstr_sp id ty params exp span =
   decl_sp (DConstr (id, ty, params, exp)) span
 ;;
