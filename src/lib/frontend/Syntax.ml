@@ -239,16 +239,17 @@ and d =
   | DConstr of id * ty * params * exp
   | DModule of id * interface * decls
   | DModuleAlias of id * exp * cid * cid
-  | DTable of {name : id ; loc : id option; keys :  params option ;  value : params option
+  | DTable of {name : id ; loc : id option; keys :  params  ;  value : params
   ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
-  | DMin of id  (*Don't need this but it's there in some matches *)
-  | DRule of {lhs :  d; preds : decl list option; exps: exp list option}
+  | DMin of id  Don't need this but it's there in some matches
+  | DRule of {lhs :  table; preds : table list; exps: exp list}
+
+and table = Table of {name : id ; loc : id option; args : exp list} 
 
 and aggregate = 
 | Min of id
 | Count of id
 | Max of id
-| SMerge of statement
 
 (* name, return type, args & body *)
 and decl =
@@ -412,7 +413,11 @@ let fun_sp id rty cs p body span = decl_sp (DFun (id, rty, cs, (p, body))) span
 let memop_sp id p body span = decl_sp (DMemop (id, p, body)) span
 let duty_sp id sizes rty span = decl_sp (DUserTy (id, sizes, rty)) span
 let table_sp name loc keys value merge span = decl_sp (DTable {name; loc; keys; value; merge}) span
-let rule_sp name loc keys value merge tables exps span = decl_sp (DRule{lhs=DTable {name; loc; keys; value; merge}; preds=tables;exps=exps }) span
+let base_sp name loc keys span = decl_sp (DBaseTable {name; loc; keys}) span
+let rule_sp lhs table exps = decl_sp (DRule{lhs=table; preds=table;exps=exps }) span
+
+let decl_tb table span = { table; dspan = span }
+let table_sp name loc args span = decl_tb (Table{name; loc; args}) span
 let dconstr_sp id ty params exp span =
   decl_sp (DConstr (id, ty, params, exp)) span
 ;;
