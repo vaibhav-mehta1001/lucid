@@ -241,7 +241,7 @@ and d =
   | DModuleAlias of id * exp * cid * cid
   | DTable of {name : id ; loc : id option; keys :  params  ;  value : params
   ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
-  | DMin of id  Don't need this but it's there in some matches
+  | DMin of id  (*Don't need this but it's there in some matches *)
   | DRule of {lhs :  table; preds : table list; exps: exp list}
 
 and table = Table of {name : id ; loc : id option; args : exp list} 
