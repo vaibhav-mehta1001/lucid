@@ -414,7 +414,7 @@ let memop_sp id p body span = decl_sp (DMemop (id, p, body)) span
 let duty_sp id sizes rty span = decl_sp (DUserTy (id, sizes, rty)) span
 let table_sp name loc keys value merge span = decl_sp (DTable {name; loc; keys; value; merge}) span
 (* let base_sp name loc keys span = decl_sp (DBaseTable {name; loc; keys}) span *)
-let rule_sp lhs table exps = decl_sp (DRule{lhs=lhs; preds=table;exps=exps }) span
+let rule_sp lhs table exps span = decl_sp (DRule{lhs=lhs; preds=table;exps=exps }) span
 
 let decl_tb table span = { table; dspan = span }
 let table_sp name loc args span = decl_tb (Table{name; loc; args}) span
