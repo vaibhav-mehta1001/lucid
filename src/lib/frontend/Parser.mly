@@ -139,6 +139,7 @@
 %token <Span.t> SYMBOLIC
 %token <Span.t> FLOOD
 %token <Span.t> TABLE
+%token <Span.t> BASE
 %token <Span.t> MERGE
 %token <Span.t> IMPLIES
 %token <Span.t> LOC
@@ -349,15 +350,15 @@ decl:
     | CONSTR ty ID paramsdef ASSIGN exp SEMI { [dconstr_sp (snd $3) $2 $4 $6 (Span.extend $1 $7)] }
     | GLOBAL ty ID ASSIGN exp SEMI
                                             { [dglobal_sp (snd $3) $2 $5 (Span.extend $1 $6)] }
-    // | TABLE ID LPAREN LOC ID KEY COLON VALUE COLON RPAREN IMPLIES SEMI
-    //           {[rule_sp (snd $2) ((Some (snd $5))) (None) (None) (None) None None (Span.extend ($1) ($11))]}
-   | TABLE name=ID LPAREN LOC switch=ID KEY COLON keys=separated_list(COMMA, param) VALUE COLON vals=separated_list(COMMA, param)
-    RPAREN WITH MERGE m=aggregates  IMPLIES right_table= separated_list(COMMA,table) SEMI right_exps=exps
-              {[rule_sp (snd name) (Some (snd switch)) (Some keys) (Some vals) (Some m) (Some right_table) (Some right_exps) (Span.extend ($1) ($3))]}
+    | TABLE name=ID LPAREN LOC switch=id KEY COLON keys = separated_list(COMMA, param) VALUE COLON vals=separated_list(COMMA param)
+       RPAREN with MERGE m=aggregates     {[table_sp (snd name) (Some (snd switch)) keys vals m (Span.extend ($1) ($3))]}
+    | table=table IMPLIES right_table= separated_list(COMMA,table) SEMI right_exps=exps
+               {[rule_sp table (right_table) (right_exps) (Span.extend ($1) ($3))]}
+
 
 table: 
-   | name=ID LPAREN LOC switch=ID KEY COLON VALUE COLON 
-    RPAREN                       {table_sp (snd name) (Some (snd switch)) (None) (None) (None) (Span.extend ($2) ($3)) }
+   | name=ID LPAREN LOC switch=ID vars=separated_list(COMMA, exp) RPAREN     
+      {table_sp (snd name) (Some (snd switch)) vars (Span.extend ($2) ($3)) }
 
 decls:
     | decl                             { $1 }

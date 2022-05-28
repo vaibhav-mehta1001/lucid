@@ -72,6 +72,7 @@ rule token = parse
   | "type"            { TYPE (position lexbuf) }
   | "constr"          { CONSTR (position lexbuf) }
   | "table"           { TABLE   (position lexbuf) }
+  | "base"            { BASE   (position lexbuf) }
   | "module"          { MODULE (position lexbuf) }
   | "end"             { END (position lexbuf) }
   | "for"             { FOR (position lexbuf) }
