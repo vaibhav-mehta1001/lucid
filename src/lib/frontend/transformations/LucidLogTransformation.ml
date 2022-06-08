@@ -192,22 +192,44 @@ match d.d with
    [DEvent((n), EEntry(true), [], List.assoc n rule_args)]                   
 | _ -> []
 
-(* let compile_lookup val_ctxt idx name exp = 
-  match exp with 
-  | EVar x -> SAssign
-  | _ -> failwith "bad arg" *)
+let compile_lookup  (name : cid) exp = 
+  match exp.e with 
+  | EVar x -> SAssign(Cid.to_id x,  
+  {e=ECall((Cid.create["Array.lookup"]), [{e=EVar name;ety=None;espan=Span.default} ])
+  ;ety=None;espan=Span.default})
+  | _ -> failwith "bad arg"
 
-let compile_preds rule_args val_ctxt pred  =
+let rec lastk ls k i = 
+match ls with 
+| [] -> []
+| _ :: tl -> if i = k then tl else lastk tl k (i+1)
+
+let compile_preds keys pred  =
  match pred with
- |Table{name; loc; args} -> let keys = List.assoc name rule_args 
- in 
-   
+ |Table{name; loc; args} ->  let idx = ((gensym "idx"),0)
+ in let prog = SLocal(idx, 
+ {raw_ty=(TInt(IConst 16));teffect=FZero; tspan=Span.default; tprint_as=ref None} , 
+  {e=EHash((IConst 16), (List.map (fun (id, _) -> 
+  {e=EVar id;ety=None;espan=Span.default}) 
+  keys)); ety=None; espan=Span.default}) in 
+  let values = lastk args (List.length keys) 1 in 
+  prog :: (List.map (compile_lookup (Id idx))) values 
+
+let compile_exps exp = 
+match exp.e with 
+| EOp(op, exps) -> begin match op with 
+                   | Eq -> S
+| _ -> failwith "Only binary ops"
+
 
 (* Compile Body Event *)
-(* let compile_handler_boody event rule = 
+let compile_handler_boody rule_args rule = 
 match rule with 
 | DMin(n, DRule {lhs=Table{name; loc; args}; preds; exps}) -> 
-  
+ let keys = List.assoc n rule_args in 
+ keys
+| _ -> []
+(*  
 | _ -> []
 let create_handlers event_list = failwith "unimplemented" *)
 
