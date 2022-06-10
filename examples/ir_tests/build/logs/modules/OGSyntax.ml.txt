@@ -1,0 +1,22 @@
+---OGSyntax.ml log---
+***** [extracting edges] *****
+***** [extracting vertices] *****
+---------[to_op_vertices]----------
+[Op] int<<32>> z = 26; //[id=20]
+***** [extracting edges] *****
+***** [extracting vertices] *****
+---------[to_op_vertices]----------
+[Op] int<<32>> c = 2; //[id=79]
+---------[to_op_vertices]----------
+[Op] int<<32>> b = 1; //[id=71]
+---------[to_op_vertices]----------
+[SIf] (y==10&&a==2) //[id=81]
+[Op] int<<32>> b = 1; //[id=71]
+[Op] int<<32>> c = 2; //[id=79]
+---------[to_op_vertices]----------
+[Op] int<<32>> a = 1; //[id=30]
+---------[to_op_vertices]----------
+[Op] int<<32>> a = 1; //[id=30]
+[SIf] (y==10&&a==2) //[id=81]
+[Op] int<<32>> b = 1; //[id=71]
+[Op] int<<32>> c = 2; //[id=79]

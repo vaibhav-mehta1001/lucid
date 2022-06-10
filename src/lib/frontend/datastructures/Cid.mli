@@ -20,6 +20,8 @@ val from_string : string -> t
 (* Destructors *)
 
 val to_string : t -> string
+val to_string_name : t -> string
+
 val to_string_delim : string -> t -> string
 val names : t -> string list
 val to_id : t -> Id.t

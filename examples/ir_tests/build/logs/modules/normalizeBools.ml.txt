@@ -1,0 +1,37 @@
+---normalizeBools.ml log---
+original if statement: 
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+new if statement: 
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+converting expression to dnf form: y==10&&a==2
+
+converted expression into a disjunction of 1 exprs
+
+converting: (and (= y~302 tmp_val_id~349) (= a~303 tmp_val_id~350))
+
+converting: (= y~302 tmp_val_id~349)
+
+converting: y~302
+
+converting: tmp_val_id~349
+
+converting: (= a~303 tmp_val_id~350)
+
+converting: a~303
+
+converting: tmp_val_id~350
+
+old expression:  y==10&&a==2
+
+new expression:  y==10&&a==2
+
+new expression show: y==10&&a==2
+

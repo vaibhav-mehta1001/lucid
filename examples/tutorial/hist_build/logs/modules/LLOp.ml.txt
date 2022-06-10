@@ -1,0 +1,419 @@
+---LLOp.ml log---
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1253
+statement: int<<32>> cur_idx = idx;
+op statement: [Op] int<<32>> cur_idx = idx; //[id=53]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1254
+statement: int<<32>> column_ct = Array.update(hist_arr,cur_idx,getf,0,setf,0);
+op statement: [Op] int<<32>> column_ct = Array.update(hist_arr,cur_idx,getf,0,setf,0); //[id=87]
+-----------
+[from_assign] created alu: salu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1256
+statement: generate ip_out(132,cur_idx,column_ct);
+op statement: [Op] generate ip_out(132,cur_idx,column_ct); //[id=106]
+-----------
+generate handler.
+[from_event_instantiation] event id: ip_out~996
+[from_event_instantiation] event args: 
+132
+cur_idx
+column_ct
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1258
+statement: if (cur_idx==0) {
+Array.set(total_arr,0,0);
+} 
+op statement: [SIf] (cur_idx==0) //[id=145]
+-----------
+-----[from_if]-----
+-------
+table name:  tbl~0.opstmt~1258
+ 
+    action dpt_1260_true( ){
+        //next tables: [dpt_1262_tbl_0_opstmt]
+        
+    }
+    
+ 
+    action dpt_1261_false( ){
+        //next tables: [dpt_1263_tbl_0_opstmt]
+        
+    }
+    
+ 
+    // Stage not set by dptc
+    table dpt_1258_tbl_0_opstmt {
+        key = {
+            cur_idx : ternary;
+        }
+        actions = {
+            dpt_1260_true;
+            dpt_1261_false;
+        }
+        const entries = {
+            0 : dpt_1260_true();
+            _ : dpt_1261_false();
+        }
+        
+    }
+    
+-------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1262
+statement: Array.set(total_arr,0,0);
+op statement: [Op] Array.set(total_arr,0,0); //[id=142]
+-----------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1267
+statement: 
+op statement: [Op]---:(-1,-1) //[id=144]
+-----------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1263
+statement: int<<32>> if_precomp = 3|-|cur_idx;
+op statement: [Op] int<<32>> if_precomp = 3|-|cur_idx; //[id=164]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1268
+statement: if (if_precomp!=0) {
+int<<32>> precompute = 1+cur_idx;
+generate report(precompute);
+} 
+op statement: [SIf] (if_precomp!=0) //[id=198]
+-----------
+-----[from_if]-----
+-------
+table name:  tbl~0.opstmt~1268
+ 
+    action dpt_1270_true( ){
+        //next tables: [dpt_1272_tbl_0_opstmt]
+        
+    }
+    
+ 
+    action dpt_1271_false( ){
+        //next tables: []
+        
+    }
+    
+ 
+    // Stage not set by dptc
+    table dpt_1268_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+        }
+        actions = {
+            dpt_1271_false;
+            dpt_1270_true;
+        }
+        const entries = {
+            0 : dpt_1271_false();
+            _ : dpt_1270_true();
+            _ : dpt_1271_false();
+        }
+        
+    }
+    
+-------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1272
+statement: int<<32>> precompute = 1+cur_idx;
+op statement: [Op] int<<32>> precompute = 1+cur_idx; //[id=189]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1278
+statement: 
+op statement: [Op]---:(-1,-1) //[id=197]
+-----------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1276
+statement: generate report(precompute);
+op statement: [Op] generate report(precompute); //[id=194]
+-----------
+generate handler.
+[from_event_instantiation] event id: report~992
+[from_event_instantiation] event args: 
+precompute
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1280
+statement: int<<32>> idx = 0;
+op statement: [Op] int<<32>> idx = 0; //[id=218]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1281
+statement: int<<16>> if_precomp1238 = 128|-|len;
+op statement: [Op] int<<16>> if_precomp1238 = 128|-|len; //[id=235]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1283
+statement: if (if_precomp1238!=0||len==128) {
+idx = 0;
+} else {
+int<<16>> if_precomp1237 = 512|-|len;
+if (if_precomp1237!=0||len==512) {
+idx = 1;
+} else {
+int<<16>> if_precomp1236 = 1024|-|len;
+if (if_precomp1236!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+}
+}
+op statement: [SIf] (if_precomp1238!=0||len==128) //[id=358]
+-----------
+-----[from_if]-----
+-------
+table name:  tbl~0.opstmt~1283
+ 
+    action dpt_1285_true( ){
+        //next tables: [dpt_1287_tbl_0_opstmt]
+        
+    }
+    
+ 
+    action dpt_1286_false( ){
+        //next tables: [dpt_1288_tbl_0_opstmt]
+        
+    }
+    
+ 
+    // Stage not set by dptc
+    table dpt_1283_tbl_0_opstmt {
+        key = {
+            if_precomp1238 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1285_true;
+            dpt_1286_false;
+        }
+        const entries = {
+            (0, 128) : dpt_1285_true();
+            (0, _) : dpt_1286_false();
+            (_, _) : dpt_1285_true();
+            (_, 128) : dpt_1285_true();
+            (_, _) : dpt_1286_false();
+        }
+        
+    }
+    
+-------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1287
+statement: idx = 0;
+op statement: [Op] idx = 0; //[id=259]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1288
+statement: int<<16>> if_precomp1237 = 512|-|len;
+op statement: [Op] int<<16>> if_precomp1237 = 512|-|len; //[id=276]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1296
+statement: if (if_precomp1237!=0||len==512) {
+idx = 1;
+} else {
+int<<16>> if_precomp1236 = 1024|-|len;
+if (if_precomp1236!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+}
+op statement: [SIf] (if_precomp1237!=0||len==512) //[id=354]
+-----------
+-----[from_if]-----
+-------
+table name:  tbl~0.opstmt~1296
+ 
+    action dpt_1298_true( ){
+        //next tables: [dpt_1300_tbl_0_opstmt]
+        
+    }
+    
+ 
+    action dpt_1299_false( ){
+        //next tables: [dpt_1301_tbl_0_opstmt]
+        
+    }
+    
+ 
+    // Stage not set by dptc
+    table dpt_1296_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1298_true;
+            dpt_1299_false;
+        }
+        const entries = {
+            (0, 512) : dpt_1298_true();
+            (0, _) : dpt_1299_false();
+            (_, _) : dpt_1298_true();
+            (_, 512) : dpt_1298_true();
+            (_, _) : dpt_1299_false();
+        }
+        
+    }
+    
+-------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1300
+statement: idx = 1;
+op statement: [Op] idx = 1; //[id=300]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1301
+statement: int<<16>> if_precomp1236 = 1024|-|len;
+op statement: [Op] int<<16>> if_precomp1236 = 1024|-|len; //[id=317]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1308
+statement: if (if_precomp1236!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+op statement: [SIf] (if_precomp1236!=0||len==1024) //[id=350]
+-----------
+-----[from_if]-----
+-------
+table name:  tbl~0.opstmt~1308
+ 
+    action dpt_1310_true( ){
+        //next tables: [dpt_1312_tbl_0_opstmt]
+        
+    }
+    
+ 
+    action dpt_1311_false( ){
+        //next tables: [dpt_1313_tbl_0_opstmt]
+        
+    }
+    
+ 
+    // Stage not set by dptc
+    table dpt_1308_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1310_true;
+            dpt_1311_false;
+        }
+        const entries = {
+            (0, 1024) : dpt_1310_true();
+            (0, _) : dpt_1311_false();
+            (_, _) : dpt_1310_true();
+            (_, 1024) : dpt_1310_true();
+            (_, _) : dpt_1311_false();
+        }
+        
+    }
+    
+-------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1313
+statement: idx = 3;
+op statement: [Op] idx = 3; //[id=348]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1312
+statement: idx = 2;
+op statement: [Op] idx = 2; //[id=341]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1294
+statement: Array.setm(hist_arr,idx,incr,1);
+op statement: [Op] Array.setm(hist_arr,idx,incr,1); //[id=383]
+-----------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1321
+statement: int<<32>> total_ct = Array.update(total_arr,0,incr,1,incr,1);
+op statement: [Op] int<<32>> total_ct = Array.update(total_arr,0,incr,1,incr,1); //[id=419]
+-----------
+[from_assign] created alu: salu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1323
+statement: if (total_ct==4) {
+generate report(0);
+} 
+op statement: [SIf] (total_ct==4) //[id=448]
+-----------
+-----[from_if]-----
+-------
+table name:  tbl~0.opstmt~1323
+ 
+    action dpt_1325_true( ){
+        //next tables: [dpt_1327_tbl_0_opstmt]
+        
+    }
+    
+ 
+    action dpt_1326_false( ){
+        //next tables: [dpt_1328_tbl_0_opstmt]
+        
+    }
+    
+ 
+    // Stage not set by dptc
+    table dpt_1323_tbl_0_opstmt {
+        key = {
+            total_ct : ternary;
+        }
+        actions = {
+            dpt_1325_true;
+            dpt_1326_false;
+        }
+        const entries = {
+            4 : dpt_1325_true();
+            _ : dpt_1326_false();
+        }
+        
+    }
+    
+-------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1327
+statement: generate report(0);
+op statement: [Op] generate report(0); //[id=445]
+-----------
+generate handler.
+[from_event_instantiation] event id: report~992
+[from_event_instantiation] event args: 
+0
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1332
+statement: 
+op statement: [Op]---:(-1,-1) //[id=447]
+-----------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~1328
+statement: generate ip_out(igr_port,src,dst);
+op statement: [Op] generate ip_out(igr_port,src,dst); //[id=467]
+-----------
+generate handler.
+[from_event_instantiation] event id: ip_out~996
+[from_event_instantiation] event args: 
+igr_port
+src
+dst

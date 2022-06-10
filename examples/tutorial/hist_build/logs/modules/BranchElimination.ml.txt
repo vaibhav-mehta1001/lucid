@@ -1,0 +1,5072 @@
+---BranchElimination.ml log---
+[eliminate_branch_nodes] adding full constraints to all tables 
+----cid decls before eliminating control branches ----
+// Stage not set by dptc
+    table dpt_0_selectEventType {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_992_report;
+            dpt_990_ip_in;
+        }
+        const entries = {
+            2 : dpt_992_report();
+            1 : dpt_990_ip_in();
+        }
+        
+    }
+    
+    action dpt_992_report( ){
+        //next tables: [dpt_1253_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_990_ip_in( ){
+        //next tables: [dpt_1280_tbl_0_opstmt]
+        
+    }
+    
+    bit<32> cur_idx;
+    
+    // Stage not set by dptc
+    table dpt_1253_tbl_0_opstmt {
+        actions = {
+            dpt_1253_acn_0_opstmt;
+        }
+        const default_action = dpt_1253_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1253_acn_0_opstmt( ){
+        dpt_1253_alu_0_opstmt();
+        //next tables: [dpt_1254_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1253_alu_0_opstmt( ){
+        cur_idx = hdr.report.idx;
+        
+    }
+    
+    bit<32> column_ct;
+    
+    // Stage not set by dptc
+    table dpt_1254_tbl_0_opstmt {
+        actions = {
+            dpt_1254_acn_0_opstmt;
+        }
+        const default_action = dpt_1254_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1254_acn_0_opstmt( ){
+        dpt_1254_salu_0_opstmt();
+        //next tables: [dpt_1256_tbl_0_opstmt]
+        
+    }
+    
+    RegisterAction<fmt_hist_arr,bit<32>,bit<32>>(hist_arr) dpt_1254_sprog_1337_salu_0_opstmt = {
+        void apply(inout fmt_hist_arr remote, out bit<32> remoteRet) {
+            fmt_hist_arr local = remote;
+            remoteRet=local.lo;
+            remote.lo=0;
+        }
+    };
+    action dpt_1254_salu_0_opstmt() {
+        column_ct=dpt_1254_sprog_1337_salu_0_opstmt.execute((bit<32>)cur_idx);
+    }
+    
+    // Stage not set by dptc
+    table dpt_1256_tbl_0_opstmt {
+        actions = {
+            dpt_1256_acn_0_opstmt;
+        }
+        const default_action = dpt_1256_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1256_acn_0_opstmt( ){
+        dpt_1256_generate_alu_0_opstmt();
+        //next tables: [dpt_1258_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1256_generate_alu_0_opstmt( ){
+        md.ip_out.eventType = 3;
+        md.ip_out.eventLoc = 0;
+        md.ip_out.eventDelay = 0;
+        md.ip_out.egr_port = 132;
+        md.ip_out.src = cur_idx;
+        md.ip_out.dst = column_ct;
+        md.dptMeta.exitEventType = 3;
+        
+    }
+    
+    action dpt_1260_true( ){
+        //next tables: [dpt_1262_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1261_false( ){
+        //next tables: [dpt_1263_tbl_0_opstmt]
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1258_tbl_0_opstmt {
+        key = {
+            cur_idx : ternary;
+        }
+        actions = {
+            dpt_1260_true;
+            dpt_1261_false;
+        }
+        const entries = {
+            0 : dpt_1260_true();
+            _ : dpt_1261_false();
+        }
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1262_tbl_0_opstmt {
+        actions = {
+            dpt_1262_acn_0_opstmt;
+        }
+        const default_action = dpt_1262_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1262_acn_0_opstmt( ){
+        dpt_1262_salu_0_opstmt();
+        //next tables: [dpt_1263_tbl_0_opstmt]
+        
+    }
+    
+    RegisterAction<fmt_total_arr,bit<32>,bit<32>>(total_arr) dpt_1262_sprog_1338_salu_0_opstmt = {
+        void apply(inout fmt_total_arr remote, out bit<32> remoteRet) {
+            fmt_total_arr local = remote;
+            remote.lo=0;
+        }
+    };
+    action dpt_1262_salu_0_opstmt() {
+        dpt_1262_sprog_1338_salu_0_opstmt.execute((bit<32>)0);
+    }
+    
+    bit<32> if_precomp;
+    
+    // Stage not set by dptc
+    table dpt_1263_tbl_0_opstmt {
+        actions = {
+            dpt_1263_acn_0_opstmt;
+        }
+        const default_action = dpt_1263_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1263_acn_0_opstmt( ){
+        dpt_1263_alu_0_opstmt();
+        //next tables: [dpt_1268_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1263_alu_0_opstmt( ){
+        if_precomp = 3 |-| cur_idx;
+        
+    }
+    
+    action dpt_1270_true( ){
+        //next tables: [dpt_1272_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1271_false( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1268_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+        }
+        actions = {
+            dpt_1271_false;
+            dpt_1270_true;
+        }
+        const entries = {
+            0 : dpt_1271_false();
+            _ : dpt_1270_true();
+            _ : dpt_1271_false();
+        }
+        
+    }
+    
+    bit<32> precompute;
+    
+    // Stage not set by dptc
+    table dpt_1272_tbl_0_opstmt {
+        actions = {
+            dpt_1272_acn_0_opstmt;
+        }
+        const default_action = dpt_1272_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1272_acn_0_opstmt( ){
+        dpt_1272_alu_0_opstmt();
+        //next tables: [dpt_1276_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1272_alu_0_opstmt( ){
+        precompute = 1 + cur_idx;
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1276_tbl_0_opstmt {
+        actions = {
+            dpt_1276_acn_0_opstmt;
+        }
+        const default_action = dpt_1276_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1276_acn_0_opstmt( ){
+        dpt_1276_generate_alu_0_opstmt();
+        //next tables: []
+        
+    }
+    
+    action dpt_1276_generate_alu_0_opstmt( ){
+        hdr.report.eventType = 2;
+        hdr.report.eventLoc = 0;
+        hdr.report.eventDelay = 0;
+        hdr.report.setValid();
+        hdr.lucid_footer.setValid();
+        hdr.lucid_footer.end = 0;
+        hdr.report.idx = precompute;
+        md.dptMeta.nextEventType = 2;
+        md.dptMeta.eventsCount = md.dptMeta.eventsCount + 1;
+        hdr.ev_out_flags.setValid();
+        hdr.ev_out_flags.report = 1;
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1280_tbl_0_opstmt {
+        actions = {
+            dpt_1280_acn_0_opstmt;
+        }
+        const default_action = dpt_1280_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1280_acn_0_opstmt( ){
+        dpt_1280_alu_0_opstmt();
+        //next tables: [dpt_1281_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1280_alu_0_opstmt( ){
+        cur_idx = 0;
+        
+    }
+    
+    bit<16> if_precomp1238;
+    
+    // Stage not set by dptc
+    table dpt_1281_tbl_0_opstmt {
+        actions = {
+            dpt_1281_acn_0_opstmt;
+        }
+        const default_action = dpt_1281_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1281_acn_0_opstmt( ){
+        dpt_1281_alu_0_opstmt();
+        //next tables: [dpt_1283_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1281_alu_0_opstmt( ){
+        if_precomp1238 = 128 |-| md.ip_in.len;
+        
+    }
+    
+    action dpt_1285_true( ){
+        //next tables: [dpt_1287_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1286_false( ){
+        //next tables: [dpt_1288_tbl_0_opstmt]
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1283_tbl_0_opstmt {
+        key = {
+            if_precomp1238 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1285_true;
+            dpt_1286_false;
+        }
+        const entries = {
+            (0, 128) : dpt_1285_true();
+            (0, _) : dpt_1286_false();
+            (_, _) : dpt_1285_true();
+            (_, 128) : dpt_1285_true();
+            (_, _) : dpt_1286_false();
+        }
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1287_tbl_0_opstmt {
+        actions = {
+            dpt_1287_acn_0_opstmt;
+        }
+        const default_action = dpt_1287_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1287_acn_0_opstmt( ){
+        dpt_1287_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1287_alu_0_opstmt( ){
+        cur_idx = 0;
+        
+    }
+    
+    bit<16> if_precomp1237;
+    
+    // Stage not set by dptc
+    table dpt_1288_tbl_0_opstmt {
+        actions = {
+            dpt_1288_acn_0_opstmt;
+        }
+        const default_action = dpt_1288_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1288_acn_0_opstmt( ){
+        dpt_1288_alu_0_opstmt();
+        //next tables: [dpt_1296_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1288_alu_0_opstmt( ){
+        if_precomp1237 = 512 |-| md.ip_in.len;
+        
+    }
+    
+    action dpt_1298_true( ){
+        //next tables: [dpt_1300_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1299_false( ){
+        //next tables: [dpt_1301_tbl_0_opstmt]
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1296_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1298_true;
+            dpt_1299_false;
+        }
+        const entries = {
+            (0, 512) : dpt_1298_true();
+            (0, _) : dpt_1299_false();
+            (_, _) : dpt_1298_true();
+            (_, 512) : dpt_1298_true();
+            (_, _) : dpt_1299_false();
+        }
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1300_tbl_0_opstmt {
+        actions = {
+            dpt_1300_acn_0_opstmt;
+        }
+        const default_action = dpt_1300_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1300_acn_0_opstmt( ){
+        dpt_1300_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1300_alu_0_opstmt( ){
+        cur_idx = 1;
+        
+    }
+    
+    bit<16> if_precomp1236;
+    
+    // Stage not set by dptc
+    table dpt_1301_tbl_0_opstmt {
+        actions = {
+            dpt_1301_acn_0_opstmt;
+        }
+        const default_action = dpt_1301_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1301_acn_0_opstmt( ){
+        dpt_1301_alu_0_opstmt();
+        //next tables: [dpt_1308_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1301_alu_0_opstmt( ){
+        if_precomp1236 = 1024 |-| md.ip_in.len;
+        
+    }
+    
+    action dpt_1310_true( ){
+        //next tables: [dpt_1312_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1311_false( ){
+        //next tables: [dpt_1313_tbl_0_opstmt]
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1308_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1310_true;
+            dpt_1311_false;
+        }
+        const entries = {
+            (0, 1024) : dpt_1310_true();
+            (0, _) : dpt_1311_false();
+            (_, _) : dpt_1310_true();
+            (_, 1024) : dpt_1310_true();
+            (_, _) : dpt_1311_false();
+        }
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1313_tbl_0_opstmt {
+        actions = {
+            dpt_1313_acn_0_opstmt;
+        }
+        const default_action = dpt_1313_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1313_acn_0_opstmt( ){
+        dpt_1313_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1313_alu_0_opstmt( ){
+        cur_idx = 3;
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1312_tbl_0_opstmt {
+        actions = {
+            dpt_1312_acn_0_opstmt;
+        }
+        const default_action = dpt_1312_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1312_acn_0_opstmt( ){
+        dpt_1312_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1312_alu_0_opstmt( ){
+        cur_idx = 2;
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1294_tbl_0_opstmt {
+        actions = {
+            dpt_1294_acn_0_opstmt;
+        }
+        const default_action = dpt_1294_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1294_acn_0_opstmt( ){
+        dpt_1294_salu_0_opstmt();
+        //next tables: [dpt_1321_tbl_0_opstmt]
+        
+    }
+    
+    RegisterAction<fmt_hist_arr,bit<32>,bit<32>>(hist_arr) dpt_1294_sprog_1339_salu_0_opstmt = {
+        void apply(inout fmt_hist_arr remote, out bit<32> remoteRet) {
+            fmt_hist_arr local = remote;
+            remote.lo=1 + local.lo;
+        }
+    };
+    action dpt_1294_salu_0_opstmt() {
+        dpt_1294_sprog_1339_salu_0_opstmt.execute((bit<32>)cur_idx);
+    }
+    
+    bit<32> total_ct;
+    
+    // Stage not set by dptc
+    table dpt_1321_tbl_0_opstmt {
+        actions = {
+            dpt_1321_acn_0_opstmt;
+        }
+        const default_action = dpt_1321_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1321_acn_0_opstmt( ){
+        dpt_1321_salu_0_opstmt();
+        //next tables: [dpt_1323_tbl_0_opstmt]
+        
+    }
+    
+    RegisterAction<fmt_total_arr,bit<32>,bit<32>>(total_arr) dpt_1321_sprog_1340_salu_0_opstmt = {
+        void apply(inout fmt_total_arr remote, out bit<32> remoteRet) {
+            fmt_total_arr local = remote;
+            remoteRet=1 + local.lo;
+            remote.lo=1 + local.lo;
+        }
+    };
+    action dpt_1321_salu_0_opstmt() {
+        total_ct=dpt_1321_sprog_1340_salu_0_opstmt.execute((bit<32>)0);
+    }
+    
+    action dpt_1325_true( ){
+        //next tables: [dpt_1327_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1326_false( ){
+        //next tables: [dpt_1328_tbl_0_opstmt]
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1323_tbl_0_opstmt {
+        key = {
+            total_ct : ternary;
+        }
+        actions = {
+            dpt_1325_true;
+            dpt_1326_false;
+        }
+        const entries = {
+            4 : dpt_1325_true();
+            _ : dpt_1326_false();
+        }
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1327_tbl_0_opstmt {
+        actions = {
+            dpt_1327_acn_0_opstmt;
+        }
+        const default_action = dpt_1327_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1327_acn_0_opstmt( ){
+        dpt_1327_generate_alu_0_opstmt();
+        //next tables: [dpt_1328_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1327_generate_alu_0_opstmt( ){
+        hdr.report.eventType = 2;
+        hdr.report.eventLoc = 0;
+        hdr.report.eventDelay = 0;
+        hdr.report.setValid();
+        hdr.lucid_footer.setValid();
+        hdr.lucid_footer.end = 0;
+        hdr.report.idx = 0;
+        md.dptMeta.nextEventType = 2;
+        md.dptMeta.eventsCount = md.dptMeta.eventsCount + 1;
+        hdr.ev_out_flags.setValid();
+        hdr.ev_out_flags.report = 1;
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1328_tbl_0_opstmt {
+        actions = {
+            dpt_1328_acn_0_opstmt;
+        }
+        const default_action = dpt_1328_acn_0_opstmt();
+        
+    }
+    
+    action dpt_1328_acn_0_opstmt( ){
+        dpt_1328_generate_alu_0_opstmt();
+        //next tables: []
+        
+    }
+    
+    action dpt_1328_generate_alu_0_opstmt( ){
+        md.ip_out.eventType = 3;
+        md.ip_out.eventLoc = 0;
+        md.ip_out.eventDelay = 0;
+        md.ip_out.egr_port = md.ip_in.igr_port;
+        md.ip_out.src = md.ip_in.src;
+        md.ip_out.dst = md.ip_in.dst;
+        md.dptMeta.exitEventType = 3;
+        
+    }
+    
+    Register<fmt_hist_arr, bit<32>>(4) hist_arr;
+    
+    Register<fmt_total_arr, bit<32>>(1) total_arr;
+    
+    
+    
+----end cid decls before eliminating control branches ----
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1253_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1253_tbl_0_opstmt {
+        actions = {
+            dpt_1253_acn_0_opstmt;
+        }
+        const default_action = dpt_1253_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+---------
+
+***[condition_table] summary for dpt_1253_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1253_tbl_0_opstmt {
+        actions = {
+            dpt_1253_acn_0_opstmt;
+        }
+        const default_action = dpt_1253_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1253_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1253_acn_0_opstmt;
+            dpt_1341_noop;
+        }
+        const entries = {
+            2 : dpt_1253_acn_0_opstmt();
+            (_) : dpt_1341_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1253_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1280_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1280_tbl_0_opstmt {
+        actions = {
+            dpt_1280_acn_0_opstmt;
+        }
+        const default_action = dpt_1280_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1280_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1280_tbl_0_opstmt {
+        actions = {
+            dpt_1280_acn_0_opstmt;
+        }
+        const default_action = dpt_1280_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1280_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1280_acn_0_opstmt;
+            dpt_1343_noop;
+        }
+        const entries = {
+            1 : dpt_1280_acn_0_opstmt();
+            (_) : dpt_1343_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1280_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1254_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1254_tbl_0_opstmt {
+        actions = {
+            dpt_1254_acn_0_opstmt;
+        }
+        const default_action = dpt_1254_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+---------
+
+***[condition_table] summary for dpt_1254_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1254_tbl_0_opstmt {
+        actions = {
+            dpt_1254_acn_0_opstmt;
+        }
+        const default_action = dpt_1254_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1254_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1254_acn_0_opstmt;
+            dpt_1345_noop;
+        }
+        const entries = {
+            2 : dpt_1254_acn_0_opstmt();
+            (_) : dpt_1345_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1254_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1281_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1281_tbl_0_opstmt {
+        actions = {
+            dpt_1281_acn_0_opstmt;
+        }
+        const default_action = dpt_1281_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1281_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1281_tbl_0_opstmt {
+        actions = {
+            dpt_1281_acn_0_opstmt;
+        }
+        const default_action = dpt_1281_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1281_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1281_acn_0_opstmt;
+            dpt_1347_noop;
+        }
+        const entries = {
+            1 : dpt_1281_acn_0_opstmt();
+            (_) : dpt_1347_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1281_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1256_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1256_tbl_0_opstmt {
+        actions = {
+            dpt_1256_acn_0_opstmt;
+        }
+        const default_action = dpt_1256_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+---------
+
+***[condition_table] summary for dpt_1256_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1256_tbl_0_opstmt {
+        actions = {
+            dpt_1256_acn_0_opstmt;
+        }
+        const default_action = dpt_1256_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1256_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1256_acn_0_opstmt;
+            dpt_1349_noop;
+        }
+        const entries = {
+            2 : dpt_1256_acn_0_opstmt();
+            (_) : dpt_1349_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1256_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1283_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1283_tbl_0_opstmt {
+        key = {
+            if_precomp1238 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1285_true;
+            dpt_1286_false;
+        }
+        const entries = {
+            (0, 128) : dpt_1285_true();
+            (0, _) : dpt_1286_false();
+            (_, _) : dpt_1285_true();
+            (_, 128) : dpt_1285_true();
+            (_, _) : dpt_1286_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1238: 0; md.ip_in.len: 128
+Result: 
+md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1238: 0; md.ip_in.len: _
+Result: 
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1238: _; md.ip_in.len: _
+Result: 
+md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1238: _; md.ip_in.len: 128
+Result: 
+md.ip_in.len: 128; if_precomp1238: _; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.ip_in.len: 128; if_precomp1238: _; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.ip_in.len: 128; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.ip_in.len: 128; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1238: _; md.ip_in.len: _
+Result: 
+md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1283_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1283_tbl_0_opstmt {
+        key = {
+            if_precomp1238 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1285_true;
+            dpt_1286_false;
+        }
+        const entries = {
+            (0, 128) : dpt_1285_true();
+            (0, _) : dpt_1286_false();
+            (_, _) : dpt_1285_true();
+            (_, 128) : dpt_1285_true();
+            (_, _) : dpt_1286_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1283_tbl_0_opstmt {
+        key = {
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1285_true;
+            dpt_1286_false;
+            dpt_1351_noop;
+        }
+        const entries = {
+            (128, 0, 1) : dpt_1285_true();
+            (_, 0, 1) : dpt_1286_false();
+            (_, _, 1) : dpt_1285_true();
+            (_, _, _) : dpt_1351_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1283_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1258_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1258_tbl_0_opstmt {
+        key = {
+            cur_idx : ternary;
+        }
+        actions = {
+            dpt_1260_true;
+            dpt_1261_false;
+        }
+        const entries = {
+            0 : dpt_1260_true();
+            _ : dpt_1261_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+cur_idx: 0
+Result: 
+cur_idx: 0; md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+cur_idx: 0; md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	cur_idx: 0; md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	cur_idx: 0; md.dptMeta.eventType: 2;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+cur_idx: _
+Result: 
+cur_idx: _; md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+cur_idx: _; md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	cur_idx: _; md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	cur_idx: _; md.dptMeta.eventType: 2;
+]
+
+---------
+
+***[condition_table] summary for dpt_1258_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1258_tbl_0_opstmt {
+        key = {
+            cur_idx : ternary;
+        }
+        actions = {
+            dpt_1260_true;
+            dpt_1261_false;
+        }
+        const entries = {
+            0 : dpt_1260_true();
+            _ : dpt_1261_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1258_tbl_0_opstmt {
+        key = {
+            cur_idx : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1260_true;
+            dpt_1261_false;
+            dpt_1353_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1260_true();
+            (_, 2) : dpt_1261_false();
+            (_, _) : dpt_1353_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1258_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[get_preconditions] adding precondition:
+[
+	NOT md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1287_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1287_tbl_0_opstmt {
+        actions = {
+            dpt_1287_acn_0_opstmt;
+        }
+        const default_action = dpt_1287_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 2
+[
+	<no negative clauses>;
+	md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 2
+[
+	<no negative clauses>;
+	md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 2
+[
+	<no negative clauses>;
+	md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1287_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1287_tbl_0_opstmt {
+        actions = {
+            dpt_1287_acn_0_opstmt;
+        }
+        const default_action = dpt_1287_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 2
+[
+	<no negative clauses>;
+	md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: _; md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1287_tbl_0_opstmt {
+        key = {
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1287_acn_0_opstmt;
+            dpt_1355_noop;
+        }
+        const entries = {
+            (128, 0, 1) : dpt_1287_acn_0_opstmt();
+            (_, 0, 1) : dpt_0_NOOP();
+            (_, _, 1) : dpt_1287_acn_0_opstmt();
+            (_, _, _) : dpt_1355_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1287_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1288_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1288_tbl_0_opstmt {
+        actions = {
+            dpt_1288_acn_0_opstmt;
+        }
+        const default_action = dpt_1288_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1288_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1288_tbl_0_opstmt {
+        actions = {
+            dpt_1288_acn_0_opstmt;
+        }
+        const default_action = dpt_1288_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1288_tbl_0_opstmt {
+        key = {
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1288_acn_0_opstmt;
+            dpt_1359_noop;
+        }
+        const entries = {
+            (128, 0, 1) : dpt_0_NOOP();
+            (_, 0, 1) : dpt_1288_acn_0_opstmt();
+            (_, _, _) : dpt_1359_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1288_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	cur_idx: 0; md.dptMeta.eventType: 2;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1262_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1262_tbl_0_opstmt {
+        actions = {
+            dpt_1262_acn_0_opstmt;
+        }
+        const default_action = dpt_1262_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	cur_idx: 0; md.dptMeta.eventType: 2;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	cur_idx: 0; md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+cur_idx: 0; md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+cur_idx: 0; md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+cur_idx: 0; md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+cur_idx: 0; md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	cur_idx: 0; md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	cur_idx: 0; md.dptMeta.eventType: 2;
+]
+
+---------
+
+***[condition_table] summary for dpt_1262_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1262_tbl_0_opstmt {
+        actions = {
+            dpt_1262_acn_0_opstmt;
+        }
+        const default_action = dpt_1262_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	cur_idx: 0; md.dptMeta.eventType: 2;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1262_tbl_0_opstmt {
+        key = {
+            cur_idx : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1262_acn_0_opstmt;
+            dpt_1363_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1262_acn_0_opstmt();
+            (_, _) : dpt_1363_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1262_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1296_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1296_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1298_true;
+            dpt_1299_false;
+        }
+        const entries = {
+            (0, 512) : dpt_1298_true();
+            (0, _) : dpt_1299_false();
+            (_, _) : dpt_1298_true();
+            (_, 512) : dpt_1298_true();
+            (_, _) : dpt_1299_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1237: 0; md.ip_in.len: 512
+Result: 
+if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1237: 0; md.ip_in.len: _
+Result: 
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1237: _; md.ip_in.len: _
+Result: 
+if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT if_precomp1237: _; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp1237: _; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1237: _; md.ip_in.len: 512
+Result: 
+if_precomp1237: _; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1237: _; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	if_precomp1237: _; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	if_precomp1237: _; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1237: _; md.ip_in.len: _
+Result: 
+if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT if_precomp1237: _; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp1237: _; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1296_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1296_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1298_true;
+            dpt_1299_false;
+        }
+        const entries = {
+            (0, 512) : dpt_1298_true();
+            (0, _) : dpt_1299_false();
+            (_, _) : dpt_1298_true();
+            (_, 512) : dpt_1298_true();
+            (_, _) : dpt_1299_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1296_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1298_true;
+            dpt_1299_false;
+            dpt_1365_noop;
+        }
+        const entries = {
+            (0, 512, 0, 1) : dpt_1298_true();
+            (0, 128, 0, 1) : dpt_0_NOOP();
+            (0, _, 0, 1) : dpt_1299_false();
+            (_, 128, 0, 1) : dpt_0_NOOP();
+            (_, _, 0, 1) : dpt_1298_true();
+            (_, _, _, _) : dpt_1365_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1296_tbl_0_opstmt
+
+*** [condition_table] STARTING TABLE: dpt_1263_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1263_tbl_0_opstmt {
+        actions = {
+            dpt_1263_acn_0_opstmt;
+        }
+        const default_action = dpt_1263_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+---------
+
+***[condition_table] summary for dpt_1263_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1263_tbl_0_opstmt {
+        actions = {
+            dpt_1263_acn_0_opstmt;
+        }
+        const default_action = dpt_1263_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1263_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1263_acn_0_opstmt;
+            dpt_1371_noop;
+        }
+        const entries = {
+            2 : dpt_1263_acn_0_opstmt();
+            (_) : dpt_1371_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1263_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[get_preconditions] adding precondition:
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: _; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1300_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1300_tbl_0_opstmt {
+        actions = {
+            dpt_1300_acn_0_opstmt;
+        }
+        const default_action = dpt_1300_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 2
+[
+	<no negative clauses>;
+	if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: _; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 2
+[
+	<no negative clauses>;
+	if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: _; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 2
+[
+	<no negative clauses>;
+	if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: _; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: _; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1300_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1300_tbl_0_opstmt {
+        actions = {
+            dpt_1300_acn_0_opstmt;
+        }
+        const default_action = dpt_1300_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 2
+[
+	<no negative clauses>;
+	if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: _; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: _; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1300_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1300_acn_0_opstmt;
+            dpt_1373_noop;
+        }
+        const entries = {
+            (0, 512, 0, 1) : dpt_1300_acn_0_opstmt();
+            (0, 128, 0, 1) : dpt_0_NOOP();
+            (0, _, 0, 1) : dpt_0_NOOP();
+            (_, 128, 0, 1) : dpt_0_NOOP();
+            (_, _, 0, 1) : dpt_1300_acn_0_opstmt();
+            (_, _, _, _) : dpt_1373_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1300_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1301_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1301_tbl_0_opstmt {
+        actions = {
+            dpt_1301_acn_0_opstmt;
+        }
+        const default_action = dpt_1301_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1301_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1301_tbl_0_opstmt {
+        actions = {
+            dpt_1301_acn_0_opstmt;
+        }
+        const default_action = dpt_1301_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1301_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1301_acn_0_opstmt;
+            dpt_1381_noop;
+        }
+        const entries = {
+            (0, 512, 0, 1) : dpt_0_NOOP();
+            (0, 128, 0, 1) : dpt_0_NOOP();
+            (0, _, 0, 1) : dpt_1301_acn_0_opstmt();
+            (_, _, _, _) : dpt_1381_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1301_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1268_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1268_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+        }
+        actions = {
+            dpt_1271_false;
+            dpt_1270_true;
+        }
+        const entries = {
+            0 : dpt_1271_false();
+            _ : dpt_1270_true();
+            _ : dpt_1271_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+if_precomp: 0
+Result: 
+if_precomp: 0; md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+if_precomp: 0; md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	if_precomp: 0; md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	if_precomp: 0; md.dptMeta.eventType: 2;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+if_precomp: _
+Result: 
+if_precomp: _; md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+if_precomp: _; md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+if_precomp: _
+Result: 
+if_precomp: _; md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+if_precomp: _; md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+
+---------
+
+***[condition_table] summary for dpt_1268_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1268_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+        }
+        actions = {
+            dpt_1271_false;
+            dpt_1270_true;
+        }
+        const entries = {
+            0 : dpt_1271_false();
+            _ : dpt_1270_true();
+            _ : dpt_1271_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 2;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1268_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1271_false;
+            dpt_1270_true;
+            dpt_1387_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1271_false();
+            (_, 2) : dpt_1270_true();
+            (_, _) : dpt_1387_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1268_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1308_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1308_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1310_true;
+            dpt_1311_false;
+        }
+        const entries = {
+            (0, 1024) : dpt_1310_true();
+            (0, _) : dpt_1311_false();
+            (_, _) : dpt_1310_true();
+            (_, 1024) : dpt_1310_true();
+            (_, _) : dpt_1311_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1236: 0; md.ip_in.len: 1024
+Result: 
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1236: 0; md.ip_in.len: _
+Result: 
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1236: _; md.ip_in.len: _
+Result: 
+if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1236: _; md.ip_in.len: 1024
+Result: 
+if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+if_precomp1236: _; md.ip_in.len: _
+Result: 
+if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1308_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1308_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            md.ip_in.len : ternary;
+        }
+        actions = {
+            dpt_1310_true;
+            dpt_1311_false;
+        }
+        const entries = {
+            (0, 1024) : dpt_1310_true();
+            (0, _) : dpt_1311_false();
+            (_, _) : dpt_1310_true();
+            (_, 1024) : dpt_1310_true();
+            (_, _) : dpt_1311_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1308_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1310_true;
+            dpt_1311_false;
+            dpt_1389_noop;
+        }
+        const entries = {
+            (0, 0, 1024, 0, 1) : dpt_1310_true();
+            (0, 0, 512, 0, 1) : dpt_0_NOOP();
+            (0, 0, 128, 0, 1) : dpt_0_NOOP();
+            (0, 0, _, 0, 1) : dpt_1311_false();
+            (_, 0, 512, 0, 1) : dpt_0_NOOP();
+            (_, 0, 128, 0, 1) : dpt_0_NOOP();
+            (_, 0, _, 0, 1) : dpt_1310_true();
+            (_, _, _, _, _) : dpt_1389_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1308_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1272_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1272_tbl_0_opstmt {
+        actions = {
+            dpt_1272_acn_0_opstmt;
+        }
+        const default_action = dpt_1272_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp: _; md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+if_precomp: _; md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+if_precomp: _; md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+if_precomp: _; md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+
+---------
+
+***[condition_table] summary for dpt_1272_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1272_tbl_0_opstmt {
+        actions = {
+            dpt_1272_acn_0_opstmt;
+        }
+        const default_action = dpt_1272_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1272_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1272_acn_0_opstmt;
+            dpt_1399_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_0_NOOP();
+            (_, 2) : dpt_1272_acn_0_opstmt();
+            (_, _) : dpt_1399_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1272_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[get_preconditions] adding precondition:
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1312_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1312_tbl_0_opstmt {
+        actions = {
+            dpt_1312_acn_0_opstmt;
+        }
+        const default_action = dpt_1312_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 2
+[
+	<no negative clauses>;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 2
+[
+	<no negative clauses>;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 2
+[
+	<no negative clauses>;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1312_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1312_tbl_0_opstmt {
+        actions = {
+            dpt_1312_acn_0_opstmt;
+        }
+        const default_action = dpt_1312_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 2
+[
+	<no negative clauses>;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: _; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1312_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1312_acn_0_opstmt;
+            dpt_1403_noop;
+        }
+        const entries = {
+            (0, 0, 1024, 0, 1) : dpt_1312_acn_0_opstmt();
+            (0, 0, 512, 0, 1) : dpt_0_NOOP();
+            (0, 0, 128, 0, 1) : dpt_0_NOOP();
+            (0, 0, _, 0, 1) : dpt_0_NOOP();
+            (_, 0, 512, 0, 1) : dpt_0_NOOP();
+            (_, 0, 128, 0, 1) : dpt_0_NOOP();
+            (_, 0, _, 0, 1) : dpt_1312_acn_0_opstmt();
+            (_, _, _, _, _) : dpt_1403_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1312_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1313_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1313_tbl_0_opstmt {
+        actions = {
+            dpt_1313_acn_0_opstmt;
+        }
+        const default_action = dpt_1313_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1313_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1313_tbl_0_opstmt {
+        actions = {
+            dpt_1313_acn_0_opstmt;
+        }
+        const default_action = dpt_1313_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 1024; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 512; if_precomp1238: 0; md.dptMeta.eventType: 1;
+NOT if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: 128; if_precomp1238: 0; md.dptMeta.eventType: 1;;
+	if_precomp1236: 0; if_precomp1237: 0; md.ip_in.len: _; if_precomp1238: 0; md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1313_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1313_acn_0_opstmt;
+            dpt_1415_noop;
+        }
+        const entries = {
+            (0, 0, 1024, 0, 1) : dpt_0_NOOP();
+            (0, 0, 512, 0, 1) : dpt_0_NOOP();
+            (0, 0, 128, 0, 1) : dpt_0_NOOP();
+            (0, 0, _, 0, 1) : dpt_1313_acn_0_opstmt();
+            (_, _, _, _, _) : dpt_1415_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1313_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1276_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1276_tbl_0_opstmt {
+        actions = {
+            dpt_1276_acn_0_opstmt;
+        }
+        const default_action = dpt_1276_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+if_precomp: _; md.dptMeta.eventType: 2
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+if_precomp: _; md.dptMeta.eventType: 2
+[refine_condition_with_pat] original pos
+if_precomp: _; md.dptMeta.eventType: 2;
+[refine_condition_with_pat] refined pos
+if_precomp: _; md.dptMeta.eventType: 2;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+
+---------
+
+***[condition_table] summary for dpt_1276_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1276_tbl_0_opstmt {
+        actions = {
+            dpt_1276_acn_0_opstmt;
+        }
+        const default_action = dpt_1276_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	NOT if_precomp: 0; md.dptMeta.eventType: 2;;
+	if_precomp: _; md.dptMeta.eventType: 2;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1276_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1276_acn_0_opstmt;
+            dpt_1423_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_0_NOOP();
+            (_, 2) : dpt_1276_acn_0_opstmt();
+            (_, _) : dpt_1423_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1276_tbl_0_opstmt
+
+*** [condition_table] STARTING TABLE: dpt_1294_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1294_tbl_0_opstmt {
+        actions = {
+            dpt_1294_acn_0_opstmt;
+        }
+        const default_action = dpt_1294_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1294_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1294_tbl_0_opstmt {
+        actions = {
+            dpt_1294_acn_0_opstmt;
+        }
+        const default_action = dpt_1294_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1294_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1294_acn_0_opstmt;
+            dpt_1427_noop;
+        }
+        const entries = {
+            1 : dpt_1294_acn_0_opstmt();
+            (_) : dpt_1427_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1294_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1321_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1321_tbl_0_opstmt {
+        actions = {
+            dpt_1321_acn_0_opstmt;
+        }
+        const default_action = dpt_1321_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1321_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1321_tbl_0_opstmt {
+        actions = {
+            dpt_1321_acn_0_opstmt;
+        }
+        const default_action = dpt_1321_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1321_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1321_acn_0_opstmt;
+            dpt_1429_noop;
+        }
+        const entries = {
+            1 : dpt_1321_acn_0_opstmt();
+            (_) : dpt_1429_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1321_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1323_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1323_tbl_0_opstmt {
+        key = {
+            total_ct : ternary;
+        }
+        actions = {
+            dpt_1325_true;
+            dpt_1326_false;
+        }
+        const entries = {
+            4 : dpt_1325_true();
+            _ : dpt_1326_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+total_ct: 4
+Result: 
+total_ct: 4; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+total_ct: 4; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	total_ct: 4; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	total_ct: 4; md.dptMeta.eventType: 1;
+]
+
+---------
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+total_ct: _
+Result: 
+total_ct: _; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+total_ct: _; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	total_ct: _; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	total_ct: _; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1323_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1323_tbl_0_opstmt {
+        key = {
+            total_ct : ternary;
+        }
+        actions = {
+            dpt_1325_true;
+            dpt_1326_false;
+        }
+        const entries = {
+            4 : dpt_1325_true();
+            _ : dpt_1326_false();
+        }
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1323_tbl_0_opstmt {
+        key = {
+            total_ct : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1325_true;
+            dpt_1326_false;
+            dpt_1431_noop;
+        }
+        const entries = {
+            (4, 1) : dpt_1325_true();
+            (_, 1) : dpt_1326_false();
+            (_, _) : dpt_1431_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1323_tbl_0_opstmt
+[get_preconditions] adding precondition:
+[
+	<no negative clauses>;
+	total_ct: 4; md.dptMeta.eventType: 1;
+]
+
+*** [condition_table] STARTING TABLE: dpt_1327_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1327_tbl_0_opstmt {
+        actions = {
+            dpt_1327_acn_0_opstmt;
+        }
+        const default_action = dpt_1327_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	total_ct: 4; md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	total_ct: 4; md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+total_ct: 4; md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+total_ct: 4; md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+total_ct: 4; md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+total_ct: 4; md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	total_ct: 4; md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	total_ct: 4; md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1327_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1327_tbl_0_opstmt {
+        actions = {
+            dpt_1327_acn_0_opstmt;
+        }
+        const default_action = dpt_1327_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	total_ct: 4; md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1327_tbl_0_opstmt {
+        key = {
+            total_ct : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1327_acn_0_opstmt;
+            dpt_1433_noop;
+        }
+        const entries = {
+            (4, 1) : dpt_1327_acn_0_opstmt();
+            (_, _) : dpt_1433_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1327_tbl_0_opstmt
+
+*** [condition_table] STARTING TABLE: dpt_1328_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1328_tbl_0_opstmt {
+        actions = {
+            dpt_1328_acn_0_opstmt;
+        }
+        const default_action = dpt_1328_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[normalize_conditioned_rule] conditions BEFORE:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[refine_condition_with_pat] anding two patterns: 
+[refine_condition_with_pat] pos: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] pat: 
+<EMPTY PATTERN>
+Result: 
+md.dptMeta.eventType: 1
+[refine_condition_with_pat] original pos
+md.dptMeta.eventType: 1;
+[refine_condition_with_pat] refined pos
+md.dptMeta.eventType: 1;
+[normalize_conditioned_rule] conditions AFTER:
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+[to_rule_list] PROCESSING CONDITON: 
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+---------
+
+***[condition_table] summary for dpt_1328_tbl_0_opstmt
+****original table****
+// Stage not set by dptc
+    table dpt_1328_tbl_0_opstmt {
+        actions = {
+            dpt_1328_acn_0_opstmt;
+        }
+        const default_action = dpt_1328_acn_0_opstmt();
+        
+    }
+    
+
+****preconditions****
+number of conditions: 1
+[
+	<no negative clauses>;
+	md.dptMeta.eventType: 1;
+]
+
+****conditioned table**** 
+// Stage not set by dptc
+    table dpt_1328_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1328_acn_0_opstmt;
+            dpt_1435_noop;
+        }
+        const entries = {
+            1 : dpt_1328_acn_0_opstmt();
+            (_) : dpt_1435_noop();
+        }
+        
+    }
+    
+
+*** [condition_table] END TABLE: dpt_1328_tbl_0_opstmt
+----cid decls after eliminating control branches ----
+// Stage not set by dptc
+    table dpt_0_selectEventType {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_992_report;
+            dpt_990_ip_in;
+        }
+        const entries = {
+            2 : dpt_992_report();
+            1 : dpt_990_ip_in();
+        }
+        
+    }
+    
+    action dpt_992_report( ){
+        //next tables: [dpt_1253_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_990_ip_in( ){
+        //next tables: [dpt_1280_tbl_0_opstmt]
+        
+    }
+    
+    bit<32> cur_idx;
+    
+    // Stage not set by dptc
+    table dpt_1253_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1253_acn_0_opstmt;
+            dpt_1341_noop;
+        }
+        const entries = {
+            2 : dpt_1253_acn_0_opstmt();
+            (_) : dpt_1341_noop();
+        }
+        
+    }
+    
+    action dpt_1253_acn_0_opstmt( ){
+        dpt_1253_alu_0_opstmt();
+        //next tables: [dpt_1254_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1253_alu_0_opstmt( ){
+        cur_idx = hdr.report.idx;
+        
+    }
+    
+    bit<32> column_ct;
+    
+    // Stage not set by dptc
+    table dpt_1254_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1254_acn_0_opstmt;
+            dpt_1345_noop;
+        }
+        const entries = {
+            2 : dpt_1254_acn_0_opstmt();
+            (_) : dpt_1345_noop();
+        }
+        
+    }
+    
+    action dpt_1254_acn_0_opstmt( ){
+        dpt_1254_salu_0_opstmt();
+        //next tables: [dpt_1256_tbl_0_opstmt]
+        
+    }
+    
+    RegisterAction<fmt_hist_arr,bit<32>,bit<32>>(hist_arr) dpt_1254_sprog_1437_salu_0_opstmt = {
+        void apply(inout fmt_hist_arr remote, out bit<32> remoteRet) {
+            fmt_hist_arr local = remote;
+            remoteRet=local.lo;
+            remote.lo=0;
+        }
+    };
+    action dpt_1254_salu_0_opstmt() {
+        column_ct=dpt_1254_sprog_1437_salu_0_opstmt.execute((bit<32>)cur_idx);
+    }
+    
+    // Stage not set by dptc
+    table dpt_1256_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1256_acn_0_opstmt;
+            dpt_1349_noop;
+        }
+        const entries = {
+            2 : dpt_1256_acn_0_opstmt();
+            (_) : dpt_1349_noop();
+        }
+        
+    }
+    
+    action dpt_1256_acn_0_opstmt( ){
+        dpt_1256_generate_alu_0_opstmt();
+        //next tables: [dpt_1258_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1256_generate_alu_0_opstmt( ){
+        md.ip_out.eventType = 3;
+        md.ip_out.eventLoc = 0;
+        md.ip_out.eventDelay = 0;
+        md.ip_out.egr_port = 132;
+        md.ip_out.src = cur_idx;
+        md.ip_out.dst = column_ct;
+        md.dptMeta.exitEventType = 3;
+        
+    }
+    
+    action dpt_1260_true( ){
+        //next tables: [dpt_1262_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1261_false( ){
+        //next tables: [dpt_1263_tbl_0_opstmt]
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1258_tbl_0_opstmt {
+        key = {
+            cur_idx : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1260_true;
+            dpt_1261_false;
+            dpt_1353_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1260_true();
+            (_, 2) : dpt_1261_false();
+            (_, _) : dpt_1353_noop();
+        }
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1262_tbl_0_opstmt {
+        key = {
+            cur_idx : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1262_acn_0_opstmt;
+            dpt_1363_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1262_acn_0_opstmt();
+            (_, _) : dpt_1363_noop();
+        }
+        
+    }
+    
+    action dpt_1262_acn_0_opstmt( ){
+        dpt_1262_salu_0_opstmt();
+        //next tables: [dpt_1263_tbl_0_opstmt]
+        
+    }
+    
+    RegisterAction<fmt_total_arr,bit<32>,bit<32>>(total_arr) dpt_1262_sprog_1438_salu_0_opstmt = {
+        void apply(inout fmt_total_arr remote, out bit<32> remoteRet) {
+            fmt_total_arr local = remote;
+            remote.lo=0;
+        }
+    };
+    action dpt_1262_salu_0_opstmt() {
+        dpt_1262_sprog_1438_salu_0_opstmt.execute((bit<32>)0);
+    }
+    
+    bit<32> if_precomp;
+    
+    // Stage not set by dptc
+    table dpt_1263_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1263_acn_0_opstmt;
+            dpt_1371_noop;
+        }
+        const entries = {
+            2 : dpt_1263_acn_0_opstmt();
+            (_) : dpt_1371_noop();
+        }
+        
+    }
+    
+    action dpt_1263_acn_0_opstmt( ){
+        dpt_1263_alu_0_opstmt();
+        //next tables: [dpt_1268_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1263_alu_0_opstmt( ){
+        if_precomp = 3 |-| cur_idx;
+        
+    }
+    
+    action dpt_1270_true( ){
+        //next tables: [dpt_1272_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1271_false( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1268_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1271_false;
+            dpt_1270_true;
+            dpt_1387_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1271_false();
+            (_, 2) : dpt_1270_true();
+            (_, _) : dpt_1387_noop();
+        }
+        
+    }
+    
+    bit<32> precompute;
+    
+    action dpt_1401_noop( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1272_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1401_noop;
+            dpt_1272_acn_0_opstmt;
+            dpt_1399_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1401_noop();
+            (_, 2) : dpt_1272_acn_0_opstmt();
+            (_, _) : dpt_1399_noop();
+        }
+        
+    }
+    
+    action dpt_1272_acn_0_opstmt( ){
+        dpt_1272_alu_0_opstmt();
+        //next tables: [dpt_1276_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1272_alu_0_opstmt( ){
+        precompute = 1 + cur_idx;
+        
+    }
+    
+    action dpt_1425_noop( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1276_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1425_noop;
+            dpt_1276_acn_0_opstmt;
+            dpt_1423_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1425_noop();
+            (_, 2) : dpt_1276_acn_0_opstmt();
+            (_, _) : dpt_1423_noop();
+        }
+        
+    }
+    
+    action dpt_1276_acn_0_opstmt( ){
+        dpt_1276_generate_alu_0_opstmt();
+        //next tables: []
+        
+    }
+    
+    action dpt_1276_generate_alu_0_opstmt( ){
+        hdr.report.eventType = 2;
+        hdr.report.eventLoc = 0;
+        hdr.report.eventDelay = 0;
+        hdr.report.setValid();
+        hdr.lucid_footer.setValid();
+        hdr.lucid_footer.end = 0;
+        hdr.report.idx = precompute;
+        md.dptMeta.nextEventType = 2;
+        md.dptMeta.eventsCount = md.dptMeta.eventsCount + 1;
+        hdr.ev_out_flags.setValid();
+        hdr.ev_out_flags.report = 1;
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1280_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1280_acn_0_opstmt;
+            dpt_1343_noop;
+        }
+        const entries = {
+            1 : dpt_1280_acn_0_opstmt();
+            (_) : dpt_1343_noop();
+        }
+        
+    }
+    
+    action dpt_1280_acn_0_opstmt( ){
+        dpt_1280_alu_0_opstmt();
+        //next tables: [dpt_1281_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1280_alu_0_opstmt( ){
+        cur_idx = 0;
+        
+    }
+    
+    bit<16> if_precomp1238;
+    
+    // Stage not set by dptc
+    table dpt_1281_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1281_acn_0_opstmt;
+            dpt_1347_noop;
+        }
+        const entries = {
+            1 : dpt_1281_acn_0_opstmt();
+            (_) : dpt_1347_noop();
+        }
+        
+    }
+    
+    action dpt_1281_acn_0_opstmt( ){
+        dpt_1281_alu_0_opstmt();
+        //next tables: [dpt_1283_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1281_alu_0_opstmt( ){
+        if_precomp1238 = 128 |-| md.ip_in.len;
+        
+    }
+    
+    action dpt_1285_true( ){
+        //next tables: [dpt_1287_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1286_false( ){
+        //next tables: [dpt_1288_tbl_0_opstmt]
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1283_tbl_0_opstmt {
+        key = {
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1285_true;
+            dpt_1286_false;
+            dpt_1351_noop;
+        }
+        const entries = {
+            (128, 0, 1) : dpt_1285_true();
+            (_, 0, 1) : dpt_1286_false();
+            (_, _, 1) : dpt_1285_true();
+            (_, _, _) : dpt_1351_noop();
+        }
+        
+    }
+    
+    action dpt_1357_noop( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1287_tbl_0_opstmt {
+        key = {
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1287_acn_0_opstmt;
+            dpt_1357_noop;
+            dpt_1355_noop;
+        }
+        const entries = {
+            (128, 0, 1) : dpt_1287_acn_0_opstmt();
+            (_, 0, 1) : dpt_1357_noop();
+            (_, _, 1) : dpt_1287_acn_0_opstmt();
+            (_, _, _) : dpt_1355_noop();
+        }
+        
+    }
+    
+    action dpt_1287_acn_0_opstmt( ){
+        dpt_1287_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1287_alu_0_opstmt( ){
+        cur_idx = 0;
+        
+    }
+    
+    bit<16> if_precomp1237;
+    
+    action dpt_1361_noop( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1288_tbl_0_opstmt {
+        key = {
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1361_noop;
+            dpt_1288_acn_0_opstmt;
+            dpt_1359_noop;
+        }
+        const entries = {
+            (128, 0, 1) : dpt_1361_noop();
+            (_, 0, 1) : dpt_1288_acn_0_opstmt();
+            (_, _, _) : dpt_1359_noop();
+        }
+        
+    }
+    
+    action dpt_1288_acn_0_opstmt( ){
+        dpt_1288_alu_0_opstmt();
+        //next tables: [dpt_1296_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1288_alu_0_opstmt( ){
+        if_precomp1237 = 512 |-| md.ip_in.len;
+        
+    }
+    
+    action dpt_1298_true( ){
+        //next tables: [dpt_1300_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1299_false( ){
+        //next tables: [dpt_1301_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1367_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1369_noop( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1296_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1298_true;
+            dpt_1367_noop;
+            dpt_1299_false;
+            dpt_1369_noop;
+            dpt_1365_noop;
+        }
+        const entries = {
+            (0, 512, 0, 1) : dpt_1298_true();
+            (0, 128, 0, 1) : dpt_1367_noop();
+            (0, _, 0, 1) : dpt_1299_false();
+            (_, 128, 0, 1) : dpt_1369_noop();
+            (_, _, 0, 1) : dpt_1298_true();
+            (_, _, _, _) : dpt_1365_noop();
+        }
+        
+    }
+    
+    action dpt_1375_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1377_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1379_noop( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1300_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1300_acn_0_opstmt;
+            dpt_1375_noop;
+            dpt_1377_noop;
+            dpt_1379_noop;
+            dpt_1373_noop;
+        }
+        const entries = {
+            (0, 512, 0, 1) : dpt_1300_acn_0_opstmt();
+            (0, 128, 0, 1) : dpt_1375_noop();
+            (0, _, 0, 1) : dpt_1377_noop();
+            (_, 128, 0, 1) : dpt_1379_noop();
+            (_, _, 0, 1) : dpt_1300_acn_0_opstmt();
+            (_, _, _, _) : dpt_1373_noop();
+        }
+        
+    }
+    
+    action dpt_1300_acn_0_opstmt( ){
+        dpt_1300_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1300_alu_0_opstmt( ){
+        cur_idx = 1;
+        
+    }
+    
+    bit<16> if_precomp1236;
+    
+    action dpt_1383_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1385_noop( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1301_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1383_noop;
+            dpt_1385_noop;
+            dpt_1301_acn_0_opstmt;
+            dpt_1381_noop;
+        }
+        const entries = {
+            (0, 512, 0, 1) : dpt_1383_noop();
+            (0, 128, 0, 1) : dpt_1385_noop();
+            (0, _, 0, 1) : dpt_1301_acn_0_opstmt();
+            (_, _, _, _) : dpt_1381_noop();
+        }
+        
+    }
+    
+    action dpt_1301_acn_0_opstmt( ){
+        dpt_1301_alu_0_opstmt();
+        //next tables: [dpt_1308_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1301_alu_0_opstmt( ){
+        if_precomp1236 = 1024 |-| md.ip_in.len;
+        
+    }
+    
+    action dpt_1310_true( ){
+        //next tables: [dpt_1312_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1311_false( ){
+        //next tables: [dpt_1313_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1391_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1393_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1395_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1397_noop( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1308_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1310_true;
+            dpt_1391_noop;
+            dpt_1393_noop;
+            dpt_1311_false;
+            dpt_1395_noop;
+            dpt_1397_noop;
+            dpt_1389_noop;
+        }
+        const entries = {
+            (0, 0, 1024, 0, 1) : dpt_1310_true();
+            (0, 0, 512, 0, 1) : dpt_1391_noop();
+            (0, 0, 128, 0, 1) : dpt_1393_noop();
+            (0, 0, _, 0, 1) : dpt_1311_false();
+            (_, 0, 512, 0, 1) : dpt_1395_noop();
+            (_, 0, 128, 0, 1) : dpt_1397_noop();
+            (_, 0, _, 0, 1) : dpt_1310_true();
+            (_, _, _, _, _) : dpt_1389_noop();
+        }
+        
+    }
+    
+    action dpt_1417_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1419_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1421_noop( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1313_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1417_noop;
+            dpt_1419_noop;
+            dpt_1421_noop;
+            dpt_1313_acn_0_opstmt;
+            dpt_1415_noop;
+        }
+        const entries = {
+            (0, 0, 1024, 0, 1) : dpt_1417_noop();
+            (0, 0, 512, 0, 1) : dpt_1419_noop();
+            (0, 0, 128, 0, 1) : dpt_1421_noop();
+            (0, 0, _, 0, 1) : dpt_1313_acn_0_opstmt();
+            (_, _, _, _, _) : dpt_1415_noop();
+        }
+        
+    }
+    
+    action dpt_1313_acn_0_opstmt( ){
+        dpt_1313_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1313_alu_0_opstmt( ){
+        cur_idx = 3;
+        
+    }
+    
+    action dpt_1405_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1407_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1409_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1411_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1413_noop( ){
+        //next tables: []
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1312_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1312_acn_0_opstmt;
+            dpt_1405_noop;
+            dpt_1407_noop;
+            dpt_1409_noop;
+            dpt_1411_noop;
+            dpt_1413_noop;
+            dpt_1403_noop;
+        }
+        const entries = {
+            (0, 0, 1024, 0, 1) : dpt_1312_acn_0_opstmt();
+            (0, 0, 512, 0, 1) : dpt_1405_noop();
+            (0, 0, 128, 0, 1) : dpt_1407_noop();
+            (0, 0, _, 0, 1) : dpt_1409_noop();
+            (_, 0, 512, 0, 1) : dpt_1411_noop();
+            (_, 0, 128, 0, 1) : dpt_1413_noop();
+            (_, 0, _, 0, 1) : dpt_1312_acn_0_opstmt();
+            (_, _, _, _, _) : dpt_1403_noop();
+        }
+        
+    }
+    
+    action dpt_1312_acn_0_opstmt( ){
+        dpt_1312_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1312_alu_0_opstmt( ){
+        cur_idx = 2;
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1294_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1294_acn_0_opstmt;
+            dpt_1427_noop;
+        }
+        const entries = {
+            1 : dpt_1294_acn_0_opstmt();
+            (_) : dpt_1427_noop();
+        }
+        
+    }
+    
+    action dpt_1294_acn_0_opstmt( ){
+        dpt_1294_salu_0_opstmt();
+        //next tables: [dpt_1321_tbl_0_opstmt]
+        
+    }
+    
+    RegisterAction<fmt_hist_arr,bit<32>,bit<32>>(hist_arr) dpt_1294_sprog_1439_salu_0_opstmt = {
+        void apply(inout fmt_hist_arr remote, out bit<32> remoteRet) {
+            fmt_hist_arr local = remote;
+            remote.lo=1 + local.lo;
+        }
+    };
+    action dpt_1294_salu_0_opstmt() {
+        dpt_1294_sprog_1439_salu_0_opstmt.execute((bit<32>)cur_idx);
+    }
+    
+    bit<32> total_ct;
+    
+    // Stage not set by dptc
+    table dpt_1321_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1321_acn_0_opstmt;
+            dpt_1429_noop;
+        }
+        const entries = {
+            1 : dpt_1321_acn_0_opstmt();
+            (_) : dpt_1429_noop();
+        }
+        
+    }
+    
+    action dpt_1321_acn_0_opstmt( ){
+        dpt_1321_salu_0_opstmt();
+        //next tables: [dpt_1323_tbl_0_opstmt]
+        
+    }
+    
+    RegisterAction<fmt_total_arr,bit<32>,bit<32>>(total_arr) dpt_1321_sprog_1440_salu_0_opstmt = {
+        void apply(inout fmt_total_arr remote, out bit<32> remoteRet) {
+            fmt_total_arr local = remote;
+            remoteRet=1 + local.lo;
+            remote.lo=1 + local.lo;
+        }
+    };
+    action dpt_1321_salu_0_opstmt() {
+        total_ct=dpt_1321_sprog_1440_salu_0_opstmt.execute((bit<32>)0);
+    }
+    
+    action dpt_1325_true( ){
+        //next tables: [dpt_1327_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1326_false( ){
+        //next tables: [dpt_1328_tbl_0_opstmt]
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1323_tbl_0_opstmt {
+        key = {
+            total_ct : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1325_true;
+            dpt_1326_false;
+            dpt_1431_noop;
+        }
+        const entries = {
+            (4, 1) : dpt_1325_true();
+            (_, 1) : dpt_1326_false();
+            (_, _) : dpt_1431_noop();
+        }
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1327_tbl_0_opstmt {
+        key = {
+            total_ct : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1327_acn_0_opstmt;
+            dpt_1433_noop;
+        }
+        const entries = {
+            (4, 1) : dpt_1327_acn_0_opstmt();
+            (_, _) : dpt_1433_noop();
+        }
+        
+    }
+    
+    action dpt_1327_acn_0_opstmt( ){
+        dpt_1327_generate_alu_0_opstmt();
+        //next tables: [dpt_1328_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1327_generate_alu_0_opstmt( ){
+        hdr.report.eventType = 2;
+        hdr.report.eventLoc = 0;
+        hdr.report.eventDelay = 0;
+        hdr.report.setValid();
+        hdr.lucid_footer.setValid();
+        hdr.lucid_footer.end = 0;
+        hdr.report.idx = 0;
+        md.dptMeta.nextEventType = 2;
+        md.dptMeta.eventsCount = md.dptMeta.eventsCount + 1;
+        hdr.ev_out_flags.setValid();
+        hdr.ev_out_flags.report = 1;
+        
+    }
+    
+    // Stage not set by dptc
+    table dpt_1328_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1328_acn_0_opstmt;
+            dpt_1435_noop;
+        }
+        const entries = {
+            1 : dpt_1328_acn_0_opstmt();
+            (_) : dpt_1435_noop();
+        }
+        
+    }
+    
+    action dpt_1328_acn_0_opstmt( ){
+        dpt_1328_generate_alu_0_opstmt();
+        //next tables: []
+        
+    }
+    
+    action dpt_1328_generate_alu_0_opstmt( ){
+        md.ip_out.eventType = 3;
+        md.ip_out.eventLoc = 0;
+        md.ip_out.eventDelay = 0;
+        md.ip_out.egr_port = md.ip_in.igr_port;
+        md.ip_out.src = md.ip_in.src;
+        md.ip_out.dst = md.ip_in.dst;
+        md.dptMeta.exitEventType = 3;
+        
+    }
+    
+    Register<fmt_hist_arr, bit<32>>(4) hist_arr;
+    
+    Register<fmt_total_arr, bit<32>>(1) total_arr;
+    
+    
+    
+    action dpt_1341_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1343_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1345_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1347_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1349_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1351_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1353_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1355_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1359_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1363_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1365_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1371_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1373_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1381_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1387_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1389_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1399_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1403_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1415_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1423_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1427_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1429_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1431_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1433_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1435_noop( ){
+        //next tables: []
+        
+    }
+    
+----end cid decls after eliminating control branches ----
+[eliminate_branch_nodes] removing noop tables 
+[visit_node_noop_delete] node_id = dpt_0_DptIngressParser
+[visit_node_noop_delete] node_id = dpt_1008_column_ct
+[visit_node_noop_delete] node_id = dpt_1007_cur_idx
+[visit_node_noop_delete] node_id = dpt_0_dptMeta_t
+[visit_node_noop_delete] node_id = dpt_990_e_ip_in
+[visit_node_noop_delete] node_id = dpt_996_e_ip_out
+[visit_node_noop_delete] node_id = dpt_992_e_report
+[visit_node_noop_delete] node_id = dpt_0_egr_serialize_clone
+[visit_node_noop_delete] node_id = dpt_0_ev_out_flags_t
+[visit_node_noop_delete] node_id = dpt_0_event_pkt_generator
+[visit_node_noop_delete] node_id = dpt_1235_if_precomp
+[visit_node_noop_delete] node_id = dpt_1236_if_precomp1236
+[visit_node_noop_delete] node_id = dpt_1237_if_precomp1237
+[visit_node_noop_delete] node_id = dpt_1238_if_precomp1238
+[visit_node_noop_delete] node_id = dpt_990_ip_in_t
+[visit_node_noop_delete] node_id = dpt_996_ip_out_t
+[visit_node_noop_delete] node_id = dpt_0_lucid_footer
+[visit_node_noop_delete] node_id = dpt_0_lucid_footer_t
+[visit_node_noop_delete] node_id = dpt_0_lucid_return_table
+[visit_node_noop_delete] node_id = dpt_1234_precompute
+[visit_node_noop_delete] node_id = dpt_992_report_t
+[visit_node_noop_delete] node_id = dpt_0_selectEventType
+[delete_if_noop] deleting noop table selectEventType~0!
+[remove_noop_tbl] tbl_id = dpt_0_selectEventType
+[remove_noop_tbl] predecessor actions = []
+[visit_node_noop_delete] node_id = dpt_1015_total_ct
+[visit_node_noop_delete] node_id = dpt_983_fmt_0_hist_arr
+[visit_node_noop_delete] node_id = dpt_984_fmt_0_total_arr
+[visit_node_noop_delete] node_id = dpt_0_hdr_0_ev_out_flags
+[visit_node_noop_delete] node_id = dpt_992_hdr_0_report
+[visit_node_noop_delete] node_id = dpt_0_md_0_dptMeta
+[visit_node_noop_delete] node_id = dpt_990_md_0_ip_in
+[visit_node_noop_delete] node_id = dpt_996_md_0_ip_out
+[visit_node_noop_delete] node_id = dpt_992_report
+[visit_node_noop_delete] node_id = dpt_990_ip_in
+[visit_node_noop_delete] node_id = dpt_1253_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1280_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1253_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1280_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1254_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1253_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1281_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1280_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1254_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1281_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1256_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1254_salu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1283_tbl_0_opstmt
+[delete_if_noop] deleting noop table tbl~0.opstmt~1283!
+[remove_noop_tbl] tbl_id = dpt_1283_tbl_0_opstmt
+[remove_noop_tbl] predecessor actions = [dpt_1281_acn_0_opstmt]
+[remove_noop_tbl] tbl_id = dpt_1283_tbl_0_opstmt; predecessor of tbl_id = dpt_1281_acn_0_opstmt 
+[remove_noop_tbl] successors of tbl_id = [dpt_1287_tbl_0_opstmt, dpt_1288_tbl_0_opstmt]
+[visit_node_noop_delete] node_id = dpt_1281_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1256_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1285_true
+[visit_node_noop_delete] node_id = dpt_1286_false
+[visit_node_noop_delete] node_id = dpt_1258_tbl_0_opstmt
+[delete_if_noop] deleting noop table tbl~0.opstmt~1258!
+[remove_noop_tbl] tbl_id = dpt_1258_tbl_0_opstmt
+[remove_noop_tbl] predecessor actions = [dpt_1256_acn_0_opstmt]
+[remove_noop_tbl] tbl_id = dpt_1258_tbl_0_opstmt; predecessor of tbl_id = dpt_1256_acn_0_opstmt 
+[remove_noop_tbl] successors of tbl_id = [dpt_1262_tbl_0_opstmt, dpt_1263_tbl_0_opstmt]
+[visit_node_noop_delete] node_id = dpt_1256_generate_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1287_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1288_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1260_true
+[visit_node_noop_delete] node_id = dpt_1261_false
+[visit_node_noop_delete] node_id = dpt_1287_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1288_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1262_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1287_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1296_tbl_0_opstmt
+[delete_if_noop] deleting noop table tbl~0.opstmt~1296!
+[remove_noop_tbl] tbl_id = dpt_1296_tbl_0_opstmt
+[remove_noop_tbl] predecessor actions = [dpt_1288_acn_0_opstmt]
+[remove_noop_tbl] tbl_id = dpt_1296_tbl_0_opstmt; predecessor of tbl_id = dpt_1288_acn_0_opstmt 
+[remove_noop_tbl] successors of tbl_id = [dpt_1300_tbl_0_opstmt, dpt_1301_tbl_0_opstmt]
+[visit_node_noop_delete] node_id = dpt_1288_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1262_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1298_true
+[visit_node_noop_delete] node_id = dpt_1299_false
+[visit_node_noop_delete] node_id = dpt_1263_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1262_salu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1300_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1301_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1263_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1300_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1301_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1268_tbl_0_opstmt
+[delete_if_noop] deleting noop table tbl~0.opstmt~1268!
+[remove_noop_tbl] tbl_id = dpt_1268_tbl_0_opstmt
+[remove_noop_tbl] predecessor actions = [dpt_1263_acn_0_opstmt]
+[remove_noop_tbl] tbl_id = dpt_1268_tbl_0_opstmt; predecessor of tbl_id = dpt_1263_acn_0_opstmt 
+[remove_noop_tbl] successors of tbl_id = [dpt_1272_tbl_0_opstmt]
+[visit_node_noop_delete] node_id = dpt_1263_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1300_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1308_tbl_0_opstmt
+[delete_if_noop] deleting noop table tbl~0.opstmt~1308!
+[remove_noop_tbl] tbl_id = dpt_1308_tbl_0_opstmt
+[remove_noop_tbl] predecessor actions = [dpt_1301_acn_0_opstmt]
+[remove_noop_tbl] tbl_id = dpt_1308_tbl_0_opstmt; predecessor of tbl_id = dpt_1301_acn_0_opstmt 
+[remove_noop_tbl] successors of tbl_id = [dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt]
+[visit_node_noop_delete] node_id = dpt_1301_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1270_true
+[visit_node_noop_delete] node_id = dpt_1271_false
+[visit_node_noop_delete] node_id = dpt_1310_true
+[visit_node_noop_delete] node_id = dpt_1311_false
+[visit_node_noop_delete] node_id = dpt_1272_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1312_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1313_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1272_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1312_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1313_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1276_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1272_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1312_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1294_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1313_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1276_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1294_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1276_generate_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1321_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1294_salu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1321_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_983_hist_arr
+[visit_node_noop_delete] node_id = dpt_1323_tbl_0_opstmt
+[delete_if_noop] deleting noop table tbl~0.opstmt~1323!
+[remove_noop_tbl] tbl_id = dpt_1323_tbl_0_opstmt
+[remove_noop_tbl] predecessor actions = [dpt_1321_acn_0_opstmt]
+[remove_noop_tbl] tbl_id = dpt_1323_tbl_0_opstmt; predecessor of tbl_id = dpt_1321_acn_0_opstmt 
+[remove_noop_tbl] successors of tbl_id = [dpt_1327_tbl_0_opstmt, dpt_1328_tbl_0_opstmt]
+[visit_node_noop_delete] node_id = dpt_1321_salu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1325_true
+[visit_node_noop_delete] node_id = dpt_1326_false
+[visit_node_noop_delete] node_id = dpt_984_total_arr
+[visit_node_noop_delete] node_id = dpt_1327_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1327_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1328_tbl_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1327_generate_alu_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1328_acn_0_opstmt
+[visit_node_noop_delete] node_id = dpt_1328_generate_alu_0_opstmt
+[eliminate_branch_nodes] rebuilding graph...
+[BranchElimination.do_passes (end)] validating output...
+[BranchElimination.do_passes (end)] DONE.

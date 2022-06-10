@@ -1,0 +1,12 @@
+digraph G {
+  "[Op] int<<32>> a = 1; //[id=30]" [shape=box, ];
+  "[Op] int<<32>> b = 1; //[id=71]" [shape=box, ];
+  "[Op] int<<32>> c = 2; //[id=79]" [shape=box, ];
+  "[SIf] (y==10&&a==2) //[id=81]" [shape=box, ];
+  
+  
+  "[Op] int<<32>> a = 1; //[id=30]" -> "[SIf] (y==10&&a==2) //[id=81]";
+  "[SIf] (y==10&&a==2) //[id=81]" -> "[Op] int<<32>> b = 1; //[id=71]";
+  "[SIf] (y==10&&a==2) //[id=81]" -> "[Op] int<<32>> c = 2; //[id=79]";
+  
+  }

@@ -1,0 +1,68 @@
+---LLOp.ml log---
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~353
+statement: int<<32>> z = 26;
+op statement: [Op] int<<32>> z = 26; //[id=20]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~355
+statement: int<<32>> a = 1;
+op statement: [Op] int<<32>> a = 1; //[id=30]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~356
+statement: if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+op statement: [SIf] (y==10&&a==2) //[id=81]
+-----------
+-----[from_if]-----
+-------
+table name:  tbl~0.opstmt~356
+ 
+    action dpt_358_true( ){
+        //next tables: [dpt_360_tbl_0_opstmt]
+        
+    }
+    
+ 
+    action dpt_359_false( ){
+        //next tables: [dpt_361_tbl_0_opstmt]
+        
+    }
+    
+ 
+    // Stage not set by dptc
+    table dpt_356_tbl_0_opstmt {
+        key = {
+            hdr.secondpass.y : ternary;
+            a : ternary;
+        }
+        actions = {
+            dpt_358_true;
+            dpt_359_false;
+        }
+        const entries = {
+            (10, 2) : dpt_358_true();
+            (_, _) : dpt_359_false();
+        }
+        
+    }
+    
+-------
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~361
+statement: int<<32>> c = 2;
+op statement: [Op] int<<32>> c = 2; //[id=79]
+-----------
+[from_assign] created alu: alu.opstmt
+-----[from_opstmt] ------
+creating table: tbl~0.opstmt~360
+statement: int<<32>> b = 1;
+op statement: [Op] int<<32>> b = 1; //[id=71]
+-----------
+[from_assign] created alu: alu.opstmt

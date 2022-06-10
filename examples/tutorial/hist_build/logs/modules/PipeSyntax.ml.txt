@@ -1,0 +1,2512 @@
+---PipeSyntax.ml log---
+[layout_rec] (start) [ctx_summary] iteration: 1 placed: 0 unplaced: 19
+[layout_rec] (start) failed_stage_placements: 0
+[layout_rec] (start) impossible_stage_placements_skipped: 0
+[place_in_pipe] starting placement for: dpt_1253_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 0
+[place_in_new_stage] placed table dpt_1253_tbl_0_opstmt in NEW stage 0
+[dataflow_check] table id: dpt_1253_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1253_tbl_0_opstmt} in stage 0 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1253_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1253_acn_0_opstmt;
+            dpt_1341_noop;
+        }
+        const entries = {
+            2 : dpt_1253_acn_0_opstmt();
+            (_) : dpt_1341_noop();
+        }
+        
+    }
+    
+    action dpt_1253_acn_0_opstmt( ){
+        dpt_1253_alu_0_opstmt();
+        //next tables: [dpt_1254_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1341_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1253_alu_0_opstmt( ){
+        cur_idx = hdr.report.idx;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 0
+    table dpt_1_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1253_merged_acn_1_acn_0_opstmt;
+            dpt_1341_merged_acn_1_noop;
+        }
+        const entries = {
+            2 : dpt_1253_merged_acn_1_acn_0_opstmt();
+            _ : dpt_1341_merged_acn_1_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[dataflow_check] table id: dpt_1253_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1253_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 1 unplaced: 18
+[place_in_pipe] starting placement for: dpt_1280_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 1
+[dataflow_check] table id: dpt_1280_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1280_tbl_0_opstmt} in stage 0 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1280_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1280_acn_0_opstmt;
+            dpt_1343_noop;
+        }
+        const entries = {
+            1 : dpt_1280_acn_0_opstmt();
+            (_) : dpt_1343_noop();
+        }
+        
+    }
+    
+    action dpt_1280_acn_0_opstmt( ){
+        dpt_1280_alu_0_opstmt();
+        //next tables: [dpt_1281_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1343_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1280_alu_0_opstmt( ){
+        cur_idx = 0;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 0
+    table dpt_1_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1343_merged_acn_1_acn_0_opstmt_1253_noop;
+            dpt_1280_merged_acn_1_noop_1341_acn_0_opstmt;
+            dpt_1343_merged_acn_1_noop_1341_noop;
+        }
+        const entries = {
+            2 : dpt_1343_merged_acn_1_acn_0_opstmt_1253_noop();
+            1 : dpt_1280_merged_acn_1_noop_1341_acn_0_opstmt();
+            _ : dpt_1343_merged_acn_1_noop_1341_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_1_merged_tbl:[dpt_1253_tbl_0_opstmt, dpt_1253_acn_0_opstmt, dpt_1341_noop, dpt_1253_alu_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1280_acn_0_opstmt, dpt_1343_noop, dpt_1280_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_1_merged_tbl:[dpt_1253_tbl_0_opstmt, dpt_1253_acn_0_opstmt, dpt_1341_noop, dpt_1253_alu_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1280_acn_0_opstmt, dpt_1343_noop, dpt_1280_alu_0_opstmt]>
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] tg keys total_width: 8
+[max_actions] tg number of actions: 3
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1280_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1280_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 2 unplaced: 17
+[place_in_stages] placed table dpt_1280_tbl_0_opstmt in stage 0/1
+[place_in_pipe] finished placement for: dpt_1280_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 1
+[place_in_pipe] starting placement for: dpt_1281_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 1
+[dataflow_check] table id: dpt_1281_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1281_tbl_0_opstmt} in stage 0 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1281_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1281_acn_0_opstmt;
+            dpt_1347_noop;
+        }
+        const entries = {
+            1 : dpt_1281_acn_0_opstmt();
+            (_) : dpt_1347_noop();
+        }
+        
+    }
+    
+    action dpt_1281_acn_0_opstmt( ){
+        dpt_1281_alu_0_opstmt();
+        //next tables: [dpt_1287_tbl_0_opstmt, dpt_1288_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1347_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1281_alu_0_opstmt( ){
+        if_precomp1238 = 128 |-| md.ip_in.len;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 0
+    table dpt_1_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1347_merged_acn_1_acn_0_opstmt_1253_noop_1343_noop;
+            dpt_1281_merged_acn_1_noop_1341_acn_0_opstmt_1280_acn_0_opstmt;
+            dpt_1347_merged_acn_1_noop_1341_noop_1343_noop;
+        }
+        const entries = {
+            2 : dpt_1347_merged_acn_1_acn_0_opstmt_1253_noop_1343_noop();
+            1 : dpt_1281_merged_acn_1_noop_1341_acn_0_opstmt_1280_acn_0_opstmt();
+            _ : dpt_1347_merged_acn_1_noop_1341_noop_1343_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_1_merged_tbl:[dpt_1253_tbl_0_opstmt, dpt_1253_acn_0_opstmt, dpt_1341_noop, dpt_1253_alu_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1280_acn_0_opstmt, dpt_1343_noop, dpt_1280_alu_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1281_acn_0_opstmt, dpt_1347_noop, dpt_1281_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_1_merged_tbl:[dpt_1253_tbl_0_opstmt, dpt_1253_acn_0_opstmt, dpt_1341_noop, dpt_1253_alu_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1280_acn_0_opstmt, dpt_1343_noop, dpt_1280_alu_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1281_acn_0_opstmt, dpt_1347_noop, dpt_1281_alu_0_opstmt]>
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] tg keys total_width: 8
+[max_actions] tg number of actions: 3
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1281_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1281_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 3 unplaced: 16
+[place_in_stages] placed table dpt_1281_tbl_0_opstmt in stage 0/1
+[place_in_pipe] finished placement for: dpt_1281_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 1
+[place_in_pipe] starting placement for: dpt_1328_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 1
+[dataflow_check] table id: dpt_1328_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1328_tbl_0_opstmt} in stage 0 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1328_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1328_acn_0_opstmt;
+            dpt_1435_noop;
+        }
+        const entries = {
+            1 : dpt_1328_acn_0_opstmt();
+            (_) : dpt_1435_noop();
+        }
+        
+    }
+    
+    action dpt_1328_acn_0_opstmt( ){
+        dpt_1328_generate_alu_0_opstmt();
+        //next tables: []
+        
+    }
+    
+    action dpt_1435_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1328_generate_alu_0_opstmt( ){
+        md.ip_out.eventType = 3;
+        md.ip_out.eventLoc = 0;
+        md.ip_out.eventDelay = 0;
+        md.ip_out.egr_port = md.ip_in.igr_port;
+        md.ip_out.src = md.ip_in.src;
+        md.ip_out.dst = md.ip_in.dst;
+        md.dptMeta.exitEventType = 3;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 0
+    table dpt_1_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1435_merged_acn_1_acn_0_opstmt_1253_noop_1343_noop_1347_noop;
+            dpt_1328_merged_acn_1_noop_1341_acn_0_opstmt_1280_acn_0_opstmt_1281_acn_0_opstmt;
+            dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop;
+        }
+        const entries = {
+            2 : dpt_1435_merged_acn_1_acn_0_opstmt_1253_noop_1343_noop_1347_noop();
+            1 : dpt_1328_merged_acn_1_noop_1341_acn_0_opstmt_1280_acn_0_opstmt_1281_acn_0_opstmt();
+            _ : dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_1_merged_tbl:[dpt_1253_tbl_0_opstmt, dpt_1253_acn_0_opstmt, dpt_1341_noop, dpt_1253_alu_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1280_acn_0_opstmt, dpt_1343_noop, dpt_1280_alu_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1281_acn_0_opstmt, dpt_1347_noop, dpt_1281_alu_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1328_acn_0_opstmt, dpt_1435_noop, dpt_1328_generate_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_1_merged_tbl:[dpt_1253_tbl_0_opstmt, dpt_1253_acn_0_opstmt, dpt_1341_noop, dpt_1253_alu_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1280_acn_0_opstmt, dpt_1343_noop, dpt_1280_alu_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1281_acn_0_opstmt, dpt_1347_noop, dpt_1281_alu_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1328_acn_0_opstmt, dpt_1435_noop, dpt_1328_generate_alu_0_opstmt]>
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] tg keys total_width: 8
+[max_actions] tg number of actions: 3
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1328_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1328_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 4 unplaced: 15
+[place_in_stages] placed table dpt_1328_tbl_0_opstmt in stage 0/1
+[place_in_pipe] finished placement for: dpt_1328_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 1
+[place_in_pipe] starting placement for: dpt_1263_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 1
+[dataflow_check] table id: dpt_1263_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1253_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1263_tbl_0_opstmt} in stage 0 (skipping)
+[place_in_pipe] placement in existing stages failed. trying a new stage for: dpt_1263_tbl_0_opstmt
+[place_in_new_stage] placed table dpt_1263_tbl_0_opstmt in NEW stage 1
+[dataflow_check] table id: dpt_1263_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1263_tbl_0_opstmt} in stage 1 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1263_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1263_acn_0_opstmt;
+            dpt_1371_noop;
+        }
+        const entries = {
+            2 : dpt_1263_acn_0_opstmt();
+            (_) : dpt_1371_noop();
+        }
+        
+    }
+    
+    action dpt_1263_acn_0_opstmt( ){
+        dpt_1263_alu_0_opstmt();
+        //next tables: [dpt_1272_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1371_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1263_alu_0_opstmt( ){
+        if_precomp = 3 |-| cur_idx;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 1
+    table dpt_2_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1263_merged_acn_2_acn_0_opstmt;
+            dpt_1371_merged_acn_2_noop;
+        }
+        const entries = {
+            2 : dpt_1263_merged_acn_2_acn_0_opstmt();
+            _ : dpt_1371_merged_acn_2_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[dataflow_check] table id: dpt_1263_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1263_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 5 unplaced: 14
+[place_in_pipe] starting placement for: dpt_1288_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 2
+[dataflow_check] table id: dpt_1288_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1281_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1281_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1288_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1288_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1281_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1288_tbl_0_opstmt} in stage 1 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1288_tbl_0_opstmt {
+        key = {
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1361_noop;
+            dpt_1288_acn_0_opstmt;
+            dpt_1359_noop;
+        }
+        const entries = {
+            (128, 0, 1) : dpt_1361_noop();
+            (_, 0, 1) : dpt_1288_acn_0_opstmt();
+            (_, _, _) : dpt_1359_noop();
+        }
+        
+    }
+    
+    action dpt_1361_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1288_acn_0_opstmt( ){
+        dpt_1288_alu_0_opstmt();
+        //next tables: [dpt_1300_tbl_0_opstmt, dpt_1301_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1359_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1288_alu_0_opstmt( ){
+        if_precomp1237 = 512 |-| md.ip_in.len;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 1
+    table dpt_2_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+        }
+        actions = {
+            dpt_1359_merged_acn_2_acn_0_opstmt_1263_noop;
+            dpt_1361_merged_acn_2_noop_1371_noop;
+            dpt_1288_merged_acn_2_noop_1371_acn_0_opstmt;
+            dpt_1359_merged_acn_2_noop_1371_noop;
+        }
+        const entries = {
+            (2, _, _) : dpt_1359_merged_acn_2_acn_0_opstmt_1263_noop();
+            (1, 128, 0) : dpt_1361_merged_acn_2_noop_1371_noop();
+            (1, _, 0) : dpt_1288_merged_acn_2_noop_1371_acn_0_opstmt();
+            (_, _, _) : dpt_1359_merged_acn_2_noop_1371_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_2_merged_tbl:[dpt_1263_tbl_0_opstmt, dpt_1263_acn_0_opstmt, dpt_1371_noop, dpt_1263_alu_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1361_noop, dpt_1288_acn_0_opstmt, dpt_1359_noop, dpt_1288_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_2_merged_tbl:[dpt_1263_tbl_0_opstmt, dpt_1263_acn_0_opstmt, dpt_1371_noop, dpt_1263_alu_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1361_noop, dpt_1288_acn_0_opstmt, dpt_1359_noop, dpt_1288_alu_0_opstmt]>
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] dpt_1247_md_0_ip_in_990_len: 16
+[max_matchbits] dpt_1238_if_precomp1238: 16
+[max_matchbits] tg keys total_width: 40
+[max_actions] tg number of actions: 4
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1288_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1281_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1288_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 6 unplaced: 13
+[place_in_stages] placed table dpt_1288_tbl_0_opstmt in stage 1/2
+[place_in_pipe] finished placement for: dpt_1288_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 2
+[place_in_pipe] starting placement for: dpt_1287_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 2
+[dataflow_check] table id: dpt_1287_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1287_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1287_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1287_tbl_0_opstmt} in stage 1 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1287_tbl_0_opstmt {
+        key = {
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1287_acn_0_opstmt;
+            dpt_1357_noop;
+            dpt_1355_noop;
+        }
+        const entries = {
+            (128, 0, 1) : dpt_1287_acn_0_opstmt();
+            (_, 0, 1) : dpt_1357_noop();
+            (_, _, 1) : dpt_1287_acn_0_opstmt();
+            (_, _, _) : dpt_1355_noop();
+        }
+        
+    }
+    
+    action dpt_1287_acn_0_opstmt( ){
+        dpt_1287_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1357_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1355_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1287_alu_0_opstmt( ){
+        cur_idx = 0;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 1
+    table dpt_2_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+        }
+        actions = {
+            dpt_1355_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop;
+            dpt_1287_merged_acn_2_noop_1371_noop_1361_acn_0_opstmt;
+            dpt_1357_merged_acn_2_noop_1371_acn_0_opstmt_1288_noop;
+            dpt_1287_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt;
+            dpt_1355_merged_acn_2_noop_1371_noop_1359_noop;
+        }
+        const entries = {
+            (2, _, _) : dpt_1355_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop();
+            (1, 128, 0) : dpt_1287_merged_acn_2_noop_1371_noop_1361_acn_0_opstmt();
+            (1, _, 0) : dpt_1357_merged_acn_2_noop_1371_acn_0_opstmt_1288_noop();
+            (1, _, _) : dpt_1287_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt();
+            (_, _, _) : dpt_1355_merged_acn_2_noop_1371_noop_1359_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_2_merged_tbl:[dpt_1263_tbl_0_opstmt, dpt_1263_acn_0_opstmt, dpt_1371_noop, dpt_1263_alu_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1361_noop, dpt_1288_acn_0_opstmt, dpt_1359_noop, dpt_1288_alu_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1287_acn_0_opstmt, dpt_1357_noop, dpt_1355_noop, dpt_1287_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_2_merged_tbl:[dpt_1263_tbl_0_opstmt, dpt_1263_acn_0_opstmt, dpt_1371_noop, dpt_1263_alu_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1361_noop, dpt_1288_acn_0_opstmt, dpt_1359_noop, dpt_1288_alu_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1287_acn_0_opstmt, dpt_1357_noop, dpt_1355_noop, dpt_1287_alu_0_opstmt]>
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] dpt_1247_md_0_ip_in_990_len: 16
+[max_matchbits] dpt_1238_if_precomp1238: 16
+[max_matchbits] tg keys total_width: 40
+[max_actions] tg number of actions: 5
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1287_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1287_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 7 unplaced: 12
+[place_in_stages] placed table dpt_1287_tbl_0_opstmt in stage 1/2
+[place_in_pipe] finished placement for: dpt_1287_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 2
+[place_in_pipe] starting placement for: dpt_1327_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 2
+[dataflow_check] table id: dpt_1327_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1321_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1321_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1327_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1327_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1321_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1321_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1327_tbl_0_opstmt} in stage 1 (skipping)
+[place_in_pipe] placement in existing stages failed. trying a new stage for: dpt_1327_tbl_0_opstmt
+[place_in_new_stage] placed table dpt_1327_tbl_0_opstmt in NEW stage 2
+[dataflow_check] table id: dpt_1327_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1321_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1321_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1327_tbl_0_opstmt} in stage 2 (skipping)
+[place_in_pipe] placement in existing or new stages failed. leaving table for next round: dpt_1327_tbl_0_opstmt
+[place_in_pipe] starting placement for: dpt_1272_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 2
+[dataflow_check] table id: dpt_1272_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1272_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1272_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1263_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1272_tbl_0_opstmt} in stage 1 (skipping)
+[place_in_pipe] placement in existing stages failed. trying a new stage for: dpt_1272_tbl_0_opstmt
+[place_in_new_stage] placed table dpt_1272_tbl_0_opstmt in NEW stage 2
+[dataflow_check] table id: dpt_1272_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1272_tbl_0_opstmt} in stage 2 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1272_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1401_noop;
+            dpt_1272_acn_0_opstmt;
+            dpt_1399_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1401_noop();
+            (_, 2) : dpt_1272_acn_0_opstmt();
+            (_, _) : dpt_1399_noop();
+        }
+        
+    }
+    
+    action dpt_1401_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1272_acn_0_opstmt( ){
+        dpt_1272_alu_0_opstmt();
+        //next tables: [dpt_1276_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1399_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1272_alu_0_opstmt( ){
+        precompute = 1 + cur_idx;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 2
+    table dpt_3_merged_tbl {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1401_merged_acn_3_noop;
+            dpt_1272_merged_acn_3_acn_0_opstmt;
+            dpt_1399_merged_acn_3_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1401_merged_acn_3_noop();
+            (_, 2) : dpt_1272_merged_acn_3_acn_0_opstmt();
+            (_, _) : dpt_1399_merged_acn_3_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[dataflow_check] table id: dpt_1272_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1272_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 8 unplaced: 11
+[place_in_pipe] starting placement for: dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 3
+[dataflow_check] table id: dpt_1262_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1253_tbl_0_opstmt
+[dataflow_check] fail
+[dataflow_check] table id: dpt_1321_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1262_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[dataflow_check] table id: dpt_1321_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt} in stage 1 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1262_tbl_0_opstmt {
+        key = {
+            cur_idx : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1262_acn_0_opstmt;
+            dpt_1363_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1262_acn_0_opstmt();
+            (_, _) : dpt_1363_noop();
+        }
+        
+    }
+    
+    action dpt_1262_acn_0_opstmt( ){
+        dpt_1262_salu_0_opstmt();
+        //next tables: [dpt_1263_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1363_noop( ){
+        //next tables: []
+        
+    }
+    
+    RegisterAction<fmt_total_arr,bit<32>,bit<32>>(total_arr) dpt_1262_sprog_1474_salu_0_opstmt = {
+        void apply(inout fmt_total_arr remote, out bit<32> remoteRet) {
+            fmt_total_arr local = remote;
+            remote.lo=0;
+        }
+    };
+    action dpt_1262_salu_0_opstmt() {
+        dpt_1262_sprog_1474_salu_0_opstmt.execute((bit<32>)0);
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 1
+    table dpt_2_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            cur_idx : ternary;
+        }
+        actions = {
+            dpt_1262_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_acn_0_opstmt;
+            dpt_1363_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_noop;
+            dpt_1363_merged_acn_2_noop_1371_noop_1361_acn_0_opstmt_1287_noop;
+            dpt_1363_merged_acn_2_noop_1371_acn_0_opstmt_1288_noop_1357_noop;
+            dpt_1363_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop;
+            dpt_1363_merged_acn_2_noop_1371_noop_1359_noop_1355_noop;
+        }
+        const entries = {
+            (2, _, _, 0) : dpt_1262_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_acn_0_opstmt();
+            (2, _, _, _) : dpt_1363_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_noop();
+            (1, 128, 0, _) : dpt_1363_merged_acn_2_noop_1371_noop_1361_acn_0_opstmt_1287_noop();
+            (1, _, 0, _) : dpt_1363_merged_acn_2_noop_1371_acn_0_opstmt_1288_noop_1357_noop();
+            (1, _, _, _) : dpt_1363_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop();
+            (_, _, _, _) : dpt_1363_merged_acn_2_noop_1371_noop_1359_noop_1355_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1321_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1321_acn_0_opstmt;
+            dpt_1429_noop;
+        }
+        const entries = {
+            1 : dpt_1321_acn_0_opstmt();
+            (_) : dpt_1429_noop();
+        }
+        
+    }
+    
+    action dpt_1321_acn_0_opstmt( ){
+        dpt_1321_salu_0_opstmt();
+        //next tables: [dpt_1327_tbl_0_opstmt, dpt_1328_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1429_noop( ){
+        //next tables: []
+        
+    }
+    
+    RegisterAction<fmt_total_arr,bit<32>,bit<32>>(total_arr) dpt_1321_sprog_1482_salu_0_opstmt = {
+        void apply(inout fmt_total_arr remote, out bit<32> remoteRet) {
+            fmt_total_arr local = remote;
+            remoteRet=1 + local.lo;
+            remote.lo=1 + local.lo;
+        }
+    };
+    action dpt_1321_salu_0_opstmt() {
+        total_ct=dpt_1321_sprog_1482_salu_0_opstmt.execute((bit<32>)0);
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 1
+    table dpt_2_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            cur_idx : ternary;
+        }
+        actions = {
+            dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_acn_0_opstmt_1262_noop;
+            dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_noop_1363_noop;
+            dpt_1321_merged_acn_2_noop_1371_noop_1361_acn_0_opstmt_1287_noop_1363_acn_0_opstmt;
+            dpt_1321_merged_acn_2_noop_1371_acn_0_opstmt_1288_noop_1357_noop_1363_acn_0_opstmt;
+            dpt_1321_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop_1363_acn_0_opstmt;
+            dpt_1429_merged_acn_2_noop_1371_noop_1359_noop_1355_noop_1363_noop;
+        }
+        const entries = {
+            (2, _, _, 0) : dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_acn_0_opstmt_1262_noop();
+            (2, _, _, _) : dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_noop_1363_noop();
+            (1, 128, 0, _) : dpt_1321_merged_acn_2_noop_1371_noop_1361_acn_0_opstmt_1287_noop_1363_acn_0_opstmt();
+            (1, _, 0, _) : dpt_1321_merged_acn_2_noop_1371_acn_0_opstmt_1288_noop_1357_noop_1363_acn_0_opstmt();
+            (1, _, _, _) : dpt_1321_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop_1363_acn_0_opstmt();
+            (_, _, _, _) : dpt_1429_merged_acn_2_noop_1371_noop_1359_noop_1355_noop_1363_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_2_merged_tbl:[dpt_1263_tbl_0_opstmt, dpt_1263_acn_0_opstmt, dpt_1371_noop, dpt_1263_alu_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1361_noop, dpt_1288_acn_0_opstmt, dpt_1359_noop, dpt_1288_alu_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1287_acn_0_opstmt, dpt_1357_noop, dpt_1355_noop, dpt_1287_alu_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1262_acn_0_opstmt, dpt_1363_noop, dpt_1262_salu_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1321_acn_0_opstmt, dpt_1429_noop, dpt_1321_salu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_2_merged_tbl:[dpt_1263_tbl_0_opstmt, dpt_1263_acn_0_opstmt, dpt_1371_noop, dpt_1263_alu_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1361_noop, dpt_1288_acn_0_opstmt, dpt_1359_noop, dpt_1288_alu_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1287_acn_0_opstmt, dpt_1357_noop, dpt_1355_noop, dpt_1287_alu_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1262_acn_0_opstmt, dpt_1363_noop, dpt_1262_salu_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1321_acn_0_opstmt, dpt_1429_noop, dpt_1321_salu_0_opstmt]>
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] dpt_1247_md_0_ip_in_990_len: 16
+[max_matchbits] dpt_1238_if_precomp1238: 16
+[max_matchbits] dpt_1007_cur_idx: 32
+[max_matchbits] tg keys total_width: 72
+[max_actions] tg number of actions: 6
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1262_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[dataflow_check] table id: dpt_1321_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 10 unplaced: 9
+[place_in_stages] placed table dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt in stage 1/3
+[place_in_pipe] finished placement for: dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 3
+[place_in_pipe] starting placement for: dpt_1256_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 3
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1256_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1254_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1256_tbl_0_opstmt} in stage 1 (skipping)
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1254_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1256_tbl_0_opstmt} in stage 2 (skipping)
+[place_in_pipe] placement in existing stages failed. trying a new stage for: dpt_1256_tbl_0_opstmt
+[place_in_new_stage] placed table dpt_1256_tbl_0_opstmt in NEW stage 3
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1254_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1256_tbl_0_opstmt} in stage 3 (skipping)
+[place_in_pipe] placement in existing or new stages failed. leaving table for next round: dpt_1256_tbl_0_opstmt
+[place_in_pipe] starting placement for: dpt_1301_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 3
+[dataflow_check] table id: dpt_1301_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1301_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1301_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1288_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1301_tbl_0_opstmt} in stage 1 (skipping)
+[dataflow_check] table id: dpt_1301_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1301_tbl_0_opstmt} in stage 2 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1301_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1383_noop;
+            dpt_1385_noop;
+            dpt_1301_acn_0_opstmt;
+            dpt_1381_noop;
+        }
+        const entries = {
+            (0, 512, 0, 1) : dpt_1383_noop();
+            (0, 128, 0, 1) : dpt_1385_noop();
+            (0, _, 0, 1) : dpt_1301_acn_0_opstmt();
+            (_, _, _, _) : dpt_1381_noop();
+        }
+        
+    }
+    
+    action dpt_1383_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1385_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1301_acn_0_opstmt( ){
+        dpt_1301_alu_0_opstmt();
+        //next tables: [dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1381_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1301_alu_0_opstmt( ){
+        if_precomp1236 = 1024 |-| md.ip_in.len;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 2
+    table dpt_3_merged_tbl {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+        }
+        actions = {
+            dpt_1381_merged_acn_3_noop_1401_noop;
+            dpt_1381_merged_acn_3_acn_0_opstmt_1272_noop;
+            dpt_1383_merged_acn_3_noop_1399_noop;
+            dpt_1385_merged_acn_3_noop_1399_noop;
+            dpt_1301_merged_acn_3_noop_1399_acn_0_opstmt;
+            dpt_1381_merged_acn_3_noop_1399_noop;
+        }
+        const entries = {
+            (0, 2, _, _, _) : dpt_1381_merged_acn_3_noop_1401_noop();
+            (_, 2, _, _, _) : dpt_1381_merged_acn_3_acn_0_opstmt_1272_noop();
+            (_, 1, 0, 512, 0) : dpt_1383_merged_acn_3_noop_1399_noop();
+            (_, 1, 0, 128, 0) : dpt_1385_merged_acn_3_noop_1399_noop();
+            (_, 1, 0, _, 0) : dpt_1301_merged_acn_3_noop_1399_acn_0_opstmt();
+            (_, _, _, _, _) : dpt_1381_merged_acn_3_noop_1399_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_3_merged_tbl:[dpt_1272_tbl_0_opstmt, dpt_1401_noop, dpt_1272_acn_0_opstmt, dpt_1399_noop, dpt_1272_alu_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1383_noop, dpt_1385_noop, dpt_1301_acn_0_opstmt, dpt_1381_noop, dpt_1301_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_3_merged_tbl:[dpt_1272_tbl_0_opstmt, dpt_1401_noop, dpt_1272_acn_0_opstmt, dpt_1399_noop, dpt_1272_alu_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1383_noop, dpt_1385_noop, dpt_1301_acn_0_opstmt, dpt_1381_noop, dpt_1301_alu_0_opstmt]>
+[max_matchbits] dpt_1235_if_precomp: 32
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] dpt_1237_if_precomp1237: 16
+[max_matchbits] dpt_1247_md_0_ip_in_990_len: 16
+[max_matchbits] dpt_1238_if_precomp1238: 16
+[max_matchbits] tg keys total_width: 88
+[max_actions] tg number of actions: 6
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1301_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1301_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 11 unplaced: 8
+[place_in_stages] placed table dpt_1301_tbl_0_opstmt in stage 2/3
+[place_in_pipe] finished placement for: dpt_1301_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 3
+[place_in_pipe] starting placement for: dpt_1300_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 3
+[dataflow_check] table id: dpt_1300_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1300_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1300_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1288_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1300_tbl_0_opstmt} in stage 1 (skipping)
+[dataflow_check] table id: dpt_1300_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1300_tbl_0_opstmt} in stage 2 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1300_tbl_0_opstmt {
+        key = {
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1300_acn_0_opstmt;
+            dpt_1375_noop;
+            dpt_1377_noop;
+            dpt_1379_noop;
+            dpt_1373_noop;
+        }
+        const entries = {
+            (0, 512, 0, 1) : dpt_1300_acn_0_opstmt();
+            (0, 128, 0, 1) : dpt_1375_noop();
+            (0, _, 0, 1) : dpt_1377_noop();
+            (_, 128, 0, 1) : dpt_1379_noop();
+            (_, _, 0, 1) : dpt_1300_acn_0_opstmt();
+            (_, _, _, _) : dpt_1373_noop();
+        }
+        
+    }
+    
+    action dpt_1300_acn_0_opstmt( ){
+        dpt_1300_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1375_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1377_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1379_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1373_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1300_alu_0_opstmt( ){
+        cur_idx = 1;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 2
+    table dpt_3_merged_tbl {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+        }
+        actions = {
+            dpt_1373_merged_acn_3_noop_1401_noop_1381_noop;
+            dpt_1373_merged_acn_3_acn_0_opstmt_1272_noop_1381_noop;
+            dpt_1300_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt;
+            dpt_1375_merged_acn_3_noop_1399_noop_1385_noop;
+            dpt_1377_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop;
+            dpt_1379_merged_acn_3_noop_1399_noop_1381_noop;
+            dpt_1300_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt;
+            dpt_1373_merged_acn_3_noop_1399_noop_1381_noop;
+        }
+        const entries = {
+            (0, 2, _, _, _) : dpt_1373_merged_acn_3_noop_1401_noop_1381_noop();
+            (_, 2, _, _, _) : dpt_1373_merged_acn_3_acn_0_opstmt_1272_noop_1381_noop();
+            (_, 1, 0, 512, 0) : dpt_1300_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt();
+            (_, 1, 0, 128, 0) : dpt_1375_merged_acn_3_noop_1399_noop_1385_noop();
+            (_, 1, 0, _, 0) : dpt_1377_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop();
+            (_, 1, _, 128, 0) : dpt_1379_merged_acn_3_noop_1399_noop_1381_noop();
+            (_, 1, _, _, 0) : dpt_1300_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt();
+            (_, _, _, _, _) : dpt_1373_merged_acn_3_noop_1399_noop_1381_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_3_merged_tbl:[dpt_1272_tbl_0_opstmt, dpt_1401_noop, dpt_1272_acn_0_opstmt, dpt_1399_noop, dpt_1272_alu_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1383_noop, dpt_1385_noop, dpt_1301_acn_0_opstmt, dpt_1381_noop, dpt_1301_alu_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1300_acn_0_opstmt, dpt_1375_noop, dpt_1377_noop, dpt_1379_noop, dpt_1373_noop, dpt_1300_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_3_merged_tbl:[dpt_1272_tbl_0_opstmt, dpt_1401_noop, dpt_1272_acn_0_opstmt, dpt_1399_noop, dpt_1272_alu_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1383_noop, dpt_1385_noop, dpt_1301_acn_0_opstmt, dpt_1381_noop, dpt_1301_alu_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1300_acn_0_opstmt, dpt_1375_noop, dpt_1377_noop, dpt_1379_noop, dpt_1373_noop, dpt_1300_alu_0_opstmt]>
+[max_matchbits] dpt_1235_if_precomp: 32
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] dpt_1237_if_precomp1237: 16
+[max_matchbits] dpt_1247_md_0_ip_in_990_len: 16
+[max_matchbits] dpt_1238_if_precomp1238: 16
+[max_matchbits] tg keys total_width: 88
+[max_actions] tg number of actions: 8
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1300_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1300_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 12 unplaced: 7
+[place_in_stages] placed table dpt_1300_tbl_0_opstmt in stage 2/3
+[place_in_pipe] finished placement for: dpt_1300_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 3
+[place_in_pipe] starting placement for: dpt_1276_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 3
+[dataflow_check] table id: dpt_1276_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1272_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1272_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1276_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1276_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1272_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1272_tbl_0_opstmt, dpt_1263_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1276_tbl_0_opstmt} in stage 1 (skipping)
+[dataflow_check] table id: dpt_1276_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1272_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1272_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1276_tbl_0_opstmt} in stage 2 (skipping)
+[place_in_pipe] placement in existing stages failed. trying a new stage for: dpt_1276_tbl_0_opstmt
+[place_in_new_stage] placed table dpt_1276_tbl_0_opstmt in NEW stage 3
+[dataflow_check] table id: dpt_1276_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1272_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1276_tbl_0_opstmt} in stage 3 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1276_tbl_0_opstmt {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1425_noop;
+            dpt_1276_acn_0_opstmt;
+            dpt_1423_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1425_noop();
+            (_, 2) : dpt_1276_acn_0_opstmt();
+            (_, _) : dpt_1423_noop();
+        }
+        
+    }
+    
+    action dpt_1425_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1276_acn_0_opstmt( ){
+        dpt_1276_generate_alu_0_opstmt();
+        //next tables: []
+        
+    }
+    
+    action dpt_1423_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1276_generate_alu_0_opstmt( ){
+        hdr.report.eventType = 2;
+        hdr.report.eventLoc = 0;
+        hdr.report.eventDelay = 0;
+        hdr.report.setValid();
+        hdr.lucid_footer.setValid();
+        hdr.lucid_footer.end = 0;
+        hdr.report.idx = precompute;
+        md.dptMeta.nextEventType = 2;
+        md.dptMeta.eventsCount = md.dptMeta.eventsCount + 1;
+        hdr.ev_out_flags.setValid();
+        hdr.ev_out_flags.report = 1;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 3
+    table dpt_4_merged_tbl {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1425_merged_acn_4_noop;
+            dpt_1276_merged_acn_4_acn_0_opstmt;
+            dpt_1423_merged_acn_4_noop;
+        }
+        const entries = {
+            (0, 2) : dpt_1425_merged_acn_4_noop();
+            (_, 2) : dpt_1276_merged_acn_4_acn_0_opstmt();
+            (_, _) : dpt_1423_merged_acn_4_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[dataflow_check] table id: dpt_1276_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1272_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1276_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 13 unplaced: 6
+[place_in_pipe] starting placement for: dpt_1313_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 4
+[dataflow_check] table id: dpt_1313_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1313_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1313_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1313_tbl_0_opstmt} in stage 1 (skipping)
+[dataflow_check] table id: dpt_1313_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1301_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1313_tbl_0_opstmt} in stage 2 (skipping)
+[dataflow_check] table id: dpt_1313_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1313_tbl_0_opstmt} in stage 3 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1313_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1417_noop;
+            dpt_1419_noop;
+            dpt_1421_noop;
+            dpt_1313_acn_0_opstmt;
+            dpt_1415_noop;
+        }
+        const entries = {
+            (0, 0, 1024, 0, 1) : dpt_1417_noop();
+            (0, 0, 512, 0, 1) : dpt_1419_noop();
+            (0, 0, 128, 0, 1) : dpt_1421_noop();
+            (0, 0, _, 0, 1) : dpt_1313_acn_0_opstmt();
+            (_, _, _, _, _) : dpt_1415_noop();
+        }
+        
+    }
+    
+    action dpt_1417_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1419_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1421_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1313_acn_0_opstmt( ){
+        dpt_1313_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1415_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1313_alu_0_opstmt( ){
+        cur_idx = 3;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 3
+    table dpt_4_merged_tbl {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+            if_precomp1236 : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+        }
+        actions = {
+            dpt_1415_merged_acn_4_noop_1425_noop;
+            dpt_1415_merged_acn_4_acn_0_opstmt_1276_noop;
+            dpt_1417_merged_acn_4_noop_1423_noop;
+            dpt_1419_merged_acn_4_noop_1423_noop;
+            dpt_1421_merged_acn_4_noop_1423_noop;
+            dpt_1313_merged_acn_4_noop_1423_acn_0_opstmt;
+            dpt_1415_merged_acn_4_noop_1423_noop;
+        }
+        const entries = {
+            (0, 2, _, _, _, _) : dpt_1415_merged_acn_4_noop_1425_noop();
+            (_, 2, _, _, _, _) : dpt_1415_merged_acn_4_acn_0_opstmt_1276_noop();
+            (_, 1, 0, 0, 1024, 0) : dpt_1417_merged_acn_4_noop_1423_noop();
+            (_, 1, 0, 0, 512, 0) : dpt_1419_merged_acn_4_noop_1423_noop();
+            (_, 1, 0, 0, 128, 0) : dpt_1421_merged_acn_4_noop_1423_noop();
+            (_, 1, 0, 0, _, 0) : dpt_1313_merged_acn_4_noop_1423_acn_0_opstmt();
+            (_, _, _, _, _, _) : dpt_1415_merged_acn_4_noop_1423_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_4_merged_tbl:[dpt_1276_tbl_0_opstmt, dpt_1425_noop, dpt_1276_acn_0_opstmt, dpt_1423_noop, dpt_1276_generate_alu_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1417_noop, dpt_1419_noop, dpt_1421_noop, dpt_1313_acn_0_opstmt, dpt_1415_noop, dpt_1313_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_4_merged_tbl:[dpt_1276_tbl_0_opstmt, dpt_1425_noop, dpt_1276_acn_0_opstmt, dpt_1423_noop, dpt_1276_generate_alu_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1417_noop, dpt_1419_noop, dpt_1421_noop, dpt_1313_acn_0_opstmt, dpt_1415_noop, dpt_1313_alu_0_opstmt]>
+[max_matchbits] dpt_1235_if_precomp: 32
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] dpt_1236_if_precomp1236: 16
+[max_matchbits] dpt_1237_if_precomp1237: 16
+[max_matchbits] dpt_1247_md_0_ip_in_990_len: 16
+[max_matchbits] dpt_1238_if_precomp1238: 16
+[max_matchbits] tg keys total_width: 104
+[max_actions] tg number of actions: 7
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1313_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1313_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 14 unplaced: 5
+[place_in_stages] placed table dpt_1313_tbl_0_opstmt in stage 3/4
+[place_in_pipe] finished placement for: dpt_1313_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 4
+[place_in_pipe] starting placement for: dpt_1312_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 4
+[dataflow_check] table id: dpt_1312_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1312_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1312_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1312_tbl_0_opstmt} in stage 1 (skipping)
+[dataflow_check] table id: dpt_1312_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1301_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1312_tbl_0_opstmt} in stage 2 (skipping)
+[dataflow_check] table id: dpt_1312_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1312_tbl_0_opstmt} in stage 3 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1312_tbl_0_opstmt {
+        key = {
+            if_precomp1236 : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1312_acn_0_opstmt;
+            dpt_1405_noop;
+            dpt_1407_noop;
+            dpt_1409_noop;
+            dpt_1411_noop;
+            dpt_1413_noop;
+            dpt_1403_noop;
+        }
+        const entries = {
+            (0, 0, 1024, 0, 1) : dpt_1312_acn_0_opstmt();
+            (0, 0, 512, 0, 1) : dpt_1405_noop();
+            (0, 0, 128, 0, 1) : dpt_1407_noop();
+            (0, 0, _, 0, 1) : dpt_1409_noop();
+            (_, 0, 512, 0, 1) : dpt_1411_noop();
+            (_, 0, 128, 0, 1) : dpt_1413_noop();
+            (_, 0, _, 0, 1) : dpt_1312_acn_0_opstmt();
+            (_, _, _, _, _) : dpt_1403_noop();
+        }
+        
+    }
+    
+    action dpt_1312_acn_0_opstmt( ){
+        dpt_1312_alu_0_opstmt();
+        //next tables: [dpt_1294_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1405_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1407_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1409_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1411_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1413_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1403_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1312_alu_0_opstmt( ){
+        cur_idx = 2;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 3
+    table dpt_4_merged_tbl {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+            if_precomp1236 : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+        }
+        actions = {
+            dpt_1403_merged_acn_4_noop_1425_noop_1415_noop;
+            dpt_1403_merged_acn_4_acn_0_opstmt_1276_noop_1415_noop;
+            dpt_1312_merged_acn_4_noop_1423_noop_1417_acn_0_opstmt;
+            dpt_1405_merged_acn_4_noop_1423_noop_1419_noop;
+            dpt_1407_merged_acn_4_noop_1423_noop_1421_noop;
+            dpt_1409_merged_acn_4_noop_1423_acn_0_opstmt_1313_noop;
+            dpt_1411_merged_acn_4_noop_1423_noop_1415_noop;
+            dpt_1413_merged_acn_4_noop_1423_noop_1415_noop;
+            dpt_1312_merged_acn_4_noop_1423_noop_1415_acn_0_opstmt;
+            dpt_1403_merged_acn_4_noop_1423_noop_1415_noop;
+        }
+        const entries = {
+            (0, 2, _, _, _, _) : dpt_1403_merged_acn_4_noop_1425_noop_1415_noop();
+            (_, 2, _, _, _, _) : dpt_1403_merged_acn_4_acn_0_opstmt_1276_noop_1415_noop();
+            (_, 1, 0, 0, 1024, 0) : dpt_1312_merged_acn_4_noop_1423_noop_1417_acn_0_opstmt();
+            (_, 1, 0, 0, 512, 0) : dpt_1405_merged_acn_4_noop_1423_noop_1419_noop();
+            (_, 1, 0, 0, 128, 0) : dpt_1407_merged_acn_4_noop_1423_noop_1421_noop();
+            (_, 1, 0, 0, _, 0) : dpt_1409_merged_acn_4_noop_1423_acn_0_opstmt_1313_noop();
+            (_, 1, _, 0, 512, 0) : dpt_1411_merged_acn_4_noop_1423_noop_1415_noop();
+            (_, 1, _, 0, 128, 0) : dpt_1413_merged_acn_4_noop_1423_noop_1415_noop();
+            (_, 1, _, 0, _, 0) : dpt_1312_merged_acn_4_noop_1423_noop_1415_acn_0_opstmt();
+            (_, _, _, _, _, _) : dpt_1403_merged_acn_4_noop_1423_noop_1415_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_4_merged_tbl:[dpt_1276_tbl_0_opstmt, dpt_1425_noop, dpt_1276_acn_0_opstmt, dpt_1423_noop, dpt_1276_generate_alu_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1417_noop, dpt_1419_noop, dpt_1421_noop, dpt_1313_acn_0_opstmt, dpt_1415_noop, dpt_1313_alu_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1312_acn_0_opstmt, dpt_1405_noop, dpt_1407_noop, dpt_1409_noop, dpt_1411_noop, dpt_1413_noop, dpt_1403_noop, dpt_1312_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_4_merged_tbl:[dpt_1276_tbl_0_opstmt, dpt_1425_noop, dpt_1276_acn_0_opstmt, dpt_1423_noop, dpt_1276_generate_alu_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1417_noop, dpt_1419_noop, dpt_1421_noop, dpt_1313_acn_0_opstmt, dpt_1415_noop, dpt_1313_alu_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1312_acn_0_opstmt, dpt_1405_noop, dpt_1407_noop, dpt_1409_noop, dpt_1411_noop, dpt_1413_noop, dpt_1403_noop, dpt_1312_alu_0_opstmt]>
+[max_matchbits] dpt_1235_if_precomp: 32
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] dpt_1236_if_precomp1236: 16
+[max_matchbits] dpt_1237_if_precomp1237: 16
+[max_matchbits] dpt_1247_md_0_ip_in_990_len: 16
+[max_matchbits] dpt_1238_if_precomp1238: 16
+[max_matchbits] tg keys total_width: 104
+[max_actions] tg number of actions: 10
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1312_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1312_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 15 unplaced: 4
+[place_in_stages] placed table dpt_1312_tbl_0_opstmt in stage 3/4
+[place_in_pipe] finished placement for: dpt_1312_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 4
+[place_in_pipe] starting placement for: dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 4
+[dataflow_check] table id: dpt_1254_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1253_tbl_0_opstmt
+[dataflow_check] fail
+[dataflow_check] table id: dpt_1294_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1254_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[dataflow_check] table id: dpt_1294_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt} in stage 1 (skipping)
+[dataflow_check] table id: dpt_1254_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[dataflow_check] table id: dpt_1294_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1300_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt} in stage 2 (skipping)
+[dataflow_check] table id: dpt_1254_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[dataflow_check] table id: dpt_1294_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt} in stage 3 (skipping)
+[place_in_pipe] placement in existing stages failed. trying a new stage for: dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt
+[place_in_new_stage] placed table dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt in NEW stage 4
+[dataflow_check] table id: dpt_1254_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[dataflow_check] table id: dpt_1294_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt} in stage 4 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1254_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1254_acn_0_opstmt;
+            dpt_1345_noop;
+        }
+        const entries = {
+            2 : dpt_1254_acn_0_opstmt();
+            (_) : dpt_1345_noop();
+        }
+        
+    }
+    
+    action dpt_1254_acn_0_opstmt( ){
+        dpt_1254_salu_0_opstmt();
+        //next tables: [dpt_1256_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1345_noop( ){
+        //next tables: []
+        
+    }
+    
+    RegisterAction<fmt_hist_arr,bit<32>,bit<32>>(hist_arr) dpt_1254_sprog_1538_salu_0_opstmt = {
+        void apply(inout fmt_hist_arr remote, out bit<32> remoteRet) {
+            fmt_hist_arr local = remote;
+            remoteRet=local.lo;
+            remote.lo=0;
+        }
+    };
+    action dpt_1254_salu_0_opstmt() {
+        column_ct=dpt_1254_sprog_1538_salu_0_opstmt.execute((bit<32>)cur_idx);
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 4
+    table dpt_5_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1254_merged_acn_5_acn_0_opstmt;
+            dpt_1345_merged_acn_5_noop;
+        }
+        const entries = {
+            2 : dpt_1254_merged_acn_5_acn_0_opstmt();
+            _ : dpt_1345_merged_acn_5_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1294_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1294_acn_0_opstmt;
+            dpt_1427_noop;
+        }
+        const entries = {
+            1 : dpt_1294_acn_0_opstmt();
+            (_) : dpt_1427_noop();
+        }
+        
+    }
+    
+    action dpt_1294_acn_0_opstmt( ){
+        dpt_1294_salu_0_opstmt();
+        //next tables: [dpt_1321_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1427_noop( ){
+        //next tables: []
+        
+    }
+    
+    RegisterAction<fmt_hist_arr,bit<32>,bit<32>>(hist_arr) dpt_1294_sprog_1541_salu_0_opstmt = {
+        void apply(inout fmt_hist_arr remote, out bit<32> remoteRet) {
+            fmt_hist_arr local = remote;
+            remote.lo=1 + local.lo;
+        }
+    };
+    action dpt_1294_salu_0_opstmt() {
+        dpt_1294_sprog_1541_salu_0_opstmt.execute((bit<32>)cur_idx);
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 4
+    table dpt_5_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1427_merged_acn_5_acn_0_opstmt_1254_noop;
+            dpt_1294_merged_acn_5_noop_1345_acn_0_opstmt;
+            dpt_1427_merged_acn_5_noop_1345_noop;
+        }
+        const entries = {
+            2 : dpt_1427_merged_acn_5_acn_0_opstmt_1254_noop();
+            1 : dpt_1294_merged_acn_5_noop_1345_acn_0_opstmt();
+            _ : dpt_1427_merged_acn_5_noop_1345_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[dataflow_check] table id: dpt_1254_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[dataflow_check] table id: dpt_1294_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 17 unplaced: 2
+[unplaced_nodes] all_nodes: dpt_1328_tbl_0_opstmt, dpt_1327_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1294_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1256_tbl_0_opstmt, dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt, dpt_984_total_arr, dpt_983_hist_arr
+[unplaced_nodes] placed_tables: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt
+[unplaced_nodes] unplaced_registers: dpt_983_hist_arr, dpt_984_total_arr
+[unplaced_nodes] unplaced_nodes: dpt_1327_tbl_0_opstmt, dpt_1256_tbl_0_opstmt, dpt_984_total_arr, dpt_983_hist_arr
+[unplaced_nodes] unplaced_tables: dpt_1327_tbl_0_opstmt, dpt_1256_tbl_0_opstmt
+[layout_rec] did not place all nodes in this pass. Remaining nodes:dpt_1327_tbl_0_opstmt, dpt_1256_tbl_0_opstmt
+[layout_rec] (start) [ctx_summary] iteration: 2 placed: 17 unplaced: 2
+[layout_rec] (start) failed_stage_placements: 30
+[layout_rec] (start) impossible_stage_placements_skipped: 30
+[place_in_pipe] starting placement for: dpt_1327_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 5
+[dataflow_check] table id: dpt_1327_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1321_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1321_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1327_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1327_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1321_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1321_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1327_tbl_0_opstmt} in stage 1 (skipping)
+[dataflow_check] table id: dpt_1327_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1321_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1327_tbl_0_opstmt} in stage 2 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1327_tbl_0_opstmt {
+        key = {
+            total_ct : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1327_acn_0_opstmt;
+            dpt_1433_noop;
+        }
+        const entries = {
+            (4, 1) : dpt_1327_acn_0_opstmt();
+            (_, _) : dpt_1433_noop();
+        }
+        
+    }
+    
+    action dpt_1327_acn_0_opstmt( ){
+        dpt_1327_generate_alu_0_opstmt();
+        //next tables: [dpt_1328_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1433_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1327_generate_alu_0_opstmt( ){
+        hdr.report.eventType = 2;
+        hdr.report.eventLoc = 0;
+        hdr.report.eventDelay = 0;
+        hdr.report.setValid();
+        hdr.lucid_footer.setValid();
+        hdr.lucid_footer.end = 0;
+        hdr.report.idx = 0;
+        md.dptMeta.nextEventType = 2;
+        md.dptMeta.eventsCount = md.dptMeta.eventsCount + 1;
+        hdr.ev_out_flags.setValid();
+        hdr.ev_out_flags.report = 1;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 2
+    table dpt_3_merged_tbl {
+        key = {
+            if_precomp : ternary;
+            md.dptMeta.eventType : ternary;
+            if_precomp1237 : ternary;
+            md.ip_in.len : ternary;
+            if_precomp1238 : ternary;
+            total_ct : ternary;
+        }
+        actions = {
+            dpt_1433_merged_acn_3_noop_1401_noop_1381_noop_1373_noop;
+            dpt_1433_merged_acn_3_acn_0_opstmt_1272_noop_1381_noop_1373_noop;
+            dpt_1327_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt_1300_acn_0_opstmt;
+            dpt_1433_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt_1300_noop;
+            dpt_1327_merged_acn_3_noop_1399_noop_1385_noop_1375_acn_0_opstmt;
+            dpt_1433_merged_acn_3_noop_1399_noop_1385_noop_1375_noop;
+            dpt_1327_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_acn_0_opstmt;
+            dpt_1433_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_noop;
+            dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1379_acn_0_opstmt;
+            dpt_1433_merged_acn_3_noop_1399_noop_1381_noop_1379_noop;
+            dpt_1327_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_acn_0_opstmt;
+            dpt_1433_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_noop;
+            dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt;
+            dpt_1433_merged_acn_3_noop_1399_noop_1381_noop_1373_noop;
+        }
+        const entries = {
+            (0, 2, _, _, _, _) : dpt_1433_merged_acn_3_noop_1401_noop_1381_noop_1373_noop();
+            (_, 2, _, _, _, _) : dpt_1433_merged_acn_3_acn_0_opstmt_1272_noop_1381_noop_1373_noop();
+            (_, 1, 0, 512, 0, 4) : dpt_1327_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt_1300_acn_0_opstmt();
+            (_, 1, 0, 512, 0, _) : dpt_1433_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt_1300_noop();
+            (_, 1, 0, 128, 0, 4) : dpt_1327_merged_acn_3_noop_1399_noop_1385_noop_1375_acn_0_opstmt();
+            (_, 1, 0, 128, 0, _) : dpt_1433_merged_acn_3_noop_1399_noop_1385_noop_1375_noop();
+            (_, 1, 0, _, 0, 4) : dpt_1327_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_acn_0_opstmt();
+            (_, 1, 0, _, 0, _) : dpt_1433_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_noop();
+            (_, 1, _, 128, 0, 4) : dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1379_acn_0_opstmt();
+            (_, 1, _, 128, 0, _) : dpt_1433_merged_acn_3_noop_1399_noop_1381_noop_1379_noop();
+            (_, 1, _, _, 0, 4) : dpt_1327_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_acn_0_opstmt();
+            (_, 1, _, _, 0, _) : dpt_1433_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_noop();
+            (_, 1, _, _, _, 4) : dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt();
+            (_, _, _, _, _, _) : dpt_1433_merged_acn_3_noop_1399_noop_1381_noop_1373_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_3_merged_tbl:[dpt_1272_tbl_0_opstmt, dpt_1401_noop, dpt_1272_acn_0_opstmt, dpt_1399_noop, dpt_1272_alu_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1383_noop, dpt_1385_noop, dpt_1301_acn_0_opstmt, dpt_1381_noop, dpt_1301_alu_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1300_acn_0_opstmt, dpt_1375_noop, dpt_1377_noop, dpt_1379_noop, dpt_1373_noop, dpt_1300_alu_0_opstmt, dpt_1327_tbl_0_opstmt, dpt_1327_acn_0_opstmt, dpt_1433_noop, dpt_1327_generate_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_3_merged_tbl:[dpt_1272_tbl_0_opstmt, dpt_1401_noop, dpt_1272_acn_0_opstmt, dpt_1399_noop, dpt_1272_alu_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1383_noop, dpt_1385_noop, dpt_1301_acn_0_opstmt, dpt_1381_noop, dpt_1301_alu_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1300_acn_0_opstmt, dpt_1375_noop, dpt_1377_noop, dpt_1379_noop, dpt_1373_noop, dpt_1300_alu_0_opstmt, dpt_1327_tbl_0_opstmt, dpt_1327_acn_0_opstmt, dpt_1433_noop, dpt_1327_generate_alu_0_opstmt]>
+[max_matchbits] dpt_1235_if_precomp: 32
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] dpt_1237_if_precomp1237: 16
+[max_matchbits] dpt_1247_md_0_ip_in_990_len: 16
+[max_matchbits] dpt_1238_if_precomp1238: 16
+[max_matchbits] dpt_1015_total_ct: 32
+[max_matchbits] tg keys total_width: 120
+[max_actions] tg number of actions: 14
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_1327_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1321_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1327_tbl_0_opstmt } successful. [ctx_summary] iteration: 2 placed: 18 unplaced: 1
+[place_in_stages] placed table dpt_1327_tbl_0_opstmt in stage 2/5
+[place_in_pipe] finished placement for: dpt_1327_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 5
+[place_in_pipe] starting placement for: 
+[place_in_pipe] stages in current pipe: 5
+[place_in_stages] placed table  in stage 0/5
+[place_in_pipe] finished placement for: 
+[place_in_pipe] stages in updated pipe: 5
+[place_in_pipe] starting placement for: dpt_1256_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 5
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1256_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1254_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1256_tbl_0_opstmt} in stage 1 (skipping)
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1254_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1256_tbl_0_opstmt} in stage 2 (skipping)
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1327_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1254_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1256_tbl_0_opstmt} in stage 3 (skipping)
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1327_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt
+[dataflow_check] unplaced_preds: dpt_1254_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_1256_tbl_0_opstmt} in stage 4 (skipping)
+[place_in_pipe] placement in existing stages failed. trying a new stage for: dpt_1256_tbl_0_opstmt
+[place_in_new_stage] placed table dpt_1256_tbl_0_opstmt in NEW stage 5
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1327_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_1256_tbl_0_opstmt} in stage 5 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_1256_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1256_acn_0_opstmt;
+            dpt_1349_noop;
+        }
+        const entries = {
+            2 : dpt_1256_acn_0_opstmt();
+            (_) : dpt_1349_noop();
+        }
+        
+    }
+    
+    action dpt_1256_acn_0_opstmt( ){
+        dpt_1256_generate_alu_0_opstmt();
+        //next tables: [dpt_1262_tbl_0_opstmt, dpt_1263_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_1349_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_1256_generate_alu_0_opstmt( ){
+        md.ip_out.eventType = 3;
+        md.ip_out.eventLoc = 0;
+        md.ip_out.eventDelay = 0;
+        md.ip_out.egr_port = 132;
+        md.ip_out.src = cur_idx;
+        md.ip_out.dst = column_ct;
+        md.dptMeta.exitEventType = 3;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 5
+    table dpt_6_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_1256_merged_acn_6_acn_0_opstmt;
+            dpt_1349_merged_acn_6_noop;
+        }
+        const entries = {
+            2 : dpt_1256_merged_acn_6_acn_0_opstmt();
+            _ : dpt_1349_merged_acn_6_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[dataflow_check] table id: dpt_1256_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1327_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_1256_tbl_0_opstmt } successful. [ctx_summary] iteration: 2 placed: 19 unplaced: 0
+[place_in_pipe] starting placement for: 
+[place_in_pipe] stages in current pipe: 6
+[place_in_stages] placed table  in stage 0/6
+[place_in_pipe] finished placement for: 
+[place_in_pipe] stages in updated pipe: 6
+[unplaced_nodes] all_nodes: dpt_1328_tbl_0_opstmt, dpt_1327_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1294_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1256_tbl_0_opstmt, dpt_1254_tbl_0_opstmt, dpt_1253_tbl_0_opstmt, dpt_984_total_arr, dpt_983_hist_arr
+[unplaced_nodes] placed_tables: dpt_1253_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1328_tbl_0_opstmt, dpt_1263_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1262_tbl_0_opstmt, dpt_1321_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1301_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1327_tbl_0_opstmt, dpt_1276_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1254_tbl_0_opstmt, dpt_1294_tbl_0_opstmt, dpt_1256_tbl_0_opstmt
+[unplaced_nodes] unplaced_registers: dpt_983_hist_arr, dpt_984_total_arr
+[unplaced_nodes] unplaced_nodes: dpt_984_total_arr, dpt_983_hist_arr
+[unplaced_nodes] unplaced_tables: 
+[layout_rec] finished placing nodes in this pass.
+[layout_rec] (end) [ctx_summary] iteration: 2 placed: 19 unplaced: 0
+[layout_rec] (end) failed_stage_placements: 37
+[layout_rec] (end) impossible_stage_placements_skipped: 37
+[layout_rec] (end) [ctx_summary] iteration: 1 placed: 17 unplaced: 2
+[layout_rec] (end) failed_stage_placements: 37
+[layout_rec] (end) impossible_stage_placements_skipped: 37
+---- deduplication started -----
+removing duplicates of dpt_1007_cur_idx
+decl id: dpt_1007_cur_idx number of aliases: 0
+original ds len: 93 new ds len:93
+removing duplicates of dpt_1008_column_ct
+decl id: dpt_1008_column_ct number of aliases: 0
+original ds len: 92 new ds len:92
+removing duplicates of dpt_1235_if_precomp
+decl id: dpt_1235_if_precomp number of aliases: 0
+original ds len: 91 new ds len:91
+removing duplicates of dpt_1234_precompute
+decl id: dpt_1234_precompute number of aliases: 0
+original ds len: 90 new ds len:90
+removing duplicates of dpt_1238_if_precomp1238
+decl id: dpt_1238_if_precomp1238 number of aliases: 0
+original ds len: 89 new ds len:89
+removing duplicates of dpt_1237_if_precomp1237
+decl id: dpt_1237_if_precomp1237 number of aliases: 0
+original ds len: 88 new ds len:88
+removing duplicates of dpt_1236_if_precomp1236
+decl id: dpt_1236_if_precomp1236 number of aliases: 0
+original ds len: 87 new ds len:87
+removing duplicates of dpt_1015_total_ct
+decl id: dpt_1015_total_ct number of aliases: 0
+original ds len: 86 new ds len:86
+removing duplicates of dpt_983_hist_arr
+decl id: dpt_983_hist_arr number of aliases: 0
+original ds len: 85 new ds len:85
+removing duplicates of dpt_983_fmt_0_hist_arr
+decl id: dpt_983_fmt_0_hist_arr number of aliases: 0
+original ds len: 84 new ds len:84
+removing duplicates of dpt_984_total_arr
+decl id: dpt_984_total_arr number of aliases: 0
+original ds len: 83 new ds len:83
+removing duplicates of dpt_984_fmt_0_total_arr
+decl id: dpt_984_fmt_0_total_arr number of aliases: 0
+original ds len: 82 new ds len:82
+removing duplicates of dpt_990_ip_in_t
+decl id: dpt_990_ip_in_t number of aliases: 0
+original ds len: 81 new ds len:81
+removing duplicates of dpt_990_md_0_ip_in
+decl id: dpt_990_md_0_ip_in number of aliases: 0
+original ds len: 80 new ds len:80
+removing duplicates of dpt_990_e_ip_in
+decl id: dpt_990_e_ip_in number of aliases: 0
+original ds len: 79 new ds len:79
+removing duplicates of dpt_992_report_t
+decl id: dpt_992_report_t number of aliases: 0
+original ds len: 78 new ds len:78
+removing duplicates of dpt_992_hdr_0_report
+decl id: dpt_992_hdr_0_report number of aliases: 0
+original ds len: 77 new ds len:77
+removing duplicates of dpt_992_e_report
+decl id: dpt_992_e_report number of aliases: 0
+original ds len: 76 new ds len:76
+removing duplicates of dpt_996_ip_out_t
+decl id: dpt_996_ip_out_t number of aliases: 0
+original ds len: 75 new ds len:75
+removing duplicates of dpt_996_md_0_ip_out
+decl id: dpt_996_md_0_ip_out number of aliases: 0
+original ds len: 74 new ds len:74
+removing duplicates of dpt_996_e_ip_out
+decl id: dpt_996_e_ip_out number of aliases: 0
+original ds len: 73 new ds len:73
+removing duplicates of dpt_0_lucid_footer_t
+decl id: dpt_0_lucid_footer_t number of aliases: 0
+original ds len: 72 new ds len:72
+removing duplicates of dpt_0_lucid_footer
+decl id: dpt_0_lucid_footer number of aliases: 0
+original ds len: 71 new ds len:71
+removing duplicates of dpt_0_ev_out_flags_t
+decl id: dpt_0_ev_out_flags_t number of aliases: 0
+original ds len: 70 new ds len:70
+removing duplicates of dpt_0_hdr_0_ev_out_flags
+decl id: dpt_0_hdr_0_ev_out_flags number of aliases: 0
+original ds len: 69 new ds len:69
+removing duplicates of dpt_0_dptMeta_t
+decl id: dpt_0_dptMeta_t number of aliases: 0
+original ds len: 68 new ds len:68
+removing duplicates of dpt_0_md_0_dptMeta
+decl id: dpt_0_md_0_dptMeta number of aliases: 0
+original ds len: 67 new ds len:67
+removing duplicates of dpt_0_DptIngressParser
+decl id: dpt_0_DptIngressParser number of aliases: 0
+original ds len: 66 new ds len:66
+removing duplicates of dpt_0_lucid_return_table
+decl id: dpt_0_lucid_return_table number of aliases: 0
+original ds len: 65 new ds len:65
+removing duplicates of dpt_0_egr_serialize_clone
+decl id: dpt_0_egr_serialize_clone number of aliases: 0
+original ds len: 64 new ds len:64
+removing duplicates of dpt_0_event_pkt_generator
+decl id: dpt_0_event_pkt_generator number of aliases: 0
+original ds len: 63 new ds len:63
+removing duplicates of dpt_1328_generate_alu_0_opstmt
+decl id: dpt_1328_generate_alu_0_opstmt number of aliases: 0
+original ds len: 62 new ds len:62
+removing duplicates of dpt_1281_alu_0_opstmt
+decl id: dpt_1281_alu_0_opstmt number of aliases: 0
+original ds len: 61 new ds len:61
+removing duplicates of dpt_1280_alu_0_opstmt
+dpt_1280_alu_0_opstmt EQUALS dpt_1287_alu_0_opstmt
+decl id: dpt_1280_alu_0_opstmt number of aliases: 1
+dpt_1280_alu_0_opstmt EQUALS dpt_1287_alu_0_opstmt
+original ds len: 60 new ds len:59
+replacing alias: dpt_1287_alu_0_opstmt with dpt_1280_alu_0_opstmt
+removing duplicates of dpt_1253_alu_0_opstmt
+decl id: dpt_1253_alu_0_opstmt number of aliases: 0
+original ds len: 58 new ds len:58
+removing duplicates of dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1429_merged_acn_2_noop_1371_noop_1359_noop_1355_noop_1363_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1433_merged_acn_3_noop_1399_noop_1381_noop_1373_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1433_merged_acn_3_noop_1399_noop_1381_noop_1379_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1433_merged_acn_3_noop_1399_noop_1385_noop_1375_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1433_merged_acn_3_noop_1401_noop_1381_noop_1373_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1403_merged_acn_4_noop_1423_noop_1415_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1413_merged_acn_4_noop_1423_noop_1415_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1411_merged_acn_4_noop_1423_noop_1415_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1407_merged_acn_4_noop_1423_noop_1421_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1405_merged_acn_4_noop_1423_noop_1419_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1403_merged_acn_4_noop_1425_noop_1415_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1427_merged_acn_5_noop_1345_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1349_merged_acn_6_noop
+decl id: dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop number of aliases: 13
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1429_merged_acn_2_noop_1371_noop_1359_noop_1355_noop_1363_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1433_merged_acn_3_noop_1399_noop_1381_noop_1373_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1433_merged_acn_3_noop_1399_noop_1381_noop_1379_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1433_merged_acn_3_noop_1399_noop_1385_noop_1375_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1433_merged_acn_3_noop_1401_noop_1381_noop_1373_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1403_merged_acn_4_noop_1423_noop_1415_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1413_merged_acn_4_noop_1423_noop_1415_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1411_merged_acn_4_noop_1423_noop_1415_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1407_merged_acn_4_noop_1423_noop_1421_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1405_merged_acn_4_noop_1423_noop_1419_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1403_merged_acn_4_noop_1425_noop_1415_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1427_merged_acn_5_noop_1345_noop
+dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop EQUALS dpt_1349_merged_acn_6_noop
+original ds len: 57 new ds len:44
+replacing alias: dpt_1429_merged_acn_2_noop_1371_noop_1359_noop_1355_noop_1363_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1433_merged_acn_3_noop_1399_noop_1381_noop_1373_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1433_merged_acn_3_noop_1399_noop_1381_noop_1379_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1433_merged_acn_3_noop_1399_noop_1385_noop_1375_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1433_merged_acn_3_noop_1401_noop_1381_noop_1373_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1403_merged_acn_4_noop_1423_noop_1415_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1413_merged_acn_4_noop_1423_noop_1415_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1411_merged_acn_4_noop_1423_noop_1415_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1407_merged_acn_4_noop_1423_noop_1421_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1405_merged_acn_4_noop_1423_noop_1419_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1403_merged_acn_4_noop_1425_noop_1415_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1427_merged_acn_5_noop_1345_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+replacing alias: dpt_1349_merged_acn_6_noop with dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+removing duplicates of dpt_1328_merged_acn_1_noop_1341_acn_0_opstmt_1280_acn_0_opstmt_1281_acn_0_opstmt
+decl id: dpt_1328_merged_acn_1_noop_1341_acn_0_opstmt_1280_acn_0_opstmt_1281_acn_0_opstmt number of aliases: 0
+original ds len: 43 new ds len:43
+removing duplicates of dpt_1435_merged_acn_1_acn_0_opstmt_1253_noop_1343_noop_1347_noop
+decl id: dpt_1435_merged_acn_1_acn_0_opstmt_1253_noop_1343_noop_1347_noop number of aliases: 0
+original ds len: 42 new ds len:42
+removing duplicates of dpt_1_merged_tbl
+decl id: dpt_1_merged_tbl number of aliases: 0
+original ds len: 41 new ds len:41
+removing duplicates of dpt_1288_alu_0_opstmt
+decl id: dpt_1288_alu_0_opstmt number of aliases: 0
+original ds len: 40 new ds len:40
+removing duplicates of dpt_1321_salu_0_opstmt
+decl id: dpt_1321_salu_0_opstmt number of aliases: 0
+original ds len: 39 new ds len:39
+removing duplicates of dpt_1262_salu_0_opstmt
+decl id: dpt_1262_salu_0_opstmt number of aliases: 0
+original ds len: 38 new ds len:38
+removing duplicates of dpt_1263_alu_0_opstmt
+decl id: dpt_1263_alu_0_opstmt number of aliases: 0
+original ds len: 37 new ds len:37
+removing duplicates of dpt_1321_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop_1363_acn_0_opstmt
+dpt_1321_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop_1363_acn_0_opstmt EQUALS dpt_1321_merged_acn_2_noop_1371_noop_1361_acn_0_opstmt_1287_noop_1363_acn_0_opstmt
+decl id: dpt_1321_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop_1363_acn_0_opstmt number of aliases: 1
+dpt_1321_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop_1363_acn_0_opstmt EQUALS dpt_1321_merged_acn_2_noop_1371_noop_1361_acn_0_opstmt_1287_noop_1363_acn_0_opstmt
+original ds len: 36 new ds len:35
+replacing alias: dpt_1321_merged_acn_2_noop_1371_noop_1361_acn_0_opstmt_1287_noop_1363_acn_0_opstmt with dpt_1321_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop_1363_acn_0_opstmt
+removing duplicates of dpt_1321_merged_acn_2_noop_1371_acn_0_opstmt_1288_noop_1357_noop_1363_acn_0_opstmt
+decl id: dpt_1321_merged_acn_2_noop_1371_acn_0_opstmt_1288_noop_1357_noop_1363_acn_0_opstmt number of aliases: 0
+original ds len: 34 new ds len:34
+removing duplicates of dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_noop_1363_noop
+decl id: dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_noop_1363_noop number of aliases: 0
+original ds len: 33 new ds len:33
+removing duplicates of dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_acn_0_opstmt_1262_noop
+decl id: dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_acn_0_opstmt_1262_noop number of aliases: 0
+original ds len: 32 new ds len:32
+removing duplicates of dpt_2_merged_tbl
+decl id: dpt_2_merged_tbl number of aliases: 0
+original ds len: 31 new ds len:31
+removing duplicates of dpt_1301_alu_0_opstmt
+decl id: dpt_1301_alu_0_opstmt number of aliases: 0
+original ds len: 30 new ds len:30
+removing duplicates of dpt_1327_generate_alu_0_opstmt
+decl id: dpt_1327_generate_alu_0_opstmt number of aliases: 0
+original ds len: 29 new ds len:29
+removing duplicates of dpt_1300_alu_0_opstmt
+decl id: dpt_1300_alu_0_opstmt number of aliases: 0
+original ds len: 28 new ds len:28
+removing duplicates of dpt_1272_alu_0_opstmt
+decl id: dpt_1272_alu_0_opstmt number of aliases: 0
+original ds len: 27 new ds len:27
+removing duplicates of dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt
+dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt EQUALS dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1379_acn_0_opstmt
+dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt EQUALS dpt_1327_merged_acn_3_noop_1399_noop_1385_noop_1375_acn_0_opstmt
+decl id: dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt number of aliases: 2
+dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt EQUALS dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1379_acn_0_opstmt
+dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt EQUALS dpt_1327_merged_acn_3_noop_1399_noop_1385_noop_1375_acn_0_opstmt
+original ds len: 26 new ds len:24
+replacing alias: dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1379_acn_0_opstmt with dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt
+replacing alias: dpt_1327_merged_acn_3_noop_1399_noop_1385_noop_1375_acn_0_opstmt with dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt
+removing duplicates of dpt_1433_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_noop
+dpt_1433_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_noop EQUALS dpt_1433_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt_1300_noop
+decl id: dpt_1433_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_noop number of aliases: 1
+dpt_1433_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_noop EQUALS dpt_1433_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt_1300_noop
+original ds len: 23 new ds len:22
+replacing alias: dpt_1433_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt_1300_noop with dpt_1433_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_noop
+removing duplicates of dpt_1327_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_acn_0_opstmt
+dpt_1327_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_acn_0_opstmt EQUALS dpt_1327_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt_1300_acn_0_opstmt
+decl id: dpt_1327_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_acn_0_opstmt number of aliases: 1
+dpt_1327_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_acn_0_opstmt EQUALS dpt_1327_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt_1300_acn_0_opstmt
+original ds len: 21 new ds len:20
+replacing alias: dpt_1327_merged_acn_3_noop_1399_noop_1383_acn_0_opstmt_1300_acn_0_opstmt with dpt_1327_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_acn_0_opstmt
+removing duplicates of dpt_1433_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_noop
+decl id: dpt_1433_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_noop number of aliases: 0
+original ds len: 19 new ds len:19
+removing duplicates of dpt_1327_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_acn_0_opstmt
+decl id: dpt_1327_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_acn_0_opstmt number of aliases: 0
+original ds len: 18 new ds len:18
+removing duplicates of dpt_1433_merged_acn_3_acn_0_opstmt_1272_noop_1381_noop_1373_noop
+decl id: dpt_1433_merged_acn_3_acn_0_opstmt_1272_noop_1381_noop_1373_noop number of aliases: 0
+original ds len: 17 new ds len:17
+removing duplicates of dpt_3_merged_tbl
+decl id: dpt_3_merged_tbl number of aliases: 0
+original ds len: 16 new ds len:16
+removing duplicates of dpt_1313_alu_0_opstmt
+decl id: dpt_1313_alu_0_opstmt number of aliases: 0
+original ds len: 15 new ds len:15
+removing duplicates of dpt_1312_alu_0_opstmt
+decl id: dpt_1312_alu_0_opstmt number of aliases: 0
+original ds len: 14 new ds len:14
+removing duplicates of dpt_1276_generate_alu_0_opstmt
+decl id: dpt_1276_generate_alu_0_opstmt number of aliases: 0
+original ds len: 13 new ds len:13
+removing duplicates of dpt_1312_merged_acn_4_noop_1423_noop_1415_acn_0_opstmt
+dpt_1312_merged_acn_4_noop_1423_noop_1415_acn_0_opstmt EQUALS dpt_1312_merged_acn_4_noop_1423_noop_1417_acn_0_opstmt
+decl id: dpt_1312_merged_acn_4_noop_1423_noop_1415_acn_0_opstmt number of aliases: 1
+dpt_1312_merged_acn_4_noop_1423_noop_1415_acn_0_opstmt EQUALS dpt_1312_merged_acn_4_noop_1423_noop_1417_acn_0_opstmt
+original ds len: 12 new ds len:11
+replacing alias: dpt_1312_merged_acn_4_noop_1423_noop_1417_acn_0_opstmt with dpt_1312_merged_acn_4_noop_1423_noop_1415_acn_0_opstmt
+removing duplicates of dpt_1409_merged_acn_4_noop_1423_acn_0_opstmt_1313_noop
+decl id: dpt_1409_merged_acn_4_noop_1423_acn_0_opstmt_1313_noop number of aliases: 0
+original ds len: 10 new ds len:10
+removing duplicates of dpt_1403_merged_acn_4_acn_0_opstmt_1276_noop_1415_noop
+decl id: dpt_1403_merged_acn_4_acn_0_opstmt_1276_noop_1415_noop number of aliases: 0
+original ds len: 9 new ds len:9
+removing duplicates of dpt_4_merged_tbl
+decl id: dpt_4_merged_tbl number of aliases: 0
+original ds len: 8 new ds len:8
+removing duplicates of dpt_1294_salu_0_opstmt
+decl id: dpt_1294_salu_0_opstmt number of aliases: 0
+original ds len: 7 new ds len:7
+removing duplicates of dpt_1254_salu_0_opstmt
+decl id: dpt_1254_salu_0_opstmt number of aliases: 0
+original ds len: 6 new ds len:6
+removing duplicates of dpt_1294_merged_acn_5_noop_1345_acn_0_opstmt
+decl id: dpt_1294_merged_acn_5_noop_1345_acn_0_opstmt number of aliases: 0
+original ds len: 5 new ds len:5
+removing duplicates of dpt_1427_merged_acn_5_acn_0_opstmt_1254_noop
+decl id: dpt_1427_merged_acn_5_acn_0_opstmt_1254_noop number of aliases: 0
+original ds len: 4 new ds len:4
+removing duplicates of dpt_5_merged_tbl
+decl id: dpt_5_merged_tbl number of aliases: 0
+original ds len: 3 new ds len:3
+removing duplicates of dpt_1256_generate_alu_0_opstmt
+decl id: dpt_1256_generate_alu_0_opstmt number of aliases: 0
+original ds len: 2 new ds len:2
+removing duplicates of dpt_1256_merged_acn_6_acn_0_opstmt
+decl id: dpt_1256_merged_acn_6_acn_0_opstmt number of aliases: 0
+original ds len: 1 new ds len:1
+removing duplicates of dpt_6_merged_tbl
+decl id: dpt_6_merged_tbl number of aliases: 0
+original ds len: 0 new ds len:0
+removing duplicates of dpt_1007_cur_idx
+decl id: dpt_1007_cur_idx number of aliases: 0
+original ds len: 73 new ds len:73
+removing duplicates of dpt_1008_column_ct
+decl id: dpt_1008_column_ct number of aliases: 0
+original ds len: 72 new ds len:72
+removing duplicates of dpt_1235_if_precomp
+decl id: dpt_1235_if_precomp number of aliases: 0
+original ds len: 71 new ds len:71
+removing duplicates of dpt_1234_precompute
+decl id: dpt_1234_precompute number of aliases: 0
+original ds len: 70 new ds len:70
+removing duplicates of dpt_1238_if_precomp1238
+decl id: dpt_1238_if_precomp1238 number of aliases: 0
+original ds len: 69 new ds len:69
+removing duplicates of dpt_1237_if_precomp1237
+decl id: dpt_1237_if_precomp1237 number of aliases: 0
+original ds len: 68 new ds len:68
+removing duplicates of dpt_1236_if_precomp1236
+decl id: dpt_1236_if_precomp1236 number of aliases: 0
+original ds len: 67 new ds len:67
+removing duplicates of dpt_1015_total_ct
+decl id: dpt_1015_total_ct number of aliases: 0
+original ds len: 66 new ds len:66
+removing duplicates of dpt_983_hist_arr
+decl id: dpt_983_hist_arr number of aliases: 0
+original ds len: 65 new ds len:65
+removing duplicates of dpt_983_fmt_0_hist_arr
+decl id: dpt_983_fmt_0_hist_arr number of aliases: 0
+original ds len: 64 new ds len:64
+removing duplicates of dpt_984_total_arr
+decl id: dpt_984_total_arr number of aliases: 0
+original ds len: 63 new ds len:63
+removing duplicates of dpt_984_fmt_0_total_arr
+decl id: dpt_984_fmt_0_total_arr number of aliases: 0
+original ds len: 62 new ds len:62
+removing duplicates of dpt_990_ip_in_t
+decl id: dpt_990_ip_in_t number of aliases: 0
+original ds len: 61 new ds len:61
+removing duplicates of dpt_990_md_0_ip_in
+decl id: dpt_990_md_0_ip_in number of aliases: 0
+original ds len: 60 new ds len:60
+removing duplicates of dpt_990_e_ip_in
+decl id: dpt_990_e_ip_in number of aliases: 0
+original ds len: 59 new ds len:59
+removing duplicates of dpt_992_report_t
+decl id: dpt_992_report_t number of aliases: 0
+original ds len: 58 new ds len:58
+removing duplicates of dpt_992_hdr_0_report
+decl id: dpt_992_hdr_0_report number of aliases: 0
+original ds len: 57 new ds len:57
+removing duplicates of dpt_992_e_report
+decl id: dpt_992_e_report number of aliases: 0
+original ds len: 56 new ds len:56
+removing duplicates of dpt_996_ip_out_t
+decl id: dpt_996_ip_out_t number of aliases: 0
+original ds len: 55 new ds len:55
+removing duplicates of dpt_996_md_0_ip_out
+decl id: dpt_996_md_0_ip_out number of aliases: 0
+original ds len: 54 new ds len:54
+removing duplicates of dpt_996_e_ip_out
+decl id: dpt_996_e_ip_out number of aliases: 0
+original ds len: 53 new ds len:53
+removing duplicates of dpt_0_lucid_footer_t
+decl id: dpt_0_lucid_footer_t number of aliases: 0
+original ds len: 52 new ds len:52
+removing duplicates of dpt_0_lucid_footer
+decl id: dpt_0_lucid_footer number of aliases: 0
+original ds len: 51 new ds len:51
+removing duplicates of dpt_0_ev_out_flags_t
+decl id: dpt_0_ev_out_flags_t number of aliases: 0
+original ds len: 50 new ds len:50
+removing duplicates of dpt_0_hdr_0_ev_out_flags
+decl id: dpt_0_hdr_0_ev_out_flags number of aliases: 0
+original ds len: 49 new ds len:49
+removing duplicates of dpt_0_dptMeta_t
+decl id: dpt_0_dptMeta_t number of aliases: 0
+original ds len: 48 new ds len:48
+removing duplicates of dpt_0_md_0_dptMeta
+decl id: dpt_0_md_0_dptMeta number of aliases: 0
+original ds len: 47 new ds len:47
+removing duplicates of dpt_0_DptIngressParser
+decl id: dpt_0_DptIngressParser number of aliases: 0
+original ds len: 46 new ds len:46
+removing duplicates of dpt_0_lucid_return_table
+decl id: dpt_0_lucid_return_table number of aliases: 0
+original ds len: 45 new ds len:45
+removing duplicates of dpt_0_egr_serialize_clone
+decl id: dpt_0_egr_serialize_clone number of aliases: 0
+original ds len: 44 new ds len:44
+removing duplicates of dpt_0_event_pkt_generator
+decl id: dpt_0_event_pkt_generator number of aliases: 0
+original ds len: 43 new ds len:43
+removing duplicates of dpt_1328_generate_alu_0_opstmt
+decl id: dpt_1328_generate_alu_0_opstmt number of aliases: 0
+original ds len: 42 new ds len:42
+removing duplicates of dpt_1281_alu_0_opstmt
+decl id: dpt_1281_alu_0_opstmt number of aliases: 0
+original ds len: 41 new ds len:41
+removing duplicates of dpt_1280_alu_0_opstmt
+decl id: dpt_1280_alu_0_opstmt number of aliases: 0
+original ds len: 40 new ds len:40
+removing duplicates of dpt_1253_alu_0_opstmt
+decl id: dpt_1253_alu_0_opstmt number of aliases: 0
+original ds len: 39 new ds len:39
+removing duplicates of dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop
+decl id: dpt_1435_merged_acn_1_noop_1341_noop_1343_noop_1347_noop number of aliases: 0
+original ds len: 38 new ds len:38
+removing duplicates of dpt_1328_merged_acn_1_noop_1341_acn_0_opstmt_1280_acn_0_opstmt_1281_acn_0_opstmt
+decl id: dpt_1328_merged_acn_1_noop_1341_acn_0_opstmt_1280_acn_0_opstmt_1281_acn_0_opstmt number of aliases: 0
+original ds len: 37 new ds len:37
+removing duplicates of dpt_1435_merged_acn_1_acn_0_opstmt_1253_noop_1343_noop_1347_noop
+decl id: dpt_1435_merged_acn_1_acn_0_opstmt_1253_noop_1343_noop_1347_noop number of aliases: 0
+original ds len: 36 new ds len:36
+removing duplicates of dpt_1_merged_tbl
+decl id: dpt_1_merged_tbl number of aliases: 0
+original ds len: 35 new ds len:35
+removing duplicates of dpt_1288_alu_0_opstmt
+decl id: dpt_1288_alu_0_opstmt number of aliases: 0
+original ds len: 34 new ds len:34
+removing duplicates of dpt_1321_salu_0_opstmt
+decl id: dpt_1321_salu_0_opstmt number of aliases: 0
+original ds len: 33 new ds len:33
+removing duplicates of dpt_1262_salu_0_opstmt
+decl id: dpt_1262_salu_0_opstmt number of aliases: 0
+original ds len: 32 new ds len:32
+removing duplicates of dpt_1263_alu_0_opstmt
+decl id: dpt_1263_alu_0_opstmt number of aliases: 0
+original ds len: 31 new ds len:31
+removing duplicates of dpt_1321_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop_1363_acn_0_opstmt
+decl id: dpt_1321_merged_acn_2_noop_1371_noop_1359_acn_0_opstmt_1287_noop_1363_acn_0_opstmt number of aliases: 0
+original ds len: 30 new ds len:30
+removing duplicates of dpt_1321_merged_acn_2_noop_1371_acn_0_opstmt_1288_noop_1357_noop_1363_acn_0_opstmt
+decl id: dpt_1321_merged_acn_2_noop_1371_acn_0_opstmt_1288_noop_1357_noop_1363_acn_0_opstmt number of aliases: 0
+original ds len: 29 new ds len:29
+removing duplicates of dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_noop_1363_noop
+decl id: dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_noop_1363_noop number of aliases: 0
+original ds len: 28 new ds len:28
+removing duplicates of dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_acn_0_opstmt_1262_noop
+decl id: dpt_1429_merged_acn_2_acn_0_opstmt_1263_noop_1359_noop_1355_acn_0_opstmt_1262_noop number of aliases: 0
+original ds len: 27 new ds len:27
+removing duplicates of dpt_2_merged_tbl
+decl id: dpt_2_merged_tbl number of aliases: 0
+original ds len: 26 new ds len:26
+removing duplicates of dpt_1301_alu_0_opstmt
+decl id: dpt_1301_alu_0_opstmt number of aliases: 0
+original ds len: 25 new ds len:25
+removing duplicates of dpt_1327_generate_alu_0_opstmt
+decl id: dpt_1327_generate_alu_0_opstmt number of aliases: 0
+original ds len: 24 new ds len:24
+removing duplicates of dpt_1300_alu_0_opstmt
+decl id: dpt_1300_alu_0_opstmt number of aliases: 0
+original ds len: 23 new ds len:23
+removing duplicates of dpt_1272_alu_0_opstmt
+decl id: dpt_1272_alu_0_opstmt number of aliases: 0
+original ds len: 22 new ds len:22
+removing duplicates of dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt
+decl id: dpt_1327_merged_acn_3_noop_1399_noop_1381_noop_1373_acn_0_opstmt number of aliases: 0
+original ds len: 21 new ds len:21
+removing duplicates of dpt_1433_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_noop
+decl id: dpt_1433_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_noop number of aliases: 0
+original ds len: 20 new ds len:20
+removing duplicates of dpt_1327_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_acn_0_opstmt
+decl id: dpt_1327_merged_acn_3_noop_1399_noop_1381_acn_0_opstmt_1300_acn_0_opstmt number of aliases: 0
+original ds len: 19 new ds len:19
+removing duplicates of dpt_1433_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_noop
+decl id: dpt_1433_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_noop number of aliases: 0
+original ds len: 18 new ds len:18
+removing duplicates of dpt_1327_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_acn_0_opstmt
+decl id: dpt_1327_merged_acn_3_noop_1399_acn_0_opstmt_1301_noop_1377_acn_0_opstmt number of aliases: 0
+original ds len: 17 new ds len:17
+removing duplicates of dpt_1433_merged_acn_3_acn_0_opstmt_1272_noop_1381_noop_1373_noop
+decl id: dpt_1433_merged_acn_3_acn_0_opstmt_1272_noop_1381_noop_1373_noop number of aliases: 0
+original ds len: 16 new ds len:16
+removing duplicates of dpt_3_merged_tbl
+decl id: dpt_3_merged_tbl number of aliases: 0
+original ds len: 15 new ds len:15
+removing duplicates of dpt_1313_alu_0_opstmt
+decl id: dpt_1313_alu_0_opstmt number of aliases: 0
+original ds len: 14 new ds len:14
+removing duplicates of dpt_1312_alu_0_opstmt
+decl id: dpt_1312_alu_0_opstmt number of aliases: 0
+original ds len: 13 new ds len:13
+removing duplicates of dpt_1276_generate_alu_0_opstmt
+decl id: dpt_1276_generate_alu_0_opstmt number of aliases: 0
+original ds len: 12 new ds len:12
+removing duplicates of dpt_1312_merged_acn_4_noop_1423_noop_1415_acn_0_opstmt
+decl id: dpt_1312_merged_acn_4_noop_1423_noop_1415_acn_0_opstmt number of aliases: 0
+original ds len: 11 new ds len:11
+removing duplicates of dpt_1409_merged_acn_4_noop_1423_acn_0_opstmt_1313_noop
+decl id: dpt_1409_merged_acn_4_noop_1423_acn_0_opstmt_1313_noop number of aliases: 0
+original ds len: 10 new ds len:10
+removing duplicates of dpt_1403_merged_acn_4_acn_0_opstmt_1276_noop_1415_noop
+decl id: dpt_1403_merged_acn_4_acn_0_opstmt_1276_noop_1415_noop number of aliases: 0
+original ds len: 9 new ds len:9
+removing duplicates of dpt_4_merged_tbl
+decl id: dpt_4_merged_tbl number of aliases: 0
+original ds len: 8 new ds len:8
+removing duplicates of dpt_1294_salu_0_opstmt
+decl id: dpt_1294_salu_0_opstmt number of aliases: 0
+original ds len: 7 new ds len:7
+removing duplicates of dpt_1254_salu_0_opstmt
+decl id: dpt_1254_salu_0_opstmt number of aliases: 0
+original ds len: 6 new ds len:6
+removing duplicates of dpt_1294_merged_acn_5_noop_1345_acn_0_opstmt
+decl id: dpt_1294_merged_acn_5_noop_1345_acn_0_opstmt number of aliases: 0
+original ds len: 5 new ds len:5
+removing duplicates of dpt_1427_merged_acn_5_acn_0_opstmt_1254_noop
+decl id: dpt_1427_merged_acn_5_acn_0_opstmt_1254_noop number of aliases: 0
+original ds len: 4 new ds len:4
+removing duplicates of dpt_5_merged_tbl
+decl id: dpt_5_merged_tbl number of aliases: 0
+original ds len: 3 new ds len:3
+removing duplicates of dpt_1256_generate_alu_0_opstmt
+decl id: dpt_1256_generate_alu_0_opstmt number of aliases: 0
+original ds len: 2 new ds len:2
+removing duplicates of dpt_1256_merged_acn_6_acn_0_opstmt
+decl id: dpt_1256_merged_acn_6_acn_0_opstmt number of aliases: 0
+original ds len: 1 new ds len:1
+removing duplicates of dpt_6_merged_tbl
+decl id: dpt_6_merged_tbl number of aliases: 0
+original ds len: 0 new ds len:0
+deduplication eliminated 20 operations
+---- deduplication finished -----

@@ -239,27 +239,23 @@ and d =
   | DConstr of id * ty * params * exp
   | DModule of id * interface * decls
   | DModuleAlias of id * exp * cid * cid
-  | DTable of {name : id ; loc : id option; keys :  params  ;  value : params
+  | DTable of {name : id ; loc : id option; keys :  params option ;  value : params option
   ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
-  | DMin of id * d (*Don't need this but it's there in some matches *)
-  | DRule of {lhs :  table; preds : table list; exps: exp list}
-
-and table = Table of {name : id ; loc : id option; args : exp list} 
+  | DMin of id  (*Don't need this but it's there in some matches *)
+  | DRule of {lhs :  d; preds : decl list; exps: exp list}
 
 and aggregate = 
 | Min of id
 | Count of id
 | Max of id
+| SMerge of statement
 
 (* name, return type, args & body *)
 and decl =
   { d : d
   ; dspan : sp
   }
-and table_decl = 
-  {table : table 
-  ; span : sp}
-  
+
 (* hashtable_cid = Cid.create ["Hashtable"; "t"] *)
 
 (* and table_decl = 
@@ -416,12 +412,7 @@ let fun_sp id rty cs p body span = decl_sp (DFun (id, rty, cs, (p, body))) span
 let memop_sp id p body span = decl_sp (DMemop (id, p, body)) span
 let duty_sp id sizes rty span = decl_sp (DUserTy (id, sizes, rty)) span
 let table_sp name loc keys value merge span = decl_sp (DTable {name; loc; keys; value; merge}) span
-(* let base_sp name loc keys span = decl_sp (DBaseTable {name; loc; keys}) span *)
-let rule_sp lhs table exps span = decl_sp (DRule{lhs=lhs; preds=table;exps=exps }) span
-
-let table_decl table span = { table; span = span }
-let table_sp name loc keys values merge span = decl_sp (DTable{name=name; loc=loc; keys=keys; 
-       value=values; merge=merge}) span
+let rule_sp name loc keys value merge tables exps span = decl_sp (DRule{lhs=DTable {name; loc; keys; value; merge}; preds=tables;exps=exps }) span
 let dconstr_sp id ty params exp span =
   decl_sp (DConstr (id, ty, params, exp)) span
 ;;
@@ -454,7 +445,8 @@ let sseq_sp s1 s2 span = statement_sp (SSeq (s1, s2)) span
 let sret_sp e span = statement_sp (SRet e) span
 let sifte_sp e s1 s2 span = statement_sp (SIf (e, s1, s2)) span
 let gen_sp b e span = statement_sp (SGen (b, e)) span
-let scall_sp cid args span = statement_sp (SUnit (call_sp cid args span)) span
+let scall_sp c
+id args span = statement_sp (SUnit (call_sp cid args span)) span
 let match_sp es bs span = statement_sp (SMatch (es, bs)) span
 let loop_sp e i k span = statement_sp (SLoop (e, i, k)) span
 let sexp_sp e span = statement_sp (SUnit e) span

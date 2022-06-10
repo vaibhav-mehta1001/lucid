@@ -64,6 +64,12 @@ let rec to_string cid =
   | Compound (id, cid) -> Id.to_string id ^ "." ^ to_string cid
 ;;
 
+let rec to_string_name cid =
+  match cid with
+  | Id id -> Id.name id
+  | Compound (id, cid) -> Id.name id ^ "." ^ to_string cid
+;;
+
 let rec to_string_delim d cid =
   match cid with
   | Id id -> Id.to_string_delim d id

@@ -1,0 +1,3 @@
+---RegisterAllocation.ml log---
+undeclared mids that are used in compute objects: md.dptMeta.eventType, hdr.secondpass.y, fmt.foo
+----

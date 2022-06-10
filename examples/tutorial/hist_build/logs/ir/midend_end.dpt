@@ -1,0 +1,63 @@
+global Array.t<<32>> hist_arr = Array.create(4);
+
+
+global Array.t<<32>> total_arr = Array.create(1);
+
+
+entry event ip_in(int<<9>> igr_port,int<<32>> src,int<<32>> dst,int<<16>> len,int<<8>> tos);
+
+event report(int<<32>> idx);
+
+exit event ip_out(int<<9>> egr_port,int<<32>> src,int<<32>> dst);
+
+memop incr(int<<32>> memval,int<<32>> incrval)
+ {return memval+incrval;
+}
+
+memop getf(int<<32>> memval,int<<32>> newval)
+ {return memval;
+}
+
+memop setf(int<<32>> memval,int<<32>> newval)
+ {return newval;
+}
+
+handle report(int<<32>> idx) {
+int<<32>> cur_idx = idx;
+int<<32>> column_ct = Array.update(hist_arr,cur_idx,getf,0,setf,0);
+generate ip_out(132,cur_idx,column_ct);
+if (cur_idx==0) {
+Array.set(total_arr,0,0);
+} 
+int<<32>> if_precomp = 3|-|cur_idx;
+if (if_precomp!=0) {
+int<<32>> precompute = 1+cur_idx;
+generate report(precompute);
+} 
+}
+
+handle ip_in(int<<9>> igr_port,int<<32>> src,int<<32>> dst,int<<16>> len,int<<8>> tos) {
+int<<32>> idx = 0;
+int<<16>> if_precomp1238 = 128|-|len;
+if (if_precomp1238!=0||len==128) {
+idx = 0;
+} else {
+int<<16>> if_precomp1237 = 512|-|len;
+if (if_precomp1237!=0||len==512) {
+idx = 1;
+} else {
+int<<16>> if_precomp1236 = 1024|-|len;
+if (if_precomp1236!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+}
+}
+Array.setm(hist_arr,idx,incr,1);
+int<<32>> total_ct = Array.update(total_arr,0,incr,1,incr,1);
+if (total_ct==4) {
+generate report(0);
+} 
+generate ip_out(igr_port,src,dst);
+}

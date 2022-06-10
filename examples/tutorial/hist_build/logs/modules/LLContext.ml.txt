@@ -1,0 +1,147 @@
+---LLContext.ml log---
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1253
+[uname_of_stmt] statement:
+int<<32>> cur_idx = idx;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1254
+[uname_of_stmt] statement:
+int<<32>> column_ct = Array.update(hist_arr,cur_idx,getf,0,setf,0);
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1256
+[uname_of_stmt] statement:
+generate ip_out(132,cur_idx,column_ct);
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1258
+[uname_of_stmt] statement:
+if (cur_idx==0) {
+Array.set(total_arr,0,0);
+} 
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1262
+[uname_of_stmt] statement:
+Array.set(total_arr,0,0);
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1263
+[uname_of_stmt] statement:
+int<<32>> if_precomp = 3|-|cur_idx;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1267
+[uname_of_stmt] statement:
+
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1268
+[uname_of_stmt] statement:
+if (if_precomp!=0) {
+int<<32>> precompute = 1+cur_idx;
+generate report(precompute);
+} 
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1272
+[uname_of_stmt] statement:
+int<<32>> precompute = 1+cur_idx;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1276
+[uname_of_stmt] statement:
+generate report(precompute);
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1278
+[uname_of_stmt] statement:
+
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1280
+[uname_of_stmt] statement:
+int<<32>> idx = 0;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1281
+[uname_of_stmt] statement:
+int<<16>> if_precomp1238 = 128|-|len;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1283
+[uname_of_stmt] statement:
+if (if_precomp1238!=0||len==128) {
+idx = 0;
+} else {
+int<<16>> if_precomp1237 = 512|-|len;
+if (if_precomp1237!=0||len==512) {
+idx = 1;
+} else {
+int<<16>> if_precomp1236 = 1024|-|len;
+if (if_precomp1236!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+}
+}
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1287
+[uname_of_stmt] statement:
+idx = 0;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1288
+[uname_of_stmt] statement:
+int<<16>> if_precomp1237 = 512|-|len;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1294
+[uname_of_stmt] statement:
+Array.setm(hist_arr,idx,incr,1);
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1296
+[uname_of_stmt] statement:
+if (if_precomp1237!=0||len==512) {
+idx = 1;
+} else {
+int<<16>> if_precomp1236 = 1024|-|len;
+if (if_precomp1236!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+}
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1300
+[uname_of_stmt] statement:
+idx = 1;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1301
+[uname_of_stmt] statement:
+int<<16>> if_precomp1236 = 1024|-|len;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1308
+[uname_of_stmt] statement:
+if (if_precomp1236!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1312
+[uname_of_stmt] statement:
+idx = 2;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1313
+[uname_of_stmt] statement:
+idx = 3;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1321
+[uname_of_stmt] statement:
+int<<32>> total_ct = Array.update(total_arr,0,incr,1,incr,1);
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1323
+[uname_of_stmt] statement:
+if (total_ct==4) {
+generate report(0);
+} 
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1327
+[uname_of_stmt] statement:
+generate report(0);
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1328
+[uname_of_stmt] statement:
+generate ip_out(igr_port,src,dst);
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~1332
+[uname_of_stmt] statement:
+

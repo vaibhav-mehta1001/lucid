@@ -1,0 +1,25 @@
+---LLContext.ml log---
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~353
+[uname_of_stmt] statement:
+int<<32>> z = 26;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~355
+[uname_of_stmt] statement:
+int<<32>> a = 1;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~356
+[uname_of_stmt] statement:
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~360
+[uname_of_stmt] statement:
+int<<32>> b = 1;
+--------------------------------
+[uname_of_stmt] opstatement id: opstmt~361
+[uname_of_stmt] statement:
+int<<32>> c = 2;

@@ -1,0 +1,171 @@
+---normalizeBools.ml log---
+original if statement: 
+if (cur_idx==0) {
+Array.set(total_arr,0,0);
+} 
+new if statement: 
+if (cur_idx==0) {
+Array.set(total_arr,0,0);
+} 
+original if statement: 
+if (cur_idx<3) {
+int<<32>> precompute = cur_idx+1;
+generate report(precompute);
+} 
+new if statement: 
+int<<32>> if_precomp = 3|-|cur_idx;
+if (if_precomp!=0) {
+int<<32>> precompute = cur_idx+1;
+generate report(precompute);
+} 
+original if statement: 
+if (len<1024||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+new if statement: 
+int<<16>> if_precomp = 1024|-|len;
+if (if_precomp!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+original if statement: 
+if (len<512||len==512) {
+idx = 1;
+} else {
+int<<16>> if_precomp = 1024|-|len;
+if (if_precomp!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+}
+new if statement: 
+int<<16>> if_precomp = 512|-|len;
+if (if_precomp!=0||len==512) {
+idx = 1;
+} else {
+int<<16>> if_precomp = 1024|-|len;
+if (if_precomp!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+}
+original if statement: 
+if (len<128||len==128) {
+idx = 0;
+} else {
+int<<16>> if_precomp = 512|-|len;
+if (if_precomp!=0||len==512) {
+idx = 1;
+} else {
+int<<16>> if_precomp = 1024|-|len;
+if (if_precomp!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+}
+}
+new if statement: 
+int<<16>> if_precomp = 128|-|len;
+if (if_precomp!=0||len==128) {
+idx = 0;
+} else {
+int<<16>> if_precomp = 512|-|len;
+if (if_precomp!=0||len==512) {
+idx = 1;
+} else {
+int<<16>> if_precomp = 1024|-|len;
+if (if_precomp!=0||len==1024) {
+idx = 2;
+} else {
+idx = 3;
+}
+}
+}
+original if statement: 
+if (total_ct==4) {
+generate report(0);
+} 
+new if statement: 
+if (total_ct==4) {
+generate report(0);
+} 
+converting expression to dnf form: cur_idx==0
+
+converted expression into a disjunction of 1 exprs
+
+converting: (= cur_idx~1007 tmp_val_id~1239)
+
+converting: cur_idx~1007
+
+converting: tmp_val_id~1239
+
+old expression:  cur_idx==0
+
+new expression:  cur_idx==0
+
+new expression show: cur_idx==0
+
+converting expression to dnf form: if_precomp!=0
+
+converted expression into a disjunction of 1 exprs
+
+converting: (not (= if_precomp~1235 tmp_val_id~1240))
+
+converting: (= if_precomp~1235 tmp_val_id~1240)
+
+converting: if_precomp~1235
+
+converting: tmp_val_id~1240
+
+old expression:  if_precomp!=0
+
+new expression:  if_precomp!=0
+
+new expression show: if_precomp!=0
+
+converting expression to dnf form: if_precomp!=0||len==128
+
+converted expression into a disjunction of 2 exprs
+
+converting: (= len~1012 tmp_val_id~1242)
+
+converting: len~1012
+
+converting: tmp_val_id~1242
+
+converting: (not (= if_precomp~1238 tmp_val_id~1241))
+
+converting: (= if_precomp~1238 tmp_val_id~1241)
+
+converting: if_precomp~1238
+
+converting: tmp_val_id~1241
+
+old expression:  if_precomp!=0||len==128
+
+new expression:  if_precomp!=0||len==128
+
+new expression show: if_precomp!=0||len==128
+
+converting expression to dnf form: total_ct==4
+
+converted expression into a disjunction of 1 exprs
+
+converting: (= total_ct~1015 tmp_val_id~1243)
+
+converting: total_ct~1015
+
+converting: tmp_val_id~1243
+
+old expression:  total_ct==4
+
+new expression:  total_ct==4
+
+new expression show: total_ct==4
+

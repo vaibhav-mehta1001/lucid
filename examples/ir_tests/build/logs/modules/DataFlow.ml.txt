@@ -1,0 +1,27 @@
+---DataFlow.ml log---
+[get_dependencies] start processing node: dpt_353_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType
+other tables that write these variables: 
+predecessors that write these variables: 
+[get_dependencies] done processing node: dpt_353_tbl_0_opstmt
+[get_dependencies] predecessors: 
+[get_dependencies] start processing node: dpt_355_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType
+other tables that write these variables: 
+predecessors that write these variables: 
+[get_dependencies] done processing node: dpt_355_tbl_0_opstmt
+[get_dependencies] predecessors: 
+[get_dependencies] start processing node: dpt_361_tbl_0_opstmt
+variables that the table reads: a, hdr.secondpass.y, md.dptMeta.eventType
+other tables that write these variables: dpt_355_tbl_0_opstmt
+predecessors that write these variables: dpt_355_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_361_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_355_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_360_tbl_0_opstmt
+variables that the table reads: a, hdr.secondpass.y, md.dptMeta.eventType
+other tables that write these variables: dpt_355_tbl_0_opstmt
+predecessors that write these variables: dpt_355_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_360_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_355_tbl_0_opstmt
+adding vertices to dataflow...
+adding edges to dataflow...

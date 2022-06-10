@@ -1,0 +1,85 @@
+---eliminateBools.ml log---
+-----before boolean elimination-------
+global Array.t<<32>> foo = Array.create(1024);
+
+
+entry event pktin(int<<32>> x);
+
+event secondpass(int<<32>> y);
+
+handle pktin(int<<32>> x) {
+int<<32>> z = 26;
+}
+
+handle secondpass(int<<32>> y) {
+int<<32>> a = 1;
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+}
+-----end before boolean elimination-------
+-----after phase 1: non-immediate elimination-------
+global Array.t<<32>> foo = Array.create(1024);
+
+
+entry event pktin(int<<32>> x);
+
+event secondpass(int<<32>> y);
+
+handle pktin(int<<32>> x) {
+int<<32>> z = 26;
+}
+
+handle secondpass(int<<32>> y) {
+int<<32>> a = 1;
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+}
+-----end after phase 1: non-immediate elimination-------
+-----after phase 2: if expression cannonization-------
+global Array.t<<32>> foo = Array.create(1024);
+
+
+entry event pktin(int<<32>> x);
+
+event secondpass(int<<32>> y);
+
+handle pktin(int<<32>> x) {
+int<<32>> z = 26;
+}
+
+handle secondpass(int<<32>> y) {
+int<<32>> a = 1;
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+}
+-----end after phase 2: if expression cannonization-------
+-----after phase 3: immediate elimination-------
+global Array.t<<32>> foo = Array.create(1024);
+
+
+entry event pktin(int<<32>> x);
+
+event secondpass(int<<32>> y);
+
+handle pktin(int<<32>> x) {
+int<<32>> z = 26;
+}
+
+handle secondpass(int<<32>> y) {
+int<<32>> a = 1;
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+}
+-----end after phase 3: immediate elimination-------

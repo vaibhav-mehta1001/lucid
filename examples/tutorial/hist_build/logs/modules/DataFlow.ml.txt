@@ -1,0 +1,117 @@
+---DataFlow.ml log---
+[get_dependencies] start processing node: dpt_1253_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType, hdr.report.idx
+other tables that write these variables: dpt_1327_tbl_0_opstmt, dpt_1276_tbl_0_opstmt
+predecessors that write these variables: dpt_1327_tbl_0_opstmt, dpt_1276_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1253_tbl_0_opstmt
+[get_dependencies] predecessors: 
+[get_dependencies] start processing node: dpt_1254_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType, cur_idx, fmt.hist_arr
+other tables that write these variables: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+predecessors that write these variables: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1254_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1253_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1256_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType, cur_idx, column_ct
+other tables that write these variables: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt, dpt_1254_tbl_0_opstmt
+predecessors that write these variables: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt, dpt_1254_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1256_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1253_tbl_0_opstmt, dpt_1254_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1262_tbl_0_opstmt
+variables that the table reads: cur_idx, md.dptMeta.eventType, fmt.total_arr
+other tables that write these variables: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+predecessors that write these variables: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1262_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1253_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1263_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType, cur_idx
+other tables that write these variables: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+predecessors that write these variables: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1263_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1253_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1272_tbl_0_opstmt
+variables that the table reads: if_precomp, md.dptMeta.eventType, cur_idx
+other tables that write these variables: dpt_1263_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+predecessors that write these variables: dpt_1263_tbl_0_opstmt, dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1272_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1263_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1276_tbl_0_opstmt
+variables that the table reads: if_precomp, md.dptMeta.eventType, hdr.report, hdr.lucid_footer, precompute, md.dptMeta.eventsCount, hdr.ev_out_flags
+other tables that write these variables: dpt_1263_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1327_tbl_0_opstmt
+predecessors that write these variables: dpt_1263_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1327_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1276_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1263_tbl_0_opstmt, dpt_1272_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1280_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType
+other tables that write these variables: 
+predecessors that write these variables: 
+[get_dependencies] done processing node: dpt_1280_tbl_0_opstmt
+[get_dependencies] predecessors: 
+[get_dependencies] start processing node: dpt_1281_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType, md.ip_in.len
+other tables that write these variables: 
+predecessors that write these variables: 
+[get_dependencies] done processing node: dpt_1281_tbl_0_opstmt
+[get_dependencies] predecessors: 
+[get_dependencies] start processing node: dpt_1287_tbl_0_opstmt
+variables that the table reads: md.ip_in.len, if_precomp1238, md.dptMeta.eventType
+other tables that write these variables: dpt_1281_tbl_0_opstmt
+predecessors that write these variables: dpt_1281_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1287_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1288_tbl_0_opstmt
+variables that the table reads: md.ip_in.len, if_precomp1238, md.dptMeta.eventType, md.ip_in.len
+other tables that write these variables: dpt_1281_tbl_0_opstmt
+predecessors that write these variables: dpt_1281_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1288_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1281_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1300_tbl_0_opstmt
+variables that the table reads: if_precomp1237, md.ip_in.len, if_precomp1238, md.dptMeta.eventType
+other tables that write these variables: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+predecessors that write these variables: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1300_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1301_tbl_0_opstmt
+variables that the table reads: if_precomp1237, md.ip_in.len, if_precomp1238, md.dptMeta.eventType, md.ip_in.len
+other tables that write these variables: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+predecessors that write these variables: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1301_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1313_tbl_0_opstmt
+variables that the table reads: if_precomp1236, if_precomp1237, md.ip_in.len, if_precomp1238, md.dptMeta.eventType
+other tables that write these variables: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+predecessors that write these variables: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1313_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1312_tbl_0_opstmt
+variables that the table reads: if_precomp1236, if_precomp1237, md.ip_in.len, if_precomp1238, md.dptMeta.eventType
+other tables that write these variables: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+predecessors that write these variables: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1312_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1301_tbl_0_opstmt, dpt_1288_tbl_0_opstmt, dpt_1281_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1294_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType, cur_idx, fmt.hist_arr
+other tables that write these variables: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+predecessors that write these variables: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt, dpt_1253_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1294_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1312_tbl_0_opstmt, dpt_1313_tbl_0_opstmt, dpt_1300_tbl_0_opstmt, dpt_1287_tbl_0_opstmt, dpt_1280_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1321_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType, fmt.total_arr
+other tables that write these variables: 
+predecessors that write these variables: 
+[get_dependencies] done processing node: dpt_1321_tbl_0_opstmt
+[get_dependencies] predecessors: 
+[get_dependencies] start processing node: dpt_1327_tbl_0_opstmt
+variables that the table reads: total_ct, md.dptMeta.eventType, hdr.report, hdr.lucid_footer, md.dptMeta.eventsCount, hdr.ev_out_flags
+other tables that write these variables: dpt_1321_tbl_0_opstmt, dpt_1276_tbl_0_opstmt
+predecessors that write these variables: dpt_1321_tbl_0_opstmt, dpt_1276_tbl_0_opstmt
+[get_dependencies] done processing node: dpt_1327_tbl_0_opstmt
+[get_dependencies] predecessors: dpt_1321_tbl_0_opstmt
+[get_dependencies] start processing node: dpt_1328_tbl_0_opstmt
+variables that the table reads: md.dptMeta.eventType, md.ip_in.igr_port, md.ip_in.src, md.ip_in.dst
+other tables that write these variables: 
+predecessors that write these variables: 
+[get_dependencies] done processing node: dpt_1328_tbl_0_opstmt
+[get_dependencies] predecessors: 
+adding vertices to dataflow...
+adding edges to dataflow...

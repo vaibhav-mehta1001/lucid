@@ -1,0 +1,88 @@
+---RegisterAllocation.ml log---
+undeclared mids that are used in compute objects: md.dptMeta.eventType, hdr.report.idx, fmt.hist_arr, md.dptMeta.exitEventType, md.ip_out.dst, md.ip_out.src, md.ip_out.egr_port, md.ip_out.eventDelay, md.ip_out.eventLoc, md.ip_out.eventType, fmt.total_arr, hdr.ev_out_flags.report, hdr.ev_out_flags, md.dptMeta.eventsCount, md.dptMeta.nextEventType, hdr.lucid_footer.end, hdr.lucid_footer, hdr.report, hdr.report.eventDelay, hdr.report.eventLoc, hdr.report.eventType, md.ip_in.len, md.ip_in.dst, md.ip_in.src, md.ip_in.igr_port
+----
+-------merging variables------
+[prepare_frame_var_for_rid] memory cell: dpt_983_hist_arr
+[prepare_frame_var_for_rid] parameter: dpt_983_INDEX_VAR_OF_hist_arr
+[prepare_frame_var_for_rid] vars: cur_idx, idx
+[prepare_frame_var_for_rid] no conflicts!
+-------------
+[merge_vars_in] arg_vars: (md.dptMeta.eventType, hdr.report.idx, fmt.hist_arr, md.dptMeta.exitEventType, md.ip_out.dst, md.ip_out.src, md.ip_out.egr_port, md.ip_out.eventDelay, md.ip_out.eventLoc, md.ip_out.eventType, fmt.total_arr, hdr.ev_out_flags.report, hdr.ev_out_flags, md.dptMeta.eventsCount, md.dptMeta.nextEventType, hdr.lucid_footer.end, hdr.lucid_footer, hdr.report, hdr.report.eventDelay, hdr.report.eventLoc, hdr.report.eventType, md.ip_in.len, md.ip_in.dst, md.ip_in.src, md.ip_in.igr_port)
+[merge_vars_in] no arg vars found.
+[merge_vars_in] merging (idx) --> dpt_1007_cur_idx
+[replace_var:renamer] in declaration: dpt_1280_alu_0_opstmt
+[replace_var:renamer] replacing dpt_1014_idx with dpt_1007_cur_idx
+[replace_var:renamer] in declaration: dpt_1287_alu_0_opstmt
+[replace_var:renamer] replacing dpt_1014_idx with dpt_1007_cur_idx
+[replace_var:renamer] in declaration: dpt_1300_alu_0_opstmt
+[replace_var:renamer] replacing dpt_1014_idx with dpt_1007_cur_idx
+[replace_var:renamer] in declaration: dpt_1313_alu_0_opstmt
+[replace_var:renamer] replacing dpt_1014_idx with dpt_1007_cur_idx
+[replace_var:renamer] in declaration: dpt_1312_alu_0_opstmt
+[replace_var:renamer] replacing dpt_1014_idx with dpt_1007_cur_idx
+[replace_var:renamer] in declaration: dpt_1294_salu_0_opstmt
+[replace_var:renamer] replacing dpt_1014_idx with dpt_1007_cur_idx
+(LLSyntax.SInstrVec ((Cid.Compound (("salu", 0), (Cid.Id ("opstmt", 1254)))),
+   { LLSyntax.sRid = (Cid.Id ("hist_arr", 983));
+     sIdx = (LLSyntax.Meta (Cid.Id ("cur_idx", 1007)));
+     sFmt = (Cid.Compound (("fmt", 0), (Cid.Id ("hist_arr", 983))));
+     sWid = 32; sNumCells = 1;
+     sExprs =
+     [(LLSyntax.RetExpr (None, (LLSyntax.SVar (LLSyntax.RegVar LLSyntax.Lo))));
+       (LLSyntax.MemExpr
+          (None,
+           (LLSyntax.SVar
+              (LLSyntax.Const { Integer.size = <opaque>; value = <opaque> }))))
+       ];
+     sInstrBody = None; sOut = (Some (Cid.Id ("column_ct", 1008))) }
+   ))
+register: dpt_983_hist_arr sinstr: dpt_1254_salu_0_opstmt read vars: 
+(LLSyntax.SInstrVec ((Cid.Compound (("salu", 0), (Cid.Id ("opstmt", 1294)))),
+   { LLSyntax.sRid = (Cid.Id ("hist_arr", 983));
+     sIdx = (LLSyntax.Meta (Cid.Id ("cur_idx", 1007)));
+     sFmt = (Cid.Compound (("fmt", 0), (Cid.Id ("hist_arr", 983))));
+     sWid = 32; sNumCells = 1;
+     sExprs =
+     [(LLSyntax.MemExpr
+         (None,
+          (LLSyntax.SBinOp (LLSyntax.Add,
+             (LLSyntax.Const { Integer.size = <opaque>; value = <opaque> }),
+             (LLSyntax.RegVar LLSyntax.Lo)))))
+       ];
+     sInstrBody = None; sOut = None }
+   ))
+register: dpt_983_hist_arr sinstr: dpt_1294_salu_0_opstmt read vars: 
+(LLSyntax.SInstrVec ((Cid.Compound (("salu", 0), (Cid.Id ("opstmt", 1262)))),
+   { LLSyntax.sRid = (Cid.Id ("total_arr", 984));
+     sIdx = (LLSyntax.Const { Integer.size = <opaque>; value = <opaque> });
+     sFmt = (Cid.Compound (("fmt", 0), (Cid.Id ("total_arr", 984))));
+     sWid = 32; sNumCells = 1;
+     sExprs =
+     [(LLSyntax.MemExpr
+         (None,
+          (LLSyntax.SVar
+             (LLSyntax.Const { Integer.size = <opaque>; value = <opaque> }))))
+       ];
+     sInstrBody = None; sOut = None }
+   ))
+register: dpt_984_total_arr sinstr: dpt_1262_salu_0_opstmt read vars: 
+(LLSyntax.SInstrVec ((Cid.Compound (("salu", 0), (Cid.Id ("opstmt", 1321)))),
+   { LLSyntax.sRid = (Cid.Id ("total_arr", 984));
+     sIdx = (LLSyntax.Const { Integer.size = <opaque>; value = <opaque> });
+     sFmt = (Cid.Compound (("fmt", 0), (Cid.Id ("total_arr", 984))));
+     sWid = 32; sNumCells = 1;
+     sExprs =
+     [(LLSyntax.RetExpr
+         (None,
+          (LLSyntax.SBinOp (LLSyntax.Add,
+             (LLSyntax.Const { Integer.size = <opaque>; value = <opaque> }),
+             (LLSyntax.RegVar LLSyntax.Lo)))));
+       (LLSyntax.MemExpr
+          (None,
+           (LLSyntax.SBinOp (LLSyntax.Add,
+              (LLSyntax.Const { Integer.size = <opaque>; value = <opaque> }),
+              (LLSyntax.RegVar LLSyntax.Lo)))))
+       ];
+     sInstrBody = None; sOut = (Some (Cid.Id ("total_ct", 1015))) }
+   ))
+register: dpt_984_total_arr sinstr: dpt_1321_salu_0_opstmt read vars: 

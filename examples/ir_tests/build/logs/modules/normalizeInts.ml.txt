@@ -1,0 +1,70 @@
+---normalizeInts.ml log---
+[transform_precompute_exps.visit_exp] exp: 26
+[transform_precompute_exps.visit_exp] atomic exp: 26
+[transform_precompute_exps.visit_exp] exp: 1
+[transform_precompute_exps.visit_exp] atomic exp: 1
+[transform_precompute_exps.visit_exp] exp: 1
+[transform_precompute_exps.visit_exp] atomic exp: 1
+[transform_precompute_exps.visit_exp] exp: 2
+[transform_precompute_exps.visit_exp] atomic exp: 2
+original program: 
+global Array.t<<32>> foo = Array.create(1024);
+
+
+entry event pktin(int<<32>> x);
+
+event secondpass(int<<32>> y);
+
+handle pktin(int<<32>> x) {
+int<<32>> z = 26;
+}
+
+handle secondpass(int<<32>> y) {
+int<<32>> a = 1;
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+}
+program after exp tree balancing: 
+global Array.t<<32>> foo = Array.create(1024);
+
+
+entry event pktin(int<<32>> x);
+
+event secondpass(int<<32>> y);
+
+handle pktin(int<<32>> x) {
+int<<32>> z = 26;
+}
+
+handle secondpass(int<<32>> y) {
+int<<32>> a = 1;
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+}
+program after precomputation pass: 
+global Array.t<<32>> foo = Array.create(1024);
+
+
+entry event pktin(int<<32>> x);
+
+event secondpass(int<<32>> y);
+
+handle pktin(int<<32>> x) {
+int<<32>> z = 26;
+}
+
+handle secondpass(int<<32>> y) {
+int<<32>> a = 1;
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+}
+compute expressions simplified.

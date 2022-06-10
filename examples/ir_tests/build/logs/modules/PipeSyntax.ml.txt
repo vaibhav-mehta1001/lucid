@@ -1,0 +1,535 @@
+---PipeSyntax.ml log---
+[layout_rec] (start) [ctx_summary] iteration: 1 placed: 0 unplaced: 4
+[layout_rec] (start) failed_stage_placements: 0
+[layout_rec] (start) impossible_stage_placements_skipped: 0
+[place_in_pipe] starting placement for: dpt_353_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 0
+[place_in_new_stage] placed table dpt_353_tbl_0_opstmt in NEW stage 0
+[dataflow_check] table id: dpt_353_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_353_tbl_0_opstmt} in stage 0 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_353_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_353_acn_0_opstmt;
+            dpt_371_noop;
+        }
+        const entries = {
+            1 : dpt_353_acn_0_opstmt();
+            (_) : dpt_371_noop();
+        }
+        
+    }
+    
+    action dpt_353_acn_0_opstmt( ){
+        dpt_353_alu_0_opstmt();
+        //next tables: []
+        
+    }
+    
+    action dpt_371_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_353_alu_0_opstmt( ){
+        z = 26;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 0
+    table dpt_1_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_353_merged_acn_1_acn_0_opstmt;
+            dpt_371_merged_acn_1_noop;
+        }
+        const entries = {
+            1 : dpt_353_merged_acn_1_acn_0_opstmt();
+            _ : dpt_371_merged_acn_1_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[dataflow_check] table id: dpt_353_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_353_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 1 unplaced: 3
+[place_in_pipe] starting placement for: dpt_355_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 1
+[dataflow_check] table id: dpt_355_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_355_tbl_0_opstmt} in stage 0 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_355_tbl_0_opstmt {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_355_acn_0_opstmt;
+            dpt_369_noop;
+        }
+        const entries = {
+            2 : dpt_355_acn_0_opstmt();
+            (_) : dpt_369_noop();
+        }
+        
+    }
+    
+    action dpt_355_acn_0_opstmt( ){
+        dpt_355_alu_0_opstmt();
+        //next tables: [dpt_360_tbl_0_opstmt, dpt_361_tbl_0_opstmt]
+        
+    }
+    
+    action dpt_369_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_355_alu_0_opstmt( ){
+        a = 1;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 0
+    table dpt_1_merged_tbl {
+        key = {
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_369_merged_acn_1_acn_0_opstmt_353_noop;
+            dpt_355_merged_acn_1_noop_371_acn_0_opstmt;
+            dpt_369_merged_acn_1_noop_371_noop;
+        }
+        const entries = {
+            1 : dpt_369_merged_acn_1_acn_0_opstmt_353_noop();
+            2 : dpt_355_merged_acn_1_noop_371_acn_0_opstmt();
+            _ : dpt_369_merged_acn_1_noop_371_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_1_merged_tbl:[dpt_353_tbl_0_opstmt, dpt_353_acn_0_opstmt, dpt_371_noop, dpt_353_alu_0_opstmt, dpt_355_tbl_0_opstmt, dpt_355_acn_0_opstmt, dpt_369_noop, dpt_355_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_1_merged_tbl:[dpt_353_tbl_0_opstmt, dpt_353_acn_0_opstmt, dpt_371_noop, dpt_353_alu_0_opstmt, dpt_355_tbl_0_opstmt, dpt_355_acn_0_opstmt, dpt_369_noop, dpt_355_alu_0_opstmt]>
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] tg keys total_width: 8
+[max_actions] tg number of actions: 3
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_355_tbl_0_opstmt
+[dataflow_check] pred_tids: 
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_355_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 2 unplaced: 2
+[place_in_stages] placed table dpt_355_tbl_0_opstmt in stage 0/1
+[place_in_pipe] finished placement for: dpt_355_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 1
+[place_in_pipe] starting placement for: dpt_361_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 1
+[dataflow_check] table id: dpt_361_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_355_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_355_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_361_tbl_0_opstmt} in stage 0 (skipping)
+[place_in_pipe] placement in existing stages failed. trying a new stage for: dpt_361_tbl_0_opstmt
+[place_in_new_stage] placed table dpt_361_tbl_0_opstmt in NEW stage 1
+[dataflow_check] table id: dpt_361_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_355_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_353_tbl_0_opstmt, dpt_355_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_361_tbl_0_opstmt} in stage 1 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_361_tbl_0_opstmt {
+        key = {
+            a : ternary;
+            hdr.secondpass.y : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_379_noop;
+            dpt_361_acn_0_opstmt;
+            dpt_377_noop;
+        }
+        const entries = {
+            (2, 10, 2) : dpt_379_noop();
+            (_, _, 2) : dpt_361_acn_0_opstmt();
+            (_, _, _) : dpt_377_noop();
+        }
+        
+    }
+    
+    action dpt_379_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_361_acn_0_opstmt( ){
+        dpt_361_alu_0_opstmt();
+        //next tables: []
+        
+    }
+    
+    action dpt_377_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_361_alu_0_opstmt( ){
+        c = 2;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 1
+    table dpt_2_merged_tbl {
+        key = {
+            a : ternary;
+            hdr.secondpass.y : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_379_merged_acn_2_noop;
+            dpt_361_merged_acn_2_acn_0_opstmt;
+            dpt_377_merged_acn_2_noop;
+        }
+        const entries = {
+            (2, 10, 2) : dpt_379_merged_acn_2_noop();
+            (_, _, 2) : dpt_361_merged_acn_2_acn_0_opstmt();
+            (_, _, _) : dpt_377_merged_acn_2_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[dataflow_check] table id: dpt_361_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_355_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_353_tbl_0_opstmt, dpt_355_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_361_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 3 unplaced: 1
+[place_in_pipe] starting placement for: dpt_360_tbl_0_opstmt
+[place_in_pipe] stages in current pipe: 2
+[dataflow_check] table id: dpt_360_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_355_tbl_0_opstmt
+[dataflow_check] placed_tids: 
+[dataflow_check] unplaced_preds: dpt_355_tbl_0_opstmt
+[dataflow_check] fail
+[place_in_stage] dataflow constraints VIOLATED for {dpt_360_tbl_0_opstmt} in stage 0 (skipping)
+[dataflow_check] table id: dpt_360_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_355_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_353_tbl_0_opstmt, dpt_355_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] dataflow constraints SATISFIED for {dpt_360_tbl_0_opstmt} in stage 1 (placing)
+[merge_into_group] --- single-operation tables --- 
+// Stage not set by dptc
+    table dpt_360_tbl_0_opstmt {
+        key = {
+            a : ternary;
+            hdr.secondpass.y : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_360_acn_0_opstmt;
+            dpt_375_noop;
+        }
+        const entries = {
+            (2, 10, 2) : dpt_360_acn_0_opstmt();
+            (_, _, _) : dpt_375_noop();
+        }
+        
+    }
+    
+    action dpt_360_acn_0_opstmt( ){
+        dpt_360_alu_0_opstmt();
+        //next tables: []
+        
+    }
+    
+    action dpt_375_noop( ){
+        //next tables: []
+        
+    }
+    
+    action dpt_360_alu_0_opstmt( ){
+        b = 1;
+        
+    }
+    
+[merge_into_group] --- single-operation tables --- 
+[merge_into_group] --- updated group table --- 
+@pragma stage 1
+    table dpt_2_merged_tbl {
+        key = {
+            a : ternary;
+            hdr.secondpass.y : ternary;
+            md.dptMeta.eventType : ternary;
+        }
+        actions = {
+            dpt_360_merged_acn_2_noop_379_acn_0_opstmt;
+            dpt_375_merged_acn_2_acn_0_opstmt_361_noop;
+            dpt_375_merged_acn_2_noop_377_noop;
+        }
+        const entries = {
+            (2, 10, 2) : dpt_360_merged_acn_2_noop_379_acn_0_opstmt();
+            (_, _, 2) : dpt_375_merged_acn_2_acn_0_opstmt_361_noop();
+            (_, _, _) : dpt_375_merged_acn_2_noop_377_noop();
+        }
+        
+    }
+    
+[merge_into_group] --- updated group table --- 
+[place_in_group] proposed table group: <dpt_2_merged_tbl:[dpt_361_tbl_0_opstmt, dpt_379_noop, dpt_361_acn_0_opstmt, dpt_377_noop, dpt_361_alu_0_opstmt, dpt_360_tbl_0_opstmt, dpt_360_acn_0_opstmt, dpt_375_noop, dpt_360_alu_0_opstmt]>
+[place_in_group] checking table group constraints.
+[max_matchbits] checking table group: <dpt_2_merged_tbl:[dpt_361_tbl_0_opstmt, dpt_379_noop, dpt_361_acn_0_opstmt, dpt_377_noop, dpt_361_alu_0_opstmt, dpt_360_tbl_0_opstmt, dpt_360_acn_0_opstmt, dpt_375_noop, dpt_360_alu_0_opstmt]>
+[max_matchbits] dpt_303_a: 32
+[max_matchbits] dpt_352_hdr_0_secondpass_299_y: 32
+[max_matchbits] dpt_0_md_0_dptMeta_0_eventType: 8
+[max_matchbits] tg keys total_width: 72
+[max_actions] tg number of actions: 3
+[place_in_group] constraint check passed
+[dataflow_check] table id: dpt_360_tbl_0_opstmt
+[dataflow_check] pred_tids: dpt_355_tbl_0_opstmt
+[dataflow_check] placed_tids: dpt_353_tbl_0_opstmt, dpt_355_tbl_0_opstmt
+[dataflow_check] unplaced_preds: 
+[place_in_stage] stage constraints satisfied
+[place_in_stage] placement of { dpt_360_tbl_0_opstmt } successful. [ctx_summary] iteration: 1 placed: 4 unplaced: 0
+[place_in_stages] placed table dpt_360_tbl_0_opstmt in stage 1/2
+[place_in_pipe] finished placement for: dpt_360_tbl_0_opstmt
+[place_in_pipe] stages in updated pipe: 2
+[unplaced_nodes] all_nodes: dpt_361_tbl_0_opstmt, dpt_360_tbl_0_opstmt, dpt_355_tbl_0_opstmt, dpt_353_tbl_0_opstmt
+[unplaced_nodes] placed_tables: dpt_353_tbl_0_opstmt, dpt_355_tbl_0_opstmt, dpt_361_tbl_0_opstmt, dpt_360_tbl_0_opstmt
+[unplaced_nodes] unplaced_registers: dpt_295_foo
+[unplaced_nodes] unplaced_nodes: 
+[unplaced_nodes] unplaced_tables: 
+[layout_rec] finished placing nodes in this pass.
+[layout_rec] (end) [ctx_summary] iteration: 1 placed: 4 unplaced: 0
+[layout_rec] (end) failed_stage_placements: 2
+[layout_rec] (end) impossible_stage_placements_skipped: 2
+---- deduplication started -----
+removing duplicates of dpt_301_z
+decl id: dpt_301_z number of aliases: 0
+original ds len: 33 new ds len:33
+removing duplicates of dpt_303_a
+decl id: dpt_303_a number of aliases: 0
+original ds len: 32 new ds len:32
+removing duplicates of dpt_305_c
+decl id: dpt_305_c number of aliases: 0
+original ds len: 31 new ds len:31
+removing duplicates of dpt_304_b
+decl id: dpt_304_b number of aliases: 0
+original ds len: 30 new ds len:30
+removing duplicates of dpt_295_foo
+decl id: dpt_295_foo number of aliases: 0
+original ds len: 29 new ds len:29
+removing duplicates of dpt_295_fmt_0_foo
+decl id: dpt_295_fmt_0_foo number of aliases: 0
+original ds len: 28 new ds len:28
+removing duplicates of dpt_297_pktin_t
+decl id: dpt_297_pktin_t number of aliases: 0
+original ds len: 27 new ds len:27
+removing duplicates of dpt_297_md_0_pktin
+decl id: dpt_297_md_0_pktin number of aliases: 0
+original ds len: 26 new ds len:26
+removing duplicates of dpt_297_e_pktin
+decl id: dpt_297_e_pktin number of aliases: 0
+original ds len: 25 new ds len:25
+removing duplicates of dpt_299_secondpass_t
+decl id: dpt_299_secondpass_t number of aliases: 0
+original ds len: 24 new ds len:24
+removing duplicates of dpt_299_hdr_0_secondpass
+decl id: dpt_299_hdr_0_secondpass number of aliases: 0
+original ds len: 23 new ds len:23
+removing duplicates of dpt_299_e_secondpass
+decl id: dpt_299_e_secondpass number of aliases: 0
+original ds len: 22 new ds len:22
+removing duplicates of dpt_0_lucid_footer_t
+decl id: dpt_0_lucid_footer_t number of aliases: 0
+original ds len: 21 new ds len:21
+removing duplicates of dpt_0_lucid_footer
+decl id: dpt_0_lucid_footer number of aliases: 0
+original ds len: 20 new ds len:20
+removing duplicates of dpt_0_ev_out_flags_t
+decl id: dpt_0_ev_out_flags_t number of aliases: 0
+original ds len: 19 new ds len:19
+removing duplicates of dpt_0_hdr_0_ev_out_flags
+decl id: dpt_0_hdr_0_ev_out_flags number of aliases: 0
+original ds len: 18 new ds len:18
+removing duplicates of dpt_0_dptMeta_t
+decl id: dpt_0_dptMeta_t number of aliases: 0
+original ds len: 17 new ds len:17
+removing duplicates of dpt_0_md_0_dptMeta
+decl id: dpt_0_md_0_dptMeta number of aliases: 0
+original ds len: 16 new ds len:16
+removing duplicates of dpt_0_DptIngressParser
+decl id: dpt_0_DptIngressParser number of aliases: 0
+original ds len: 15 new ds len:15
+removing duplicates of dpt_0_lucid_return_table
+decl id: dpt_0_lucid_return_table number of aliases: 0
+original ds len: 14 new ds len:14
+removing duplicates of dpt_0_egr_serialize_clone
+decl id: dpt_0_egr_serialize_clone number of aliases: 0
+original ds len: 13 new ds len:13
+removing duplicates of dpt_0_event_pkt_generator
+decl id: dpt_0_event_pkt_generator number of aliases: 0
+original ds len: 12 new ds len:12
+removing duplicates of dpt_355_alu_0_opstmt
+decl id: dpt_355_alu_0_opstmt number of aliases: 0
+original ds len: 11 new ds len:11
+removing duplicates of dpt_353_alu_0_opstmt
+decl id: dpt_353_alu_0_opstmt number of aliases: 0
+original ds len: 10 new ds len:10
+removing duplicates of dpt_369_merged_acn_1_noop_371_noop
+dpt_369_merged_acn_1_noop_371_noop EQUALS dpt_375_merged_acn_2_noop_377_noop
+decl id: dpt_369_merged_acn_1_noop_371_noop number of aliases: 1
+dpt_369_merged_acn_1_noop_371_noop EQUALS dpt_375_merged_acn_2_noop_377_noop
+original ds len: 9 new ds len:8
+replacing alias: dpt_375_merged_acn_2_noop_377_noop with dpt_369_merged_acn_1_noop_371_noop
+removing duplicates of dpt_355_merged_acn_1_noop_371_acn_0_opstmt
+decl id: dpt_355_merged_acn_1_noop_371_acn_0_opstmt number of aliases: 0
+original ds len: 7 new ds len:7
+removing duplicates of dpt_369_merged_acn_1_acn_0_opstmt_353_noop
+decl id: dpt_369_merged_acn_1_acn_0_opstmt_353_noop number of aliases: 0
+original ds len: 6 new ds len:6
+removing duplicates of dpt_1_merged_tbl
+decl id: dpt_1_merged_tbl number of aliases: 0
+original ds len: 5 new ds len:5
+removing duplicates of dpt_361_alu_0_opstmt
+decl id: dpt_361_alu_0_opstmt number of aliases: 0
+original ds len: 4 new ds len:4
+removing duplicates of dpt_360_alu_0_opstmt
+decl id: dpt_360_alu_0_opstmt number of aliases: 0
+original ds len: 3 new ds len:3
+removing duplicates of dpt_375_merged_acn_2_acn_0_opstmt_361_noop
+decl id: dpt_375_merged_acn_2_acn_0_opstmt_361_noop number of aliases: 0
+original ds len: 2 new ds len:2
+removing duplicates of dpt_360_merged_acn_2_noop_379_acn_0_opstmt
+decl id: dpt_360_merged_acn_2_noop_379_acn_0_opstmt number of aliases: 0
+original ds len: 1 new ds len:1
+removing duplicates of dpt_2_merged_tbl
+decl id: dpt_2_merged_tbl number of aliases: 0
+original ds len: 0 new ds len:0
+removing duplicates of dpt_301_z
+decl id: dpt_301_z number of aliases: 0
+original ds len: 32 new ds len:32
+removing duplicates of dpt_303_a
+decl id: dpt_303_a number of aliases: 0
+original ds len: 31 new ds len:31
+removing duplicates of dpt_305_c
+decl id: dpt_305_c number of aliases: 0
+original ds len: 30 new ds len:30
+removing duplicates of dpt_304_b
+decl id: dpt_304_b number of aliases: 0
+original ds len: 29 new ds len:29
+removing duplicates of dpt_295_foo
+decl id: dpt_295_foo number of aliases: 0
+original ds len: 28 new ds len:28
+removing duplicates of dpt_295_fmt_0_foo
+decl id: dpt_295_fmt_0_foo number of aliases: 0
+original ds len: 27 new ds len:27
+removing duplicates of dpt_297_pktin_t
+decl id: dpt_297_pktin_t number of aliases: 0
+original ds len: 26 new ds len:26
+removing duplicates of dpt_297_md_0_pktin
+decl id: dpt_297_md_0_pktin number of aliases: 0
+original ds len: 25 new ds len:25
+removing duplicates of dpt_297_e_pktin
+decl id: dpt_297_e_pktin number of aliases: 0
+original ds len: 24 new ds len:24
+removing duplicates of dpt_299_secondpass_t
+decl id: dpt_299_secondpass_t number of aliases: 0
+original ds len: 23 new ds len:23
+removing duplicates of dpt_299_hdr_0_secondpass
+decl id: dpt_299_hdr_0_secondpass number of aliases: 0
+original ds len: 22 new ds len:22
+removing duplicates of dpt_299_e_secondpass
+decl id: dpt_299_e_secondpass number of aliases: 0
+original ds len: 21 new ds len:21
+removing duplicates of dpt_0_lucid_footer_t
+decl id: dpt_0_lucid_footer_t number of aliases: 0
+original ds len: 20 new ds len:20
+removing duplicates of dpt_0_lucid_footer
+decl id: dpt_0_lucid_footer number of aliases: 0
+original ds len: 19 new ds len:19
+removing duplicates of dpt_0_ev_out_flags_t
+decl id: dpt_0_ev_out_flags_t number of aliases: 0
+original ds len: 18 new ds len:18
+removing duplicates of dpt_0_hdr_0_ev_out_flags
+decl id: dpt_0_hdr_0_ev_out_flags number of aliases: 0
+original ds len: 17 new ds len:17
+removing duplicates of dpt_0_dptMeta_t
+decl id: dpt_0_dptMeta_t number of aliases: 0
+original ds len: 16 new ds len:16
+removing duplicates of dpt_0_md_0_dptMeta
+decl id: dpt_0_md_0_dptMeta number of aliases: 0
+original ds len: 15 new ds len:15
+removing duplicates of dpt_0_DptIngressParser
+decl id: dpt_0_DptIngressParser number of aliases: 0
+original ds len: 14 new ds len:14
+removing duplicates of dpt_0_lucid_return_table
+decl id: dpt_0_lucid_return_table number of aliases: 0
+original ds len: 13 new ds len:13
+removing duplicates of dpt_0_egr_serialize_clone
+decl id: dpt_0_egr_serialize_clone number of aliases: 0
+original ds len: 12 new ds len:12
+removing duplicates of dpt_0_event_pkt_generator
+decl id: dpt_0_event_pkt_generator number of aliases: 0
+original ds len: 11 new ds len:11
+removing duplicates of dpt_355_alu_0_opstmt
+decl id: dpt_355_alu_0_opstmt number of aliases: 0
+original ds len: 10 new ds len:10
+removing duplicates of dpt_353_alu_0_opstmt
+decl id: dpt_353_alu_0_opstmt number of aliases: 0
+original ds len: 9 new ds len:9
+removing duplicates of dpt_369_merged_acn_1_noop_371_noop
+decl id: dpt_369_merged_acn_1_noop_371_noop number of aliases: 0
+original ds len: 8 new ds len:8
+removing duplicates of dpt_355_merged_acn_1_noop_371_acn_0_opstmt
+decl id: dpt_355_merged_acn_1_noop_371_acn_0_opstmt number of aliases: 0
+original ds len: 7 new ds len:7
+removing duplicates of dpt_369_merged_acn_1_acn_0_opstmt_353_noop
+decl id: dpt_369_merged_acn_1_acn_0_opstmt_353_noop number of aliases: 0
+original ds len: 6 new ds len:6
+removing duplicates of dpt_1_merged_tbl
+decl id: dpt_1_merged_tbl number of aliases: 0
+original ds len: 5 new ds len:5
+removing duplicates of dpt_361_alu_0_opstmt
+decl id: dpt_361_alu_0_opstmt number of aliases: 0
+original ds len: 4 new ds len:4
+removing duplicates of dpt_360_alu_0_opstmt
+decl id: dpt_360_alu_0_opstmt number of aliases: 0
+original ds len: 3 new ds len:3
+removing duplicates of dpt_375_merged_acn_2_acn_0_opstmt_361_noop
+decl id: dpt_375_merged_acn_2_acn_0_opstmt_361_noop number of aliases: 0
+original ds len: 2 new ds len:2
+removing duplicates of dpt_360_merged_acn_2_noop_379_acn_0_opstmt
+decl id: dpt_360_merged_acn_2_noop_379_acn_0_opstmt number of aliases: 0
+original ds len: 1 new ds len:1
+removing duplicates of dpt_2_merged_tbl
+decl id: dpt_2_merged_tbl number of aliases: 0
+original ds len: 0 new ds len:0
+deduplication eliminated 1 operations
+---- deduplication finished -----

@@ -1,0 +1,19 @@
+global Array.t<<32>> foo = Array.create(1024);
+
+
+entry event pktin(int<<32>> x);
+
+event secondpass(int<<32>> y);
+
+handle pktin(int<<32>> x) {
+int<<32>> z = 26;
+}
+
+handle secondpass(int<<32>> y) {
+int<<32>> a = 1;
+if (y==10&&a==2) {
+int<<32>> b = 1;
+} else {
+int<<32>> c = 2;
+}
+}
