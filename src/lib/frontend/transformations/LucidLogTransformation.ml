@@ -4,6 +4,10 @@ open Batteries
 open Collections
 open Printing
 
+let to_stmt s = 
+ {s=s;sspan = Span.default}
+
+
 let print_keys keys = 
 let _ = print_string "Printing Keys \n" in 
  List.map(fun (id,_)-> print_string ((fst id) ^ "\n")) keys 
@@ -13,9 +17,10 @@ let print_vals vals =
  List.map(fun (i,(s,_))->
  let _ = print_int i in 
   print_string ((s) ^ "\n")) vals 
+
 let gensym : string -> string =
   let c = ref 0 in
-  fun (s:string) -> incr c; Printf.sprintf "_%s%d" s (!c)
+  fun (s:string) -> incr c; Printf.sprintf "%s_%d" s (!c)
 
 
 let get_args_str args = List.map (fun x ->
@@ -54,9 +59,20 @@ let resolve_order (actual_args : params) (table_keys : params) (expr_args) =
       let _ = print_string_list expr_args in 
       let _ = print_params actual_args in 
       let expr_args = get_indices table_keys expr_args in 
+      if (List.length actual_args) = (List.length expr_args) then
       let args = List.combine actual_args (expr_args)
       in let args = List.stable_sort (fun a b -> (snd a) - (snd b)) args
-      in List.map(fun (a,_) -> a) args  
+      in Some(List.map(fun (a,_) -> a) args) else None
+
+let get_indices_2 keys exprs = 
+List.flatten (List.mapi (fun i s -> List.flatten(List.mapi(fun j s1 -> if String.equal (fst(fst s1)) s then [(j,s1)] else 
+ []) keys )) exprs ) 
+
+let resolve_order_2 (actual_args : params) (expr_args) = 
+let expr_args2 = get_indices_2 actual_args expr_args in 
+      (* let args = List.combine expr_args (expr_args2) in *)
+      let args = List.stable_sort (fun a b -> (fst a) - (fst b)) expr_args2
+      in (List.map(fun (a,b) -> b) args) 
 
 (* 
    match decl.d with 
@@ -67,7 +83,9 @@ let resolve_order (actual_args : params) (table_keys : params) (expr_args) =
 
 let get_pred table pred =
     match pred with 
-    |Table{name;args=args} -> if Id.equal_names table name then args else []
+    |Table{name;loc;args=args} -> if Id.equal_names table name then 
+    begin match loc with |Some x -> {e=EVar (Id x);ety=None;espan=Span.default} :: args
+     |None -> args end else []
 
 let get_args_rule rule_name table (actual_args : params) 
 rule_ctxt (table_ctxt : (Id.t * Syntax.params) list)
@@ -84,28 +102,58 @@ rule_ctxt (table_ctxt : (Id.t * Syntax.params) list)
   let expr_args = List.flatten (List.map (get_pred table) preds) in 
   resolve_order actual_args table_keys (get_args_str expr_args)
 
+let compile_set_param (idx : cid) arr_names i param = 
+  let x = fst(param) in 
+  let arr_name = Id (fst(List.assoc i arr_names), 0)
+  in SUnit(  
+  {e=ECall((Cid.create["Array";"set"]), 
+  [{e=EVar arr_name;ety=None;espan=Span.default};
+  {e=EVar idx;ety=None;espan=Span.default};
+   {e=EVar (Id x);ety=None;espan=Span.default}])
+  ;ety=None;espan=Span.default})
+
+let compile_set_table tbl_ctxt name params arr_names loc = 
+ let keys = List.assoc name tbl_ctxt in 
+  if (loc && (fst(fst(List.nth keys 0))) <> "SELF") then 
+  let _ = print_string "HERER@!" in []
+  else 
+ let vals = firstk (List.length arr_names) (List.rev params) in 
+ let idx = ((gensym "idx"),0) in 
+ let stmt = SLocal(idx, 
+ {raw_ty=(TInt(IConst 16));teffect=FZero; tspan=Span.default; tprint_as=ref None} , 
+  {e=EHash((IConst 16), (List.map (fun (id, _) -> 
+  {e=EVar (Id id);ety=None;espan=Span.default}) 
+  keys)); ety=None; espan=Span.default}) in 
+  let stmt2 = List.mapi (compile_set_param (Id idx) arr_names) vals
+in stmt :: stmt2
+
         
 (*ID is table name *)
-let rec generate_table_body id graphs params rule_ctxt table_ctxt rule_args_ctxt = 
+let rec generate_table_body id graphs params rule_ctxt table_ctxt rule_args_ctxt arr_names loc = 
  let generate_deps d = 
   List.map(fun name ->  let _ = print_string (fst(name)) in
-              {s=SGen(GSingle(None),
-              {e=ECall(Cid.create [(fst(name))], 
-                     (List.map (fun x -> {e=EVar(Cid.create[ fst(fst(x))]);ety=None;espan=Span.default}) 
-                     (get_args_rule name id params rule_args_ctxt table_ctxt rule_ctxt)))
-                     ;ety=None;espan = Span.default});
+              let args = get_args_rule name id params rule_args_ctxt table_ctxt rule_ctxt
+              in match args with 
+                            | Some x ->   {s=SGen(GSingle(None),
+                                   {e=ECall(Cid.create [(fst(name))], 
+                                 (List.map (fun x -> {e=EVar(Cid.create[ fst(fst(x))]);ety=None;espan=Span.default}) 
+                                    (x))) ;ety=None;espan = Span.default});
                       sspan=Span.default}
-                    ) d 
+                    
+                      | None -> {s=SNoop;sspan=Span.default}) d
+                         
  in let deps = match (List.assoc_opt id graphs)
   with | Some dep -> dep (*dep is rule name *)
        | None -> [] in 
+let stmts_set  = compile_set_table table_ctxt id params arr_names loc in 
+let stmts_set = List.map to_stmt stmts_set in 
  let stmts = List.fold_left(fun acc x-> 
-                  {s=SSeq(acc, x);sspan=Span.default}) {s=SNoop;sspan=Span.default} (generate_deps deps) in DHandler((("event_"^(fst(id))), snd(id)), (params,stmts))
+                  {s=SSeq(acc, x);sspan=Span.default}) {s=SNoop;sspan=Span.default} (stmts_set @ (generate_deps deps)) in DHandler((("event_"^(fst(id))), snd(id)), (params, (stmts)))
 
 let generate_val_tables_ctxt decl =
   match decl.d with 
   | DTable{name; loc; keys; value; merge} -> 
-  let value = List.mapi (fun i x -> (i, ((gensym (fst(fst x))), (snd x)))) value in 
+  let value = List.mapi (fun i x -> (i, (( (fst(fst x))), (snd x)))) value in 
  [(name, value)]
   | _  -> []
 
@@ -118,17 +166,20 @@ let generate_array (idx, (name, ty)) =
 let generate_val_arrays name (ctxt : (Syntax.id * (int * (string * Syntax.ty)) list) list)  = 
    let value = List.assoc name ctxt in List.flatten (List.map generate_array value)
 
-
+let map_param ((name,sp),ty) = 
+  ((((gensym name)), sp),ty)
+  
 let generate_table graph (vals_ctxt)  rule_ctxt table_ctxt rule_args  d = match d.d with 
                          | DTable{name; loc; keys; value; merge} ->  let param = 
                          begin match loc with 
                          | Some v -> [(v, {raw_ty=(TInt(IConst 32));teffect=FZero;
-                           tspan=Span.default;tprint_as= ref None})] 
-                         | None -> [] end in 
-                         let param = param @ keys @ value in 
+                           tspan=Span.default;tprint_as= ref None})], true
+                         | None -> [],false end in 
+                         let value = List.map map_param value in 
+                         let params = fst(param) @ keys @ value in 
                          (generate_val_arrays name vals_ctxt) @
-                         [DEvent((("event_" ^ (fst name)), (snd name)), EEntry(true), [], param );
-                          (generate_table_body name graph param rule_ctxt table_ctxt rule_args)]
+                         [DEvent((("event_" ^ (fst name)), (snd name)), EEntry(true), [], params );
+                          (generate_table_body name graph params rule_ctxt table_ctxt rule_args (List.assoc name vals_ctxt)) (snd(param))]
                          | _ -> []
 
 
@@ -138,15 +189,34 @@ let tbl_arg_ctxt (decls : decls) =
     fun acc d -> match d.d with 
     | DTable{name; loc; keys; value; merge} ->  let param = 
                          begin match loc with 
-                         | Some v -> [(v, {raw_ty=(TInt(IConst 32));teffect=FZero;
-                           tspan=Span.default;tprint_as= ref None})] 
-                         | None -> [] end in 
-                         (name, param @ keys) :: acc
+                         | Some v -> if (fst(v)) = "SELF" then (v, {raw_ty=(TInt(IConst 32));teffect=FZero;
+                           tspan=Span.default;tprint_as= ref None}) :: keys else 
+                           (v, {raw_ty=(TInt(IConst 32));teffect=FZero;
+                           tspan=Span.default;tprint_as= ref None}) :: keys @ value
+                         | None -> keys end in 
+                         (name, param) :: acc
     
     | _ -> acc 
   
   ) d in helper [] decls
 
+(* MAP from table name to keys for self rule-- value not include *)
+let tbl_arg_ctxt_val (decls : decls) = 
+  let helper d = List.fold_left (
+    fun acc d -> match d.d with 
+    | DTable{name; loc; keys; value; merge} ->  let param = 
+                         begin match loc with 
+                         | Some v -> 
+                         if (fst(v)) = "SELF" then 
+                        keys else 
+                           (v, {raw_ty=(TInt(IConst 32));teffect=FZero;
+                           tspan=Span.default;tprint_as= ref None}) :: keys @ value
+                         | None -> keys end in 
+                         (name, param) :: acc
+    
+    | _ -> acc 
+  
+  ) d in helper [] decls
 
 (*Map from rule name to rule args -- rule args are keys of first predicate  *) 
 let generate_rule_param (table_ctxt) ctxt d = match d.d with 
@@ -228,26 +298,51 @@ let rec lastk ls k i =
 match ls with 
 | [] -> []
 | _ :: tl -> if i = k then tl else lastk tl k (i+1)
+(* 
+let get_indices_2 params keys = 
+List.flatten  (List.mapi(fun i p -> List.flatten(List.mapi(fun j k -> 
+if (String.equal (fst(fst p)) (fst(fst k))) then [(j,p)] else []) keys)) params) *)
 
-let compile_pred params vals_ctxt tbl_arg_ctxt pred  =
- match pred with
- | Table{name; loc; args} ->  let keys = List.assoc name tbl_arg_ctxt in
+let resolve_keys (params: (Syntax.id * 'a) list) keys =
+ let args = get_indices_2 params keys in 
+ let args = List.stable_sort (fun a b -> (fst a) - (fst b)) args
+in (List.map(fun (_,b) -> b) args)
+
+   
+
+let compile_pred_helper params vals_ctxt tbl_arg_ctxt name loc args =
+  let arr_names = List.assoc name vals_ctxt in 
+ let keys = List.assoc name tbl_arg_ctxt in
+ (* let params = resolve_keys params keys in  *)
+ let resolved_params = resolve_order_2 params (get_args_str args) in
+ let resolved_params = begin match loc with 
+ | Some x -> (x,{raw_ty=(TInt(IConst 32));teffect=FZero;
+  tspan=Span.default;tprint_as= ref None}) :: resolved_params
+| None -> resolved_params end 
+                      in 
  let idx = ((gensym "idx"),0)
  in let prog = SLocal(idx, 
  {raw_ty=(TInt(IConst 16));teffect=FZero; tspan=Span.default; tprint_as=ref None} , 
   {e=EHash((IConst 16), (List.map (fun (id, _) -> 
   {e=EVar (Id id);ety=None;espan=Span.default}) 
-  params)); ety=None; espan=Span.default}) in 
-  let values = firstk  (List.length args - List.length keys) (List.rev args) in 
-  let arr_names = List.assoc name vals_ctxt in 
-  let _ = print_string "--- Printing pred stuff --- \n" in 
-  let _ =  print_keys keys in 
+  resolved_params)); ety=None; espan=Span.default})
+   in 
+   let _ = print_string "--- Printing pred stuff --- \n" in 
+  let _ =  print_keys params in 
+  let values = firstk  (List.length arr_names) (List.rev args) in 
   let _ = print_vals arr_names in 
   let _ = print_string "\n" in let _ = print_int (List.length values) in 
   let _  = print_string "\n printing args \n "  in 
   let _ = print_string_list (get_args_str args) in 
-
   prog :: (List.mapi (compile_lookup (Id idx) arr_names)) values 
+
+let compile_pred params vals_ctxt tbl_arg_ctxt pred  =
+ match pred with
+ | Table{name; loc; args} ->  begin match loc with 
+ | None -> compile_pred_helper params vals_ctxt tbl_arg_ctxt name loc args
+| Some x -> if (fst x) = "SELF" then compile_pred_helper params vals_ctxt tbl_arg_ctxt name loc 
+(args)  
+  else [] end 
 
 let compile_exps (acc:e) (exp : exp) = 
  match acc with 
@@ -267,13 +362,20 @@ let compile_set (name : cid) arr_names i exp =
 
 
 
-let compile_true_branch keys args arr_names  = let idx = ((gensym "idx"),0)
- in let prog = SLocal(idx, 
+let compile_true_branch keys args arr_names has_loc = 
+ let idx = ((gensym "idx"),0)
+ in let ksize = if has_loc then (List.length keys)-(List.length arr_names) 
+ else (List.length keys) in 
+ let prog = SLocal(idx, 
  {raw_ty=(TInt(IConst 16));teffect=FZero; tspan=Span.default; tprint_as=ref None} , 
   {e=EHash((IConst 16), (List.map (fun (id) -> 
   {e=EVar (Id (id,0));ety=None;espan=Span.default}) 
-  (firstk (List.length keys) (get_args_str args)))); ety=None; espan=Span.default}) in 
-  let values = firstk (List.length args - List.length keys) (List.rev args) in 
+  (firstk (ksize) (get_args_str args)))); ety=None; espan=Span.default}) in 
+   let _ = print_string "--- Printing True Branch stuff --- \n" in 
+  let _ =  print_keys keys in 
+  let _ = print_string_list (get_args_str args) in 
+
+  let values = firstk (List.length arr_names) (List.rev args) in 
   prog :: (List.mapi (compile_set (Id idx) arr_names) values)
 
 let to_stmt s = 
@@ -293,7 +395,7 @@ let f acc s =
 let compile_handler_body vals_ctxt rule_args 
 (tbl_arg_ctxt : (Syntax.id * (Syntax.id * Syntax.ty) list) list) rule = 
 match rule.d with 
-| DMin(n, DRule {lhs=Table{name; loc; args}; preds; exps}) -> 
+| DMin(n, DRule {lhs=Table{name; loc; args}; preds; exps; stmt}) -> 
  let keys = List.assoc name tbl_arg_ctxt in 
   let _ = print_keys keys in 
  let arr_names = List.assoc name vals_ctxt in 
@@ -303,10 +405,12 @@ match rule.d with
  in let exps = if (List.length exps > 1) then 
   {e=(List.fold_left compile_exps (EOp(And, [])) exps);ety=None; espan=Span.default} else 
   (List.nth exps 0) 
-
-in let b1 = compile_true_branch keys args arr_names in 
+in let args = begin match loc with Some x -> {e=EVar(Id x);ety=None;espan=Span.default}
+ :: args | None -> args end in 
+  let has_loc = begin match loc with Some _ -> true | None -> false end in 
+let b1 = compile_true_branch keys args arr_names has_loc in 
 let stmts = (List.map to_stmt stmts) @ 
-[to_stmt (SIf(exps, combine_stmt (List.map to_stmt b1), to_stmt SNoop))] in 
+[to_stmt (SIf(exps, combine_stmt (stmt @ (List.map to_stmt b1)), to_stmt SNoop))] in 
 let body_stmt = combine_stmt stmts 
 in [DHandler(n, (params,body_stmt))]
  
@@ -323,11 +427,30 @@ let remove (decl : decls) : decls =
                                  | _ -> true
 in  List.filter (filter) decl ;; 
 
-let print_assoc assoc = List.map (fun (x,_) -> print_string ((fst x)^"\n")) assoc
+let print_ids id = List.map(fun(a)-> print_string (fst(a)^" ")) id
+
+let  print_assoc assoc = List.map (fun (x,y) -> 
+let _ = print_string ((fst x)^"->") in let _ = print_ids y
+in print_string "\n") assoc
+
+
+let compile_communication_ctxt  d = 
+match d.d with 
+| DMin(n, DRule {lhs=Table{name; loc; args}; preds; exps}) -> 
+ begin match loc with | Some x -> [(n,x)] | None -> [] end 
+| _ -> []
+
+let rule_loc_ctxt d = 
+ match d.d with 
+ | DTable{name;loc;_} -> [(name, loc)]
+ | _ -> []
+   
 let process_prog (decl : decls) : decls =
     let vals_ctxt = List.flatten (List.map generate_val_tables_ctxt decl) in 
     let decl = rule_ctxt decl in 
     let decl = List.map (fun x -> {d=x;dspan=Span.default}) decl in 
+    let comm_ctxt =  List.flatten (List.map compile_communication_ctxt decl) in 
+    let loc_ctxt = List.flatten (List.map rule_loc_ctxt decl) in 
     let table_args = tbl_arg_ctxt decl in 
     let graph = create_graph table_args decl in 
     (* let rctxt = rule_ctxt decl in  *)

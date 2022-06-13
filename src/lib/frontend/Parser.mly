@@ -354,8 +354,8 @@ decl:
        RPAREN WITH MERGE m=aggregates     {[table_sp (snd name) (Some (snd switch)) keys vals (Some m) (Span.extend $1 $3) ]}
     | TABLE name=ID LPAREN KEY COLON keys=separated_list(COMMA, param) VALUE COLON vals=separated_list(COMMA, param)
        RPAREN WITH MERGE m=aggregates     {[table_sp (snd name) (None) keys vals (Some m) (Span.extend $1 $3) ]}
-    | BASE t=table IMPLIES right_table= separated_list(COMMA, table) SEMI right_exps=exps
-               { [rule_sp t (right_table) (right_exps) (Span.extend $1 $3)] }
+    | BASE t=table IMPLIES right_table= separated_list(COMMA, table) SEMI right_exps=exps COMMA stmts=statement1
+               { [rule_sp t (right_table) (right_exps) ([stmts])(Span.extend $1 $3)] }
 
 
 table: 
