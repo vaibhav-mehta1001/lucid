@@ -1,14 +1,13 @@
-/* Measure  */
-table  foo(key : int z ,int p value : int v11) with merge min z 
+/* Measure  
+table  foo(key : int z ,int p value : int v) with merge min z 
 table  xyz(key : int m ,int n value : int vo) with merge min m
 table  abc_table(key: int a, int b  value: int zp, int vp) with merge min x
 
 rule abc_table(p, v1, z, v) :- foo(z, p, v),  xyz(p, z, v1); v1==v,  int a = 5;
+*/
 
-
-
-table  link(@SELF key :int dest  value : int c) with merge min c
-table  hops(@next key : int dest  value : int hopz, int cost_hop) with merge min cost_hop
+table  link(@SELF key :int dest  value : int cost) with merge min c
+table  hops(@next key : int dest  value : int cost, int hop) with merge min cost_hop
 
 rule hops(@SELF dest, dest, cost) :- link(@SELF dest, cost); cost==cost, int cost1=cost;
-rule hops(@SELF dest, next, cost3) :- hops(@next dest, hop, cost_hop), link(@SELF next, cost2); cost==cost2, int cost3=cost + cost2;
+rule hops(@SELF dest, next, cost3) :- hops(@next dest, cost, hop), link(@SELF next, cost2); cost==cost2, int cost3= cost2+cost;

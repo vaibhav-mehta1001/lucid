@@ -153,7 +153,7 @@ let stmts_set = List.map to_stmt stmts_set in
 let generate_val_tables_ctxt decl =
   match decl.d with 
   | DTable{name; loc; keys; value; merge} -> 
-  let value = List.mapi (fun i x -> (i, (( (fst(fst x))), (snd x)))) value in 
+  let value = List.mapi (fun i x -> (i, ((((fst name))^"_"^(fst(fst x))), (snd x)))) value in 
  [(name, value)]
   | _  -> []
 
@@ -167,7 +167,7 @@ let generate_val_arrays name (ctxt : (Syntax.id * (int * (string * Syntax.ty)) l
    let value = List.assoc name ctxt in List.flatten (List.map generate_array value)
 
 let map_param ((name,sp),ty) = 
-  ((((gensym name)), sp),ty)
+  ((((name)), sp),ty)
   
 let generate_table graph (vals_ctxt)  rule_ctxt table_ctxt rule_args  d = match d.d with 
                          | DTable{name; loc; keys; value; merge} ->  let param = 
@@ -192,7 +192,7 @@ let tbl_arg_ctxt (decls : decls) =
                          | Some v -> if (fst(v)) = "SELF" then (v, {raw_ty=(TInt(IConst 32));teffect=FZero;
                            tspan=Span.default;tprint_as= ref None}) :: keys else 
                            (v, {raw_ty=(TInt(IConst 32));teffect=FZero;
-                           tspan=Span.default;tprint_as= ref None}) :: keys @ value
+                           tspan=Span.default;tprint_as= ref None}) :: keys @ (value)
                          | None -> keys end in 
                          (name, param) :: acc
     
@@ -465,6 +465,9 @@ let process_prog (decl : decls) : decls =
     in 
     (* let prog = prog @ List.flatten (List.map (create_rule_event pctxt) decl) *)
    let prog = List.map(fun x -> {d=x;dspan=Span.default}) prog
-   
-    in remove prog
+   in  
+   {d=DConst(("SELF",0), 
+   {raw_ty=TInt(IConst 32);teffect=FZero; tspan=Span.default;
+   tprint_as=ref None}, {e=EVal({v=(VInt (Integer.of_int 0));vty=None;vspan=Span.default});ety=None;espan=Span.default});dspan=Span.default} :: prog
+    (* in remove prog *)
 
