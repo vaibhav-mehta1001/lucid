@@ -33,6 +33,8 @@ handle rule_hops_1(int<<32>> SELF,int<<32>> dest) {
   int<<16>> idx_5 = hash<<16>>(SELF,dest);
   Array.set(hops_cost,idx_5,cost);
   Array.set(hops_hop,idx_5,dest);
+  generate_ports ({1}, rule_hops_2(SELF, dest, dest, cost));
+
 }
 
 memop min_arg(int x, int y) {
