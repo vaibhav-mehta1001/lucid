@@ -121,9 +121,9 @@ let compile_set_table tbl_ctxt name params arr_names loc =
  let idx = ((gensym "idx"),0) in 
  let stmt = SLocal(idx, 
  {raw_ty=(TInt(IConst 16));teffect=FZero; tspan=Span.default; tprint_as=ref None} , 
-  {e=EHash((IConst 16), (List.map (fun (id, _) -> 
+  {e=EHash((IConst 16), (({e=EVar (Id ("SEED",0));ety=None;espan=Span.default}):: (List.map (fun (id, _) -> 
   {e=EVar (Id id);ety=None;espan=Span.default}) 
-  keys)); ety=None; espan=Span.default}) in 
+  keys))); ety=None; espan=Span.default}) in 
   let stmt2 = List.mapi (compile_set_param (Id idx) arr_names) vals
 in stmt :: stmt2
 
@@ -323,9 +323,9 @@ let compile_pred_helper params vals_ctxt tbl_arg_ctxt name loc args =
  let idx = ((gensym "idx"),0)
  in let prog = SLocal(idx, 
  {raw_ty=(TInt(IConst 16));teffect=FZero; tspan=Span.default; tprint_as=ref None} , 
-  {e=EHash((IConst 16), (List.map (fun (id, _) -> 
+  {e=EHash((IConst 16), (({e=EVar (Id ("SEED",0));ety=None;espan=Span.default})::(List.map (fun (id, _) -> 
   {e=EVar (Id id);ety=None;espan=Span.default}) 
-  resolved_params)); ety=None; espan=Span.default})
+  resolved_params))); ety=None; espan=Span.default})
    in 
    let _ = print_string "--- Printing pred stuff --- \n" in 
   let _ =  print_keys params in 
@@ -334,7 +334,7 @@ let compile_pred_helper params vals_ctxt tbl_arg_ctxt name loc args =
   let _ = print_string "\n" in let _ = print_int (List.length values) in 
   let _  = print_string "\n printing args \n "  in 
   let _ = print_string_list (get_args_str args) in 
-  prog :: (List.mapi (compile_lookup (Id idx) arr_names)) values 
+  prog :: (List.mapi (compile_lookup (Id idx) arr_names)) (List.rev values) 
 
 let compile_pred params vals_ctxt tbl_arg_ctxt pred  =
  match pred with
@@ -368,15 +368,15 @@ let compile_true_branch keys args arr_names has_loc =
  else (List.length keys) in 
  let prog = SLocal(idx, 
  {raw_ty=(TInt(IConst 16));teffect=FZero; tspan=Span.default; tprint_as=ref None} , 
-  {e=EHash((IConst 16), (List.map (fun (id) -> 
+  {e=EHash((IConst 16), (({e=EVar (Id ("SEED",0));ety=None;espan=Span.default}) ::(List.map (fun (id) -> 
   {e=EVar (Id (id,0));ety=None;espan=Span.default}) 
-  (firstk (ksize) (get_args_str args)))); ety=None; espan=Span.default}) in 
+  (firstk (ksize) (get_args_str args))))); ety=None; espan=Span.default}) in 
    let _ = print_string "--- Printing True Branch stuff --- \n" in 
   let _ =  print_keys keys in 
   let _ = print_string_list (get_args_str args) in 
 
   let values = firstk (List.length arr_names) (List.rev args) in 
-  prog :: (List.mapi (compile_set (Id idx) arr_names) values)
+  prog :: (List.mapi (compile_set (Id idx) arr_names) (List.rev values))
 
 let to_stmt s = 
  {s=s;sspan = Span.default}
@@ -466,8 +466,12 @@ let process_prog (decl : decls) : decls =
     (* let prog = prog @ List.flatten (List.map (create_rule_event pctxt) decl) *)
    let prog = List.map(fun x -> {d=x;dspan=Span.default}) prog
    in  
-   {d=DConst(("SELF",0), 
+   [{d=DConst(("SELF",0), 
    {raw_ty=TInt(IConst 32);teffect=FZero; tspan=Span.default;
-   tprint_as=ref None}, {e=EVal({v=(VInt (Integer.of_int 0));vty=None;vspan=Span.default});ety=None;espan=Span.default});dspan=Span.default} :: prog
+   tprint_as=ref None}, {e=EVal({v=(VInt (Integer.of_int 0));vty=None;vspan=Span.default});ety=None;espan=Span.default});dspan=Span.default};
+   {d=DConst(("SEED",0), 
+   {raw_ty=TInt(IConst 32);teffect=FZero; tspan=Span.default;
+   tprint_as=ref None}, {e=EVal({v=(VInt (Integer.of_int 2048));vty=None;vspan=Span.default});ety=None;espan=Span.default});dspan=Span.default}]
+    @ prog
     (* in remove prog *)
 

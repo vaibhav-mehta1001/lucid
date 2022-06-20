@@ -242,7 +242,7 @@ and d =
   | DTable of {name : id ; loc : id option; keys :  params  ;  value : params
   ; merge : aggregate option}   (*Table(name, @loc, keys, values, merge)*)
   | DMin of id * d (*Don't need this but it's there in some matches *)
-  | DRule of {lhs :  table; preds : table list; exps: exp list; stmt : statement list}
+  | DRule of {lhs :  table; agg: aggregate; preds : table list; exps: exp list; stmt : statement list}
 
 and table = Table of {name : id ; loc : id option; args : exp list} 
 
@@ -417,7 +417,7 @@ let memop_sp id p body span = decl_sp (DMemop (id, p, body)) span
 let duty_sp id sizes rty span = decl_sp (DUserTy (id, sizes, rty)) span
 let table_sp name loc keys value merge span = decl_sp (DTable {name; loc; keys; value; merge}) span
 (* let base_sp name loc keys span = decl_sp (DBaseTable {name; loc; keys}) span *)
-let rule_sp lhs table exps stmts span = decl_sp (DRule{lhs=lhs; preds=table;exps=exps;stmt=stmts }) span
+let rule_sp lhs agg table exps stmts span = decl_sp (DRule{lhs=lhs; agg=agg; preds=table;exps=exps;stmt=stmts }) span
 
 let table_decl table span = { table; span = span }
 let table_sp name loc keys values merge span = decl_sp (DTable{name=name; loc=loc; keys=keys; 

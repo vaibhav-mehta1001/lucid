@@ -1,16 +1,23 @@
-const int<<32>>  SELF = 1;
+const int<<32>> SELF = 0;
+
+const int<<32>> SEED = 2048;
 
 entry control event rule_hops_1(int<<32>> SELF,int<<32>> dest) ;
 
-entry control event rule_hops_2(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop) ;
+entry control event rule_hops_2(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop,int<<32>> port) ;
 
 global Array.t<<32>> link_cost = Array.create(1024);
 
-entry control event event_link(int<<32>> SELF,int<<32>> dest,int<<32>> cost) ;
 
-handle event_link(int<<32>> SELF,int<<32>> dest,int<<32>> cost) {
-int<<16>> idx_3 = hash<<16>>(SELF,dest);
-Array.set(link_cost,idx_3,cost);
+global Array.t<<32>> link_port = Array.create(1024);
+
+
+entry control event event_link(int<<32>> SELF,int<<32>> dest,int<<32>> cost,int<<32>> port) ;
+
+handle event_link(int<<32>> SELF,int<<32>> dest,int<<32>> cost,int<<32>> port) {
+int<<16>> idx_3 = hash<<16>>(SEED,SELF,dest);
+Array.set(link_cost,idx_3,port);
+Array.set(link_port,idx_3,cost);
 generate rule_hops_1(SELF,dest);
 }
 
@@ -20,20 +27,29 @@ global Array.t<<32>> hops_cost = Array.create(1024);
 global Array.t<<32>> hops_hop = Array.create(1024);
 
 
-entry control event event_hops(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop) ;
+global Array.t<<32>> hops_port = Array.create(1024);
 
-handle event_hops(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop) {
-generate rule_hops_2(next,dest,cost,hop);
+
+entry control event event_hops(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop,int<<32>> port) ;
+
+handle event_hops(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop,int<<32>> port) {
+generate rule_hops_2(next,dest,cost,hop,port);
 }
 
-handle rule_hops_1(int<<32>> SELF,int<<32>> dest) { 
-  int<<16>> idx_4 = hash<<16>>(SELF,dest);
-  int<<32>> cost = Array.get(link_cost,idx_4);
-  int<<32>> cost1 = cost;
-  int<<16>> idx_5 = hash<<16>>(SELF,dest);
-  Array.set(hops_cost,idx_5,cost);
-  Array.set(hops_hop,idx_5,dest);
+handle rule_hops_1(int<<32>> SELF,int<<32>> dest) {
+int<<16>> idx_4 = hash<<16>>(2048,SELF,dest);
+int<<32>> cost = Array.get(link_cost,idx_4);
+int<<32>> port = Array.get(link_port,idx_4);
+if (cost==cost) {
+int<<32>> cost1 = cost;
+int<<16>> idx_5 = hash<<16>>(2048,SELF,dest);
+Array.set(hops_cost,idx_5,cost);
+Array.set(hops_hop,idx_5,dest);
+Array.set(hops_port,idx_5,port);
+} 
 }
+
+
 
 memop min_arg(int x, int y) {
    
@@ -57,17 +73,20 @@ memop test_min(int x, int y) {
     }
 }
 
-handle rule_hops_2(int<<32>> next,int<<32>> dest,int<<32>> hop,int<<32>> cost) {
-    int<<16>> idx_6 = hash<<16>>(SELF,next);
+handle rule_hops_2(int<<32>> next,int<<32>> dest,int<<32>> hop,int<<32>> cost, int<<32>> port) {
+    int<<16>> idx_6 = hash<<16>>(SEED,SELF,next);
     int<<32>> cost2 = Array.get(link_cost,idx_6);
+    int<<32>> port_main = Array.get(link_port,idx_6);
     int<<32>> cost3 = cost2+cost;
-    int<<16>> idx_7 = hash<<16>>(SELF,dest);
+    int<<16>> idx_7 = hash<<16>>(SEED,SELF,dest);
     int min_success = Array.update(hops_cost, idx_7,
         test_min, cost3,
         min_arg, cost3);
     if (min_success == 1)
     {
           Array.set(hops_hop,idx_7,next);
+                    Array.set(hops_port,idx_7,port_main);
+
           generate_ports ({1}, rule_hops_2(SELF, dest, next, cost3));
     }
 
