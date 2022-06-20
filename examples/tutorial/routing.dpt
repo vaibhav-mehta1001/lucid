@@ -36,12 +36,10 @@ handle event_hops(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop,int
 generate rule_hops_2(next,dest,cost,hop,port);
 }
 
-<<<<<<< HEAD
 handle rule_hops_1(int<<32>> SELF,int<<32>> dest) {
 int<<16>> idx_4 = hash<<16>>(2048,SELF,dest);
 int<<32>> cost = Array.get(link_cost,idx_4);
 int<<32>> port = Array.get(link_port,idx_4);
-if (cost==cost) {
 int<<32>> cost1 = cost;
 int<<16>> idx_5 = hash<<16>>(2048,SELF,dest);
 Array.set(hops_cost,idx_5,cost);
@@ -50,8 +48,6 @@ Array.set(hops_port,idx_5,port);
 generate_ports ({1}, rule_hops_2(SELF, dest, dest, cost, port));
 
 } 
-
-
 
 memop min_arg(int x, int y) {
    
