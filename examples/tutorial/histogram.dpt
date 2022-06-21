@@ -1,10 +1,23 @@
-/* table  foo(key : int z ,int p value : int v) with merge min z 
+/*table  foo(key : int z ,int p value : int v) with merge min z 
 table  xyz(key : int m ,int n value : int vo) with merge min m
 table  abc_table(key: int a, int b  value: int zp, int vp) with merge min x
 rule abc_table(p, v1, z, v) :- foo(z, p, v),  xyz(p, z, v1); v1==v,  int a = 5;
+
 */
+
+table packet(@CTR key : int dst_mac value :) with merge min dst_mac
+table mac_table(key : int dst_mac value: int port) with merge min port
+table learn_mac(key : int dst_mac value: int learn) with merge min port
+table learn_mac2(key : int dst_mac value: int learn) with merge min port
+
+rule mac_table(dst_mac, port_act)  with merge min cost3 :- packet(@CTR dst_mac); 1==1, int port_act = ingress_port;
+rule learn_mac(dst_mac, learn)  with merge min cost3 :- mac_table(dst_mac, port_act); port_act!=255, int learn = 1; 
+rule learn_mac2(dst_mac, learn)  with merge min cost3 :- mac_table(dst_mac, port_act); port_act!=255, int learn = 1; 
+
+/* 
 table  link(@SELF key :int dest  value : int cost, int port) with merge min c
 table  hops(@next key : int dest  value : int cost, int hop, int port) with merge min cost
 
-rule hops(@SELF dest, cost, dest, port) with merge min cost :- link(@SELF dest, cost, port); cost==cost, int cost1=cost;
+rule hops(@SELF dest, cost, dest, port)  :- link(@SELF dest, cost, port); cost==cost, int cost1=cost;
 rule hops(@SELF dest, cost3, next, port_main) with merge min cost3 :- hops(@next dest, cost, hop, port), link(@SELF next, cost2, port_main); cost2==cost2, int cost3= cost2+cost;
+*/

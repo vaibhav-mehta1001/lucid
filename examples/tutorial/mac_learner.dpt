@@ -1,0 +1,83 @@
+const int<<32>> SELF = 0;
+
+const int<<32>> SEED = 2048;
+
+
+global Array.t<<32>> learn_mac2_learn = Array.create(512);
+
+
+entry control event rule_learn_mac2_3(int<<32>> dst_mac) ;
+
+
+
+entry control event rule_mac_table_1(int<<32>> CTR,int<<32>> dst_mac) ;
+
+entry control event rule_learn_mac_2(int<<32>> dst_mac) ;
+
+entry control event event_packet(int<<32>> CTR,int<<32>> dst_mac) ;
+
+global Array.t<<32>> learn_mac_learn = Array.create(512);
+
+global Array.t<<32>> mac_table_port = Array.create(512);
+
+
+handle event_packet(int<<32>> CTR, int<<32>> dst_mac) {
+   generate rule_mac_table_1(CTR,dst_mac);
+}
+
+
+
+entry control event event_mac_table(int<<32>> dst_mac,int<<32>> port) ;
+
+handle event_mac_table(int<<32>> dst_mac,int<<32>> port) {
+int<<32>> idx_3 = dst_mac;
+Array.set(mac_table_port,idx_3,port);
+generate rule_learn_mac_2(dst_mac);
+}
+
+
+entry control event event_learn_mac(int<<32>> dst_mac,int<<32>> learn) ;
+
+handle event_learn_mac(int<<32>> dst_mac,int<<32>> learn) {
+int<<32>> idx_4 = dst_mac;
+Array.set(learn_mac_learn,idx_4,learn);
+}
+
+handle rule_mac_table_1(int<<32>> CTR,int<<32>> dst_mac) {
+int<<32>> port_act = ingress_port;
+int<<32>> idx_5 = dst_mac;
+Array.set(mac_table_port,idx_5,port_act);
+generate rule_learn_mac_2(dst_mac);
+generate rule_learn_mac2_3(dst_mac);
+
+}
+
+handle rule_learn_mac_2(int<<32>> dst_mac) {
+int<<32>> idx_6 = dst_mac;
+int<<32>> learn = 1;
+int<<32>> idx_7 =dst_mac;
+Array.set(learn_mac_learn,idx_7,learn);
+} 
+
+
+handle rule_learn_mac2_3(int<<32>> dst_mac) {
+int<<32>> idx_10 =dst_mac;
+int<<32>> learn = 1;
+int<<32>> idx_11 = dst_mac;
+Array.set(learn_mac2_learn,idx_11,learn);
+} 
+
+event eth(int<<32>> src_mac, int<<32>> dst_mac) {
+  // Learn src_mac if necessary
+  if (Array.get(learn_mac2_learn, src_mac) == 0) {
+    generate event_packet(512, src_mac);
+  }
+
+  // Handle packet forwarding
+  if (Array.get(learn_mac_learn, dst_mac) == 1) {
+    int<<32>> port = Array.get(mac_table_port, dst_mac);
+    generate_port (port, this);
+  } else { // Flood the packet
+    generate_ports (flood ingress_port, this);
+  }
+}

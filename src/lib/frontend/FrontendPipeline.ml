@@ -8,9 +8,9 @@ let print_if_verbose str = if Cmdline.cfg.verbose then Console.report str
 
 let process_prog ds =
   print_if_debug ds;
-  print_if_verbose "-------LucidLog---------";
+  (* print_if_verbose "-------LucidLog---------";
   let ds = LucidLogTransformation.process_prog ds in 
-  print_if_debug ds;
+  print_if_debug ds; *)
   print_if_verbose "-------Checking well-formedness---------";
   Wellformed.pre_typing_checks ds;
   print_if_verbose "---------typing1---------";

@@ -85,7 +85,7 @@ handle rule_hops_2(int<<32>> next,int<<32>> dest,int<<32>> hop,int<<32>> cost, i
           Array.set(hops_hop,idx_7,next);
                     Array.set(hops_port,idx_7,port_main);
 
-          generate_ports ({1}, rule_hops_2(SELF, dest, next, cost3));
+          generate_ports ({1}, rule_hops_2(SELF, dest, next, cost3, port_main));
     }
 
 }
