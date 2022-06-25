@@ -1,0 +1,31 @@
+memop incr(int<<32>> stored_ct,int<<32>> incr_by)
+ {return stored_ct+incr_by;}
+
+const SELF int<<32>> = 0;
+
+const SEED int<<32>> = 2048;
+
+entry control event rule_netflow_cache_1(int<<32>> CTR,int<<32>> src,int<<32>> dst,int<<32>> bytes) ;
+
+entry control event event_packet(int<<32>> CTR,int<<32>> src,int<<32>> dst,int<<32>> bytes) ;
+
+handle event_packet(int<<32>> CTR,int<<32>> src,int<<32>> dst,int<<32>> bytes) {
+generate rule_netflow_cache_1(CTR,src,dst,bytes);
+}
+
+global Array.t<<32>> netflow_cache_byte = Array.create(1024);
+global Array.t<<32>> netflow_cache_packets = Array.create(1024);
+
+
+entry control event event_netflow_cache(int<<32>> src,int<<32>> dst,int<<32>> byte) ;
+
+handle event_netflow_cache(int<<32>> src,int<<32>> dst,int<<32>> byte, int<<32>> packet) {
+int<<16>> idx_2 = hash<<16>>(SEED,src,dst);
+Array.set(netflow_cache_byte,idx_2,byte);
+}
+
+handle rule_netflow_cache_1(int<<32>> CTR,int<<32>> src,int<<32>> dst,int<<32>> bytes) {
+int<<16>> idx_3 = hash<<16>>(SEED,src,dst);
+Array.setm(netflow_cache_byte,idx_3,incr,bytes);
+Array.setm(netflow_cache_packets,idx_3,incr,1);
+}

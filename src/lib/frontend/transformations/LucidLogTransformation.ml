@@ -349,23 +349,47 @@ let compile_exps (acc:e) (exp : exp) =
 | EOp(op, exps) -> EOp(And, exp :: exps)                
 | _ -> failwith "Only binary ops"
 
-let compile_set (name : cid) arr_names i exp = 
+let compile_set (name : cid) freq arr_names var i  exp = 
   match exp.e with 
-  | EVar x -> let arr_name = Id (fst(List.assoc i arr_names), 0)
+  | EVar x -> begin match x with 
+    Id y -> if (String.equal (fst((y))) (fst(var))) && freq then
+      SNoop else 
+    let arr_name = Id (fst(List.assoc i arr_names), 0)
   in SUnit(  
   {e=ECall((Cid.create["Array";"set"]), 
   [{e=EVar arr_name;ety=None;espan=Span.default};
   {e=EVar name;ety=None;espan=Span.default};
    {e=EVar x;ety=None;espan=Span.default}])
   ;ety=None;espan=Span.default})
+  |_ -> SNoop end
   | _ -> failwith "bad arg"
 
+let compile_set_count  arr_names idx (var:id) (amt : id) i exp = 
+  match exp.e with 
+  | EVar x -> begin match x with 
+    Id x -> if String.equal (fst((x))) (fst(var)) then  
+  let arr_name = Id (fst(List.assoc i arr_names), 0)
+  in SUnit(  
+  {e=ECall((Cid.create["Array";"setm"]), 
+  [{e=EVar arr_name;ety=None;espan=Span.default};
+  {e=EVar idx;ety=None;espan=Span.default};
+   {e=EVar(Cid.create["incr"]);ety=None;espan=Span.default};
+   {e=EVar (Id amt);ety=None;espan=Span.default}])
+  ;ety=None;espan=Span.default}) else SNoop
+  | _ -> failwith "oops" end 
+  | _ -> failwith "bad arg" 
 
-
-let compile_true_branch keys args arr_names has_loc = 
+let compile_count args arr_names var idx v = 
+(List.mapi (compile_set_count arr_names (Id idx) var v) args)
+    
+let compile_true_branch keys args arr_names has_loc agg = 
  let idx = ((gensym "idx"),0)
  in let ksize = if has_loc then (List.length keys)-(List.length arr_names) 
  else (List.length keys) in 
+ let s,f,c_x =begin  match agg with
+ | Count (x,v) ->   let values = firstk (List.length arr_names) (List.rev args) in 
+ compile_count  (List.rev values) arr_names (x) idx (v) , true, (fst x)
+ | _ -> [],false, ("hjh!#@") end in 
  let prog = SLocal(idx, 
  {raw_ty=(TInt(IConst 16));teffect=FZero; tspan=Span.default; tprint_as=ref None} , 
   {e=EHash((IConst 16), (({e=EVar (Id ("SEED",0));ety=None;espan=Span.default}) ::(List.map (fun (id) -> 
@@ -376,7 +400,8 @@ let compile_true_branch keys args arr_names has_loc =
   let _ = print_string_list (get_args_str args) in 
 
   let values = firstk (List.length arr_names) (List.rev args) in 
-  prog :: (List.mapi (compile_set (Id idx) arr_names) (List.rev values))
+  prog :: s @ (List.mapi (compile_set (Id idx) f arr_names (c_x,0)) 
+       (List.rev values))
 
 let to_stmt s = 
  {s=s;sspan = Span.default}
@@ -395,7 +420,7 @@ let f acc s =
 let compile_handler_body vals_ctxt rule_args 
 (tbl_arg_ctxt : (Syntax.id * (Syntax.id * Syntax.ty) list) list) rule = 
 match rule.d with 
-| DMin(n, DRule {lhs=Table{name; loc; args}; preds; exps; stmt}) -> 
+| DMin(n, DRule {lhs=Table{name; loc; args}; preds; exps; stmt;agg}) -> 
  let keys = List.assoc name tbl_arg_ctxt in 
   let _ = print_keys keys in 
  let arr_names = List.assoc name vals_ctxt in 
@@ -408,7 +433,7 @@ match rule.d with
 in let args = begin match loc with Some x -> {e=EVar(Id x);ety=None;espan=Span.default}
  :: args | None -> args end in 
   let has_loc = begin match loc with Some _ -> true | None -> false end in 
-let b1 = compile_true_branch keys args arr_names has_loc in 
+let b1 = compile_true_branch keys args arr_names has_loc agg in 
 let stmts = (List.map to_stmt stmts) @ 
 [to_stmt (SIf(exps, combine_stmt (stmt @ (List.map to_stmt b1)), to_stmt SNoop))] in 
 let body_stmt = combine_stmt stmts 
@@ -466,12 +491,12 @@ let process_prog (decl : decls) : decls =
     (* let prog = prog @ List.flatten (List.map (create_rule_event pctxt) decl) *)
    let prog = List.map(fun x -> {d=x;dspan=Span.default}) prog
    in  
+    
    [{d=DConst(("SELF",0), 
    {raw_ty=TInt(IConst 32);teffect=FZero; tspan=Span.default;
    tprint_as=ref None}, {e=EVal({v=(VInt (Integer.of_int 0));vty=None;vspan=Span.default});ety=None;espan=Span.default});dspan=Span.default};
    {d=DConst(("SEED",0), 
    {raw_ty=TInt(IConst 32);teffect=FZero; tspan=Span.default;
    tprint_as=ref None}, {e=EVal({v=(VInt (Integer.of_int 2048));vty=None;vspan=Span.default});ety=None;espan=Span.default});dspan=Span.default}]
-    @ prog
-    (* in remove prog *)
+    @ prog @ (remove decl) 
 

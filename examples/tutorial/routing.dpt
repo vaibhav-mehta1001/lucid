@@ -98,7 +98,8 @@ entry event packetin(int dst);
 handle packetin(int dst) {
 
     // check if a path exists.
-    int next_hop = Array.get(hops_hop, dst);
+    int<<16>> idx = hash<<16>>(SEED,SELF,dst);
+    int next_hop = Array.get(hops_hop, idx);
     if ((next_hop != 255)) {
             int outport = Array.get(nid_port, next_hop);
             generate packetout(outport);

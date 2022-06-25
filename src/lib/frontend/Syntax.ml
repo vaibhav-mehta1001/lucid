@@ -248,7 +248,7 @@ and table = Table of {name : id ; loc : id option; args : exp list}
 
 and aggregate = 
 | Min of id
-| Count of id
+| Count of id * id
 | Max of id
 
 (* name, return type, args & body *)

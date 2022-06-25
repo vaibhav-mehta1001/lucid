@@ -2,7 +2,7 @@
 
 # run interpreter
 interp: 
-	../../dpt mac_learner.dpt --spec mac_learner.json
+	../../dpt histogram.dpt --spec mac_learner.json
 
 # compile Lucid to P4
 compile: 

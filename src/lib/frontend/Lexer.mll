@@ -38,6 +38,7 @@ rule token = parse
   | "key"             { KEY (position lexbuf)}
   | "value"           { VALUE (position lexbuf)}
   | "min"             { MIN (position lexbuf) }
+  | "freq"            { FREQ (position lexbuf) }
   | "merge"           { MERGE   (position lexbuf) }
   | "false"           { FALSE (position lexbuf) }
   | "true"            { TRUE (position lexbuf) }

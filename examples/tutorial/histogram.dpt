@@ -3,7 +3,7 @@ table  xyz(key : int m ,int n value : int vo) with merge min m
 table  abc_table(key: int a, int b  value: int zp, int vp) with merge min x
 rule abc_table(p, v1, z, v) :- foo(z, p, v),  xyz(p, z, v1); v1==v,  int a = 5;
 
-*/
+
 
 table packet(@CTR key : int dst_mac value :) with merge min dst_mac
 table mac_table(key : int dst_mac value: int port) with merge min port
@@ -14,10 +14,39 @@ rule mac_table(dst_mac, port_act)  with merge min cost3 :- packet(@CTR dst_mac);
 rule learn_mac(dst_mac, learn)  with merge min cost3 :- mac_table(dst_mac, port_act); port_act!=255, int learn = 1; 
 rule learn_mac2(dst_mac, learn)  with merge min cost3 :- mac_table(dst_mac, port_act); port_act!=255, int learn = 1; 
 
-/* 
+
+
 table  link(@SELF key :int dest  value : int cost, int port) with merge min c
 table  hops(@next key : int dest  value : int cost, int hop, int port) with merge min cost
 
 rule hops(@SELF dest, cost, dest, port)  :- link(@SELF dest, cost, port); cost==cost, int cost1=cost;
 rule hops(@SELF dest, cost3, next, port_main) with merge min cost3 :- hops(@next dest, cost, hop, port), link(@SELF next, cost2, port_main); cost2==cost2, int cost3= cost2+cost;
+
+
+memop incr (int stored_ct, int incr_by) {
+  return stored_ct + incr_by;
+}
+
+
+table packet(@CTR key : int src, int dst, int bytes value :) with merge min bytes
+table netflow_cache(key : int src, int dst value : int byte, int packets)  with merge freq byte, count
+
+rule netflow_cache(src, dst, byte) with merge freq byte,bytes packet,1 :- packet(@CTR src, dst, bytes); 1 ==1, int a = 6;
 */
+
+exit event response_continue (int src_ip, int dst_ip);
+entry event response_packet (int server_ip, int client_ip);
+
+handle response_packet(int server_ip, int client_ip) {
+  int <<16>> idx = hash<<16>>(server_ip, client_ip);
+  if (Array.get(firewall_mem, idx) == 1) {
+    generate response_continue(client_ip, server_ip); // Or maybe the other way around?
+  }
+}
+
+
+table localhost(@CTR key : int client_ip, int server_ip value : ) with merge min bytes 
+table firewall(key : int client_ip, int server_ip value : int mem) with merge min bytes 
+
+rule firewall(client_ip, server_ip, mem) with merge min cost3 :-
+  localhost(@CTR client_ip, server_ip); 1==1, int mem= 1;

@@ -146,6 +146,8 @@
 %token <Span.t> KEY
 %token <Span.t> VALUE
 %token <Span.t> MIN
+%token <Span.t> FREQ
+
 %token EOF
 
 %start prog
@@ -354,8 +356,8 @@ decl:
        RPAREN WITH MERGE m=aggregates     {[table_sp (snd name) (Some (snd switch)) keys vals (Some m) (Span.extend $1 $3) ]}
     | TABLE name=ID LPAREN KEY COLON keys=separated_list(COMMA, param) VALUE COLON vals=separated_list(COMMA, param)
        RPAREN WITH MERGE m=aggregates     {[table_sp (snd name) (None) keys vals (Some m) (Span.extend $1 $3) ]}
-    | BASE t=table WITH MERGE m=aggregates IMPLIES right_table= separated_list(COMMA, table) SEMI right_exps=exps COMMA stmts=statement1
-               { [rule_sp t m (right_table) (right_exps) ([stmts])(Span.extend $1 $3)] }
+    | BASE t=table WITH MERGE m=aggregates IMPLIES right_table= separated_list(COMMA, table) SEMI right_exps=exps COMMA stmts=separated_list(SEMI,statement1)
+               { [rule_sp t m (right_table) (right_exps) (stmts)(Span.extend $1 $3)] }
 
 
 table: 
@@ -439,7 +441,8 @@ includes:
     | INCLUDE STRING includes               {(snd $2)::$3}
 
 aggregates:
-    | MIN name=ID                           {(Min (snd name))}
+    | MIN name=ID                           {(Min  (snd name))}
+    | FREQ name = ID COMMA var = ID        {(Count ((snd name), (snd(var))))}
 
 prog:
     | includes decls EOF                    { ($1, $2) }
