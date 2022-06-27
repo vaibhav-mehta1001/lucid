@@ -1,0 +1,19 @@
+{
+    "entry" : 
+    [
+        {
+            "event" : "packetin",
+            "conditions" : {"hdr.ip.isValid()" : [true]},
+            "inputs" : {
+                "dst":"hdr.ip.dst_addr"
+            }
+        }
+    ],
+    "exit" : 
+    [
+        {
+            "event" : "packetout",
+            "outputs" : {}
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "entry" : 
+    [
+        {
+            "event" : "event_packet",
+            "conditions" : {"hdr.ip.isValid()" : [true]},
+            "inputs" : {
+                "src":"hdr.ip.src_addr",
+                "dst":"hdr.ip.dst_addr",
+                "bytes":"(bit<32>)hdr.ip.total_len"
+            }
+        }
+    ],
+    "exit" : 
+    [
+        {
+            "event" : "event_packet",
+            "outputs" : {
+                "hdr.ip.src_addr":"src",
+                "hdr.ip.dst_addr":"dst"
+            }
+        }
+    ]
+}

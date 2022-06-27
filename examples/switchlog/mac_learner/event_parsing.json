@@ -1,0 +1,23 @@
+{
+    "entry" : 
+    [
+        {
+            "event" : "eth",
+            "conditions" : {"hdr.ip.isValid()" : [true], "ig_intr_md.ingress_port" : [128]},
+            "inputs" : {
+                "src_mac":"hdr.ip.src_addr",
+                "dst_mac":"hdr.ip.dst_addr"
+            }
+        }
+    ],
+    "exit" : 
+    [
+        {
+            "event" : "eth",
+            "outputs" : {
+                "hdr.ip.src_addr" : "src_mac",
+                "hdr.ip.dst_addr" : "dst_mac"
+            }
+        }
+    ]
+}
