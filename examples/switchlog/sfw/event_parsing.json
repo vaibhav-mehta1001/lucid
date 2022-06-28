@@ -1,0 +1,28 @@
+{
+    "entry" : 
+    [
+        {
+            "event" : "event_localhost",
+            "conditions" : {"hdr.ip.isValid()" : [true]},
+            "inputs" : {
+                "CTR":"1",
+                "client_ip":"hdr.ip.src_addr",
+                "server_ip":"hdr.ip.dst_addr"
+            }
+        },
+        {
+            "event" : "response_packet",
+            "conditions" : {"hdr.ip.isValid()" : [true]},
+            "inputs" : {
+                "server_ip":"hdr.ip.src_addr",
+                "client_ip":"hdr.ip.dst_addr"
+            }
+        }
+
+    ],
+    "exit" : 
+    [
+        {"event" : "request_continue", "outputs" : {"hdr.ip.src_addr": "src_ip", "hdr.ip.dst_addr":"dst_ip"}},
+        {"event" : "response_continue", "outputs" : {"hdr.ip.src_addr":"src_ip", "hdr.ip.dst_addr":"dst_ip"}}
+    ]
+}
