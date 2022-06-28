@@ -22,7 +22,7 @@ table  hops(@next key : int dest  value : int cost, int hop, int port) with merg
 rule hops(@SELF dest, cost, dest, port)  :- link(@SELF dest, cost, port); cost==cost, int cost1=cost;
 rule hops(@SELF dest, cost3, next, port_main) with merge min cost3 :- hops(@next dest, cost, hop, port), link(@SELF next, cost2, port_main); cost2==cost2, int cost3= cost2+cost;
 
-
+*/
 memop incr (int stored_ct, int incr_by) {
   return stored_ct + incr_by;
 }
@@ -31,9 +31,10 @@ memop incr (int stored_ct, int incr_by) {
 table packet(@CTR key : int src, int dst, int bytes value :) with merge min bytes
 table netflow_cache(key : int src, int dst value : int byte, int packets)  with merge freq byte, count
 
-rule netflow_cache(src, dst, byte) with merge freq byte,bytes packet,1 :- packet(@CTR src, dst, bytes); 1 ==1, int a = 6;
-*/
+rule netflow_cache(src, dst, byte) with merge freq byte,bytes :- packet(@CTR src, dst, bytes); 1 ==1, int a = 6;
 
+
+/*
 exit event response_continue (int src_ip, int dst_ip);
 entry event response_packet (int server_ip, int client_ip);
 
@@ -50,3 +51,4 @@ table firewall(key : int client_ip, int server_ip value : int mem) with merge mi
 
 rule firewall(client_ip, server_ip, mem) with merge min cost3 :-
   localhost(@CTR client_ip, server_ip); 1==1, int mem= 1;
+*/

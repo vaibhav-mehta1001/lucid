@@ -1,0 +1,23 @@
+table packet(@CTR key : int dst_mac value :) with merge min dst_mac
+table mac_table(key : int dst_mac value: int port) with merge min port
+table learn_mac(key : int dst_mac value: int learn) with merge min port
+table learn_mac2(key : int dst_mac value: int learn) with merge min port
+
+rule mac_table(dst_mac, port_act)  with merge min cost3 :- packet(@CTR dst_mac); 1==1, int port_act = ingress_port;
+rule learn_mac(dst_mac, learn)  with merge min cost3 :- mac_table(dst_mac, port_act); port_act!=255, int learn = 1; 
+rule learn_mac2(dst_mac, learn)  with merge min cost3 :- mac_table(dst_mac, port_act); port_act!=255, int learn = 1; 
+
+event eth(int<<32>> src_mac, int<<32>> dst_mac) {
+  // Learn src_mac if necessary
+  if (Array.get(learn_mac2_learn, src_mac) == 0) {
+    generate event_packet(512, src_mac);
+  }
+
+  // Handle packet forwarding
+  if (Array.get(learn_mac_learn, dst_mac) == 1) {
+    int<<32>> port = Array.get(mac_table_port, dst_mac);
+    generate_port (port, this);
+  } else { // Flood the packet
+    generate_ports (flood ingress_port, this);
+  }
+}

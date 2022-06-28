@@ -1,0 +1,45 @@
+
+table  link(@SELF key :int dest  value : int cost, int port) with merge min c
+table  hops(@next key : int dest  value : int cost, int hop, int port) with merge min cost
+
+memop min_arg(int x, int y) {
+   
+    if (x < y)  {
+        return x;
+    }
+    else{
+
+        return y;
+    }
+}
+
+memop test_min(int x, int y) {
+     
+    if (x < y)  {
+        return 1;
+    }
+    else{
+
+        return 0;
+    }
+}
+rule hops(@SELF dest, cost, dest, port)  :- link(@SELF dest, cost, port); cost==cost, int cost1=cost;
+rule hops(@SELF dest, cost3, next, port_main) with merge min cost3 :- hops(@next dest, cost, hop, port), link(@SELF next, cost2, port_main); cost2==cost2, int cost3= cost2+cost;
+
+
+global Array.t<<32>> nid_port = Array.create(1024);
+exit event packetout(int outport);
+
+entry event packetin(int dst);
+
+handle packetin(int dst) {
+
+    // check if a path exists.
+    int<<16>> idx = hash<<16>>(SEED,SELF,dst);
+    int next_hop = Array.get(hops_hop, idx);
+    if ((next_hop != 255)) {
+            int outport = Array.get(nid_port, next_hop);
+            generate packetout(outport);
+    }
+
+}

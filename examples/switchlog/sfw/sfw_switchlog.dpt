@@ -1,0 +1,17 @@
+
+exit event response_continue (int src_ip, int dst_ip);
+entry event response_packet (int server_ip, int client_ip);
+
+handle response_packet(int server_ip, int client_ip) {
+  int <<16>> idx = hash<<16>>(server_ip, client_ip);
+  if (Array.get(firewall_mem, idx) == 1) {
+    generate response_continue(client_ip, server_ip); // Or maybe the other way around?
+  }
+}
+
+
+table localhost(@CTR key : int client_ip, int server_ip value : ) with merge min bytes 
+table firewall(key : int client_ip, int server_ip value : int mem) with merge min bytes 
+
+rule firewall(client_ip, server_ip, mem) with merge min cost3 :-
+  localhost(@CTR client_ip, server_ip); 1==1, int mem= 1;
