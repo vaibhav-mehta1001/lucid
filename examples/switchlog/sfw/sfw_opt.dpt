@@ -1,0 +1,43 @@
+const int<<32>> SELF = 0;
+
+const int<<32>> SEED = 2048;
+
+entry control event rule_firewall_1(int<<32>> CTR,int<<32>> client_ip,int<<32>> server_ip) ;
+
+entry control event event_localhost(int<<32>> CTR,int<<32>> client_ip,int<<32>> server_ip) ;
+
+exit event response_continue(int<<32>> src_ip,int<<32>> dst_ip) ;
+exit event request_continue (int src_ip, int dst_ip);
+entry event response_packet(int<<32>> server_ip,int<<32>> client_ip) ;
+
+global Array.t<<32>> firewall_mem = Array.create(1024);
+
+handle event_localhost(int<<32>> CTR,int<<32>> client_ip,int<<32>> server_ip) {
+int<<32>> mem = 1;
+int<<16>> idx_3 = hash<<16>>(SEED,client_ip,server_ip);
+Array.set(firewall_mem,idx_3,mem);
+generate request_continue(client_ip, server_ip);
+}
+
+
+
+entry control event event_firewall(int<<32>> client_ip,int<<32>> server_ip,int<<32>> mem) ;
+
+handle event_firewall(int<<32>> client_ip,int<<32>> server_ip,int<<32>> mem) {
+int<<16>> idx_2 = hash<<16>>(SEED,client_ip,server_ip);
+Array.set(firewall_mem,idx_2,mem);
+}
+
+handle rule_firewall_1(int<<32>> CTR,int<<32>> client_ip,int<<32>> server_ip) {
+int<<32>> mem = 1;
+int<<16>> idx_3 = hash<<16>>(SEED,client_ip,server_ip);
+Array.set(firewall_mem,idx_3,mem);
+generate request_continue(client_ip, server_ip);
+}
+
+handle response_packet(int<<32>> server_ip,int<<32>> client_ip) {
+int<<16>> idx = hash<<16>>(server_ip,client_ip);
+if (Array.get(firewall_mem,idx)==1) {
+generate response_continue(client_ip,server_ip);
+} 
+}

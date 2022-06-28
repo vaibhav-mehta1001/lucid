@@ -24,7 +24,7 @@ memop test_min(int x, int y) {
     }
 }
 rule hops(@SELF dest, cost, dest, port)  :- link(@SELF dest, cost, port); cost==cost, int cost1=cost;
-rule hops(@SELF dest, cost3, next, port_main) with merge min cost3 :- hops(@next dest, cost, hop, port), link(@SELF next, cost2, port_main); cost2==cost2, int cost3= cost2+cost;
+rule hops(@SELF dest, cost3, next, port_main) with merge min cost3 :- hops(@next dest, cost, port, hop), link(@SELF next, cost2, port_main); cost2==cost2, int cost3= cost2+cost;
 
 
 global Array.t<<32>> nid_port = Array.create(1024);

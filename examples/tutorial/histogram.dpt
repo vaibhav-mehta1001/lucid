@@ -22,7 +22,7 @@ table  hops(@next key : int dest  value : int cost, int hop, int port) with merg
 rule hops(@SELF dest, cost, dest, port)  :- link(@SELF dest, cost, port); cost==cost, int cost1=cost;
 rule hops(@SELF dest, cost3, next, port_main) with merge min cost3 :- hops(@next dest, cost, hop, port), link(@SELF next, cost2, port_main); cost2==cost2, int cost3= cost2+cost;
 
-*/
+
 memop incr (int stored_ct, int incr_by) {
   return stored_ct + incr_by;
 }
@@ -34,7 +34,7 @@ table netflow_cache(key : int src, int dst value : int byte, int packets)  with 
 rule netflow_cache(src, dst, byte) with merge freq byte,bytes :- packet(@CTR src, dst, bytes); 1 ==1, int a = 6;
 
 
-/*
+
 exit event response_continue (int src_ip, int dst_ip);
 entry event response_packet (int server_ip, int client_ip);
 
@@ -52,3 +52,126 @@ table firewall(key : int client_ip, int server_ip value : int mem) with merge mi
 rule firewall(client_ip, server_ip, mem) with merge min cost3 :-
   localhost(@CTR client_ip, server_ip); 1==1, int mem= 1;
 */
+
+memop min_arg(int x, int y) {
+   
+    if (x < y)  {
+        return x;
+    }
+    else{
+
+        return y;
+    }
+}
+
+memop test_min(int x, int y) {
+     
+    if (x < y)  {
+        return 1;
+    }
+    else{
+
+        return 0;
+    }
+}
+const int<<32>> SELF = 0;
+
+const int<<32>> SEED = 2048;
+
+entry control event rule_hops_1(int<<32>> SELF,int<<32>> dest) ;
+
+entry control event rule_hops_2(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop,int<<32>> port) ;
+
+global Array.t<<32>> link_cost = Array.create(1024);
+
+
+global Array.t<<32>> link_port = Array.create(1024);
+
+
+entry control event event_link(int<<32>> SELF,int<<32>> dest,int<<32>> cost,int<<32>> port) ;
+
+handle event_link(int<<32>> SELF,int<<32>> dest,int<<32>> cost,int<<32>> port) {
+int<<16>> idx_3 = hash<<16>>(SEED,SELF,dest);
+Array.set(link_cost,idx_3,port);
+Array.set(link_port,idx_3,cost);
+generate rule_hops_1(SELF,dest);
+}
+
+global Array.t<<32>> hops_cost = Array.create(1024);
+
+
+global Array.t<<32>> hops_hop = Array.create(1024);
+
+
+global Array.t<<32>> hops_port = Array.create(1024);
+
+
+entry control event event_hops(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop,int<<32>> port) ;
+
+handle event_hops(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop,int<<32>> port) {
+    int<<16>> idx_6 = hash<<16>>(SEED,SELF,next);
+    int<<32>> cost2 = Array.get(link_cost,idx_6);
+    int<<32>> port_main = Array.get(link_port,idx_6);
+    int<<32>> cost3 = cost2+cost;
+    int<<16>> idx_7 = hash<<16>>(SEED,SELF,dest);
+    int min_success = Array.update(hops_cost, idx_7,
+        test_min, cost3,
+        min_arg, cost3);
+    if (min_success == 1)
+    {
+          Array.set(hops_hop,idx_7,next);
+                    Array.set(hops_port,idx_7,port_main);
+
+          generate_ports ({1}, event_hops(SELF, dest, next, cost3, port_main));
+    }}
+
+handle rule_hops_1(int<<32>> SELF,int<<32>> dest) {
+int<<16>> idx_4 = hash<<16>>(2048,SELF,dest);
+int<<32>> cost = Array.get(link_cost,idx_4);
+int<<32>> port = Array.get(link_port,idx_4);
+int<<32>> cost1 = cost;
+int<<16>> idx_5 = hash<<16>>(2048,SELF,dest);
+Array.set(hops_cost,idx_5,cost);
+Array.set(hops_hop,idx_5,dest);
+Array.set(hops_port,idx_5,port);
+generate_ports ({1}, event_hops(SELF, dest, dest, cost, port));
+
+} 
+
+
+
+handle rule_hops_2(int<<32>> next,int<<32>> dest,int<<32>> cost,int<<32>> hop, int<<32>> port) {
+    int<<16>> idx_6 = hash<<16>>(SEED,SELF,next);
+    int<<32>> cost2 = Array.get(link_cost,idx_6);
+    int<<32>> port_main = Array.get(link_port,idx_6);
+    int<<32>> cost3 = cost2+cost;
+    int<<16>> idx_7 = hash<<16>>(SEED,SELF,dest);
+    int min_success = Array.update(hops_cost, idx_7,
+        test_min, cost3,
+        min_arg, cost3);
+    if (min_success == 1)
+    {
+          Array.set(hops_hop,idx_7,next);
+                    Array.set(hops_port,idx_7,port_main);
+
+          generate_ports ({1}, event_hops(SELF, dest, next, cost3, port_main));
+    }
+
+}
+
+global Array.t<<32>> nid_port = Array.create(1024);
+exit event packetout(int outport);
+
+entry event packetin(int dst);
+
+handle packetin(int dst) {
+
+    // check if a path exists.
+    int<<16>> idx = hash<<16>>(SEED,SELF,dst);
+    int next_hop = Array.get(hops_hop, idx);
+    if ((next_hop != 255)) {
+            int outport = Array.get(nid_port, next_hop);
+            generate packetout(outport);
+    }
+
+}

@@ -9,15 +9,16 @@ entry control event rule_netflow_cache_1(int<<32>> CTR,int<<32>> src,int<<32>> d
 
 entry control event event_packet(int<<32>> CTR,int<<32>> src,int<<32>> dst,int<<32>> bytes) ;
 
+
+global Array.t<<32>> netflow_cache_byte = Array.create(1024);
+global Array.t<<32>> netflow_cache_packets = Array.create(1024);
+
+
 handle event_packet(int<<32>> CTR,int<<32>> src,int<<32>> dst,int<<32>> bytes) {
 int<<16>> idx_3 = hash<<16>>(SEED,src,dst);
 Array.setm(netflow_cache_byte,idx_3,incr,bytes);
 Array.setm(netflow_cache_packets,idx_3,incr,1);
 }
-
-global Array.t<<32>> netflow_cache_byte = Array.create(1024);
-global Array.t<<32>> netflow_cache_packets = Array.create(1024);
-
 
 entry control event event_netflow_cache(int<<32>> src,int<<32>> dst,int<<32>> byte) ;
 
