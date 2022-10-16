@@ -719,6 +719,6 @@ let process_prog (decl : decls) : decls =
    {d=DConst(("SEED",0), 
    {raw_ty=TInt(IConst 32);teffect=FZero; tspan=Span.default;
    tprint_as=ref None}, {e=EVal({v=(VInt (Integer.of_int 2048));vty=None;vspan=Span.default});ety=None;espan=Span.default});dspan=Span.default}]
-    @ prog @ (remove decl) in 
-  inline_prog_specialcase ds
+    @ prog @ (remove decl) in ds
+  (*inline_prog_specialcase ds *)
 
