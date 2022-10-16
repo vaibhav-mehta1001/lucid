@@ -1,0 +1,4 @@
+table packet(@CTR key : int src, int dst, int bytes, int QID, int tout, int t_in value :) with merge min bytes
+table filter(key : int src value : int src, int dst, int bytes)  
+
+rule filter(src, dst, bytes)  :- packet(@CTR src, dst, bytes, QID, tout, t_in); QID == 5; tout - t_in > 5, int a = 6;

@@ -1,4 +1,4 @@
 table packet(@CTR key : int src, int dst, int bytes value :) with merge min bytes
 table netflow_cache(key : int src, int dst value : int byte, int packets)  with merge freq byte, count
 
-rule netflow_cache(src, dst, byte) with merge freq byte,bytes packet,1 :- packet(@CTR src, dst, bytes); 1 ==1, int a = 6;
+rule netflow_cache(src, dst, byte) with merge freq byte,bytes packet,k :- packet(@CTR src, dst, bytes); 1 ==1, int a = 6;

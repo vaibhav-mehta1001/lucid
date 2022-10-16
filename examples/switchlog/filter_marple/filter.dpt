@@ -2,13 +2,13 @@ entry control event rule_filter_1(int<<32>> CTR,int<<32>> src,int<<32>> dst,int<
 
 entry control event event_packet(int<<32>> CTR,int<<32>> src,int<<32>> dst,int<<32>> bytes,int<<32>> QID,int<<32>> tout,int<<32>> t_in) ;
 
-global Array.t<<32>> filter_src = Array.create(1024<<?sz~943>>);
+global Array.t<<32>> filter_src = Array.create(1024);
 
 
-global Array.t<<32>> filter_dst = Array.create(1024<<?sz~954>>);
+global Array.t<<32>> filter_dst = Array.create(1024);
 
 
-global Array.t<<32>> filter_bytes = Array.create(1024<<?sz~965>>);
+global Array.t<<32>> filter_bytes = Array.create(1024);
 
 
 entry control event event_filter(int<<32>> src,int<<32>> src,int<<32>> dst,int<<32>> bytes) ;
