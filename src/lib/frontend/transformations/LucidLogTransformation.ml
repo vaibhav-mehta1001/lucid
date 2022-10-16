@@ -691,6 +691,7 @@ let rule_loc_ctxt d =
  | DTable{name;loc;_} -> [(name, loc)]
  | _ -> []
    
+   
 let process_prog (decl : decls) : decls =
     let vals_ctxt = List.flatten (List.map generate_val_tables_ctxt decl) in 
     let decl = rule_ctxt decl in 
@@ -719,5 +720,5 @@ let process_prog (decl : decls) : decls =
    {raw_ty=TInt(IConst 32);teffect=FZero; tspan=Span.default;
    tprint_as=ref None}, {e=EVal({v=(VInt (Integer.of_int 2048));vty=None;vspan=Span.default});ety=None;espan=Span.default});dspan=Span.default}]
     @ prog @ (remove decl) in 
-    inline_prog_specialcase ds 
+  inline_prog_specialcase ds
 
